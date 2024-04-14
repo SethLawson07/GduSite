@@ -65,7 +65,7 @@ const Nav = (props) => {
                       </Link>
                     </Button>
                   </li> */}
-{/* 
+                  {/* 
                   {navData.length !== 0 &&
                     navData.map((item, index) => {
                       return (
@@ -236,7 +236,7 @@ const Nav = (props) => {
                             className="btn btn-g btn-lg w-100"
                             onClick={closeNav}
                           >
-                            Sign In
+                            Se connecter
                           </Button>
                         </Link>
                       </div>

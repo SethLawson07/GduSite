@@ -236,7 +236,7 @@ const Home = (props) => {
                             <img src={Banner4} className='w-100' />
                         </div>
 
-                        <div className='col-md-9'>
+                        <div className='col-md-12'>
                             <Slider {...settings} className='prodSlider'>
 
                                 {

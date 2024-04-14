@@ -115,7 +115,6 @@ const Header = (props) => {
   //   };
   // }, []);
 
-
   const signOut = () => {
     context.signOut();
     history("/");
@@ -330,7 +329,7 @@ const Header = (props) => {
                       ) : (
                         <li className="list-inline-item">
                           <Link to={"/signIn"}>
-                            <Button className="btn btn-g">Sign In</Button>
+                            <Button className="btn btn-g">Se connecter</Button>
                           </Link>
                         </li>
                       )}

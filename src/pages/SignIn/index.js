@@ -55,7 +55,7 @@ const SignIn = () => {
               <li>
                 <Link to="/">Home</Link>{" "}
               </li>
-              <li>Sign In</li>
+              <li>Se connecter</li>
             </ul>
           </div>
         </div>
@@ -70,7 +70,7 @@ const SignIn = () => {
               <CircularProgress color="inherit" />
             </Backdrop>
 
-            <h3>Sign In</h3>
+            <h3>Se connecter</h3>
             <form className="mt-4">
               <div className="form-group mb-4 w-100">
                 <TextField
@@ -109,7 +109,7 @@ const SignIn = () => {
 
               <div className="form-group mt-5 mb-4 w-100">
                 <Button className="btn btn-g btn-lg w-100" onClick={signIn}>
-                  Sign In
+                  Se connecter
                 </Button>
               </div>
 
@@ -117,7 +117,7 @@ const SignIn = () => {
                 <p className="text-center">OR</p>
                 <Button className="w-100" variant="outlined">
                   <img src={GoogleImg} />
-                  Sign In with Google
+                  Se connecter with Google
                 </Button>
               </div>
 

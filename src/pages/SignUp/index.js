@@ -127,7 +127,7 @@ const SignUp = () => {
                 Already have an account
                 <b>
                   {" "}
-                  <Link to="/signIn">Sign In</Link>
+                  <Link to="/signIn">Se connecter</Link>
                 </b>
               </p>
             </form>
