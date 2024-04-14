@@ -1,0 +1,67 @@
+const data = {
+    "productData": [
+      {
+        "cat_name": "groceries",
+        "id": 1,
+        "image": "https://cdn-icons-png.flaticon.com/512/3724/3724788.png",
+        "items": [
+          {
+            "cat_name": "dals and pulses",
+            "products": [
+              {
+                "productName": "Good Life Whole Moong 500 g",
+                "price": "20",
+                "oldPrice": "140",
+                "weight": [
+                  50,
+                  100,
+                  150,
+                  200,
+                  250,
+                  500
+                ],
+                "catImg": "https://www.jiomart.com/images/product/original/491187309/good-life-whole-moong-500-g-product-images-o491187309-p491187309-0-202308311426.jpg",
+                "discount": "12",
+                "brand": "AASHIRVAAD",
+                "productImages": [
+                  "https://www.jiomart.com/images/product/original/491187309/good-life-whole-moong-500-g-product-images-o491187309-p491187309-0-202308311426.jpg",
+                  "https://www.jiomart.com/images/product/original/491187309/good-life-whole-moong-500-g-product-images-o491187309-p491187309-1-202308311426.jpg",
+                  "https://www.jiomart.com/images/product/original/491187309/good-life-whole-moong-500-g-product-images-o491187309-p491187309-2-202308311426.jpg",
+                  "https://www.jiomart.com/images/product/original/491187309/good-life-whole-moong-500-g-product-images-o491187309-p491187309-3-202308311426.jpg",
+                  "https://www.jiomart.com/images/product/original/491187309/good-life-whole-moong-500-g-product-images-o491187309-p491187309-4-202308311426.jpg",
+                  "https://www.jiomart.com/images/product/original/491187309/good-life-whole-moong-500-g-legal-images-o491187309-p491187309-5-202308311427.jpg"
+                ],
+                "rating": 3.5,
+                "description": "Good Life Whole Moong is one of the light meal to digest. It is often given to people who prefer diet for fitness. It contains antioxidants which are very healthy for the good functioning of the human body. It can be included in our daily diet as it can fulfil the nutritional and dietary requirements of an entire meal. Buy Good Life Whole Moong online now!",
+                "id": 1
+              },
+              {
+                "productName": "Moong Dal 2 kg",
+                "price": "246",
+                "oldPrice": "320",
+                "weight": [
+                  50,
+                  100,
+                  150,
+                  200,
+                  250,
+                  500
+                ],
+                "catImg": "https://www.jiomart.com/images/product/original/491432711/moong-dal-2-kg-product-images-o491432711-p491432711-0-202205191636.jpg",
+                "discount": "16",
+                "brand": "Private Label",
+                "productImages": [
+                  "https://www.jiomart.com/images/product/original/491432711/moong-dal-2-kg-product-images-o491432711-p491432711-0-202205191636.jpg",
+                  "https://www.jiomart.com/images/product/original/491432711/moong-dal-2-kg-product-images-o491432711-p491432711-1-202205191636.jpg",
+                  "https://www.jiomart.com/images/product/original/491432711/moong-dal-2-kg-legal-images-o491432711-p491432711-3-202205191636.jpg"
+                ],
+                "rating": 4,
+                "description": "Moong Dal is essentially packed with loads of nutrients that are extremely beneficial for your health. Moong contains almost every important element that your body might need. Buy Moong Dal online today.",
+                "id": 2
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
