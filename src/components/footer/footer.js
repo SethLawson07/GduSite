@@ -56,7 +56,7 @@ const Footer = () => {
                     <img src={Icon1} alt="Icône 1" />
                   </span>
                   <div className="info">
-                    <h4>Meilleurs prix et offres</h4>
+                    <h4>Meilleurs prix</h4>
                     <p>lorem ipsum</p>
                   </div>
                 </div>
@@ -80,7 +80,7 @@ const Footer = () => {
                     <img src={Icon3} alt="Icône 3" />
                   </span>
                   <div className="info">
-                    <h4>Super offre quotidienne</h4>
+                    <h4>Super offre </h4>
                     <p>lorem ipsum</p>
                   </div>
                 </div>
