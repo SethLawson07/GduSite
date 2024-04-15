@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import "./nav.css";
+import "./navbar.css";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -7,6 +8,13 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import HeadphonesOutlinedIcon from "@mui/icons-material/HeadphonesOutlined";
 import { useState } from "react";
 import { MyContext } from "../../../App";
+import { useNavigate } from "react-router-dom";
+import {
+  ChevronRightIcon,
+  HeartIcon,
+  Squares2X2Icon,
+} from "@heroicons/react/24/outline";
+import { allCategories } from "../../../services/product";
 
 const Nav = (props) => {
   const [navData, setNavData] = useState([]);
@@ -36,6 +44,52 @@ const Nav = (props) => {
     setDropdownMenuIndex(index);
   };
 
+  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
+
+  async function getCategories() {
+    const response = await allCategories();
+    setCategories(response.data);
+  }
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const renderCategories = (categories) => {
+    return categories.map((category) => (
+      <li key={category.id} className="parent">
+        <Link to={`/${category.title}`}>
+          {category.title}
+          <span className="expand">»</span>
+        </Link>
+        {category.SubCategory && category.SubCategory.length > 0 && (
+          <ul className="child">
+            {category.SubCategory.map((subCategory) => (
+              <li key={subCategory.id} className="parent">
+                <Link to={`/${category.title}/${subCategory.title}`}>
+                  {subCategory.title}
+                  <span className="expand">»</span>
+                </Link>
+                {subCategory.Item && subCategory.Item.length > 0 && (
+                  <ul className="child">
+                    {subCategory.Item.map((item) => (
+                      <li key={item.id}>
+                        <Link to={`/cat/${item.title.toLowerCase()}`}>
+                          {item.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ));
+  };
+
   return (
     <>
       {isOpenNav === true && (
@@ -48,11 +102,68 @@ const Nav = (props) => {
       >
         <div className="container-fluid">
           <div className="row position-relative">
-            <div className="col-sm-2 part1 d-flex align-items-center">
+            {/* <div className="col-sm-2 part1 d-flex align-items-center">
               <Button className="bg-g text-white catTab res-hide">
-                <GridViewIcon /> &nbsp;Browse All Categories{" "}
-                <KeyboardArrowDownIcon />
+                <GridViewIcon /> &nbsp;Categories <KeyboardArrowDownIcon />
               </Button>
+              <Button
+                className="bg-g text-white catTab res-hide"
+                style={{ marginLeft: "10px" }}
+              >
+                <GridViewIcon /> &nbsp;Services <KeyboardArrowDownIcon />
+              </Button>
+            </div> */}
+
+            <div className="menu-container">
+              <ul className="multilevel-dropdown-menu">
+                <li className="parent">
+                  <a href="#" className="title">
+                    <Squares2X2Icon className="icon" />
+                    Catégories
+                  </a>{" "}
+                  <ul className="child">{renderCategories(categories)}</ul>
+                </li>
+                <li className="parent">
+                  <a href="#">Services</a>
+                  <ul className="child">
+                    <li className="parent">
+                      <a href="#">
+                        Beauté<span className="expand">»</span>
+                      </a>
+                      <ul className="child">
+                        <li>
+                          <a href="#">Pédicure</a>
+                        </li>
+                        <li>
+                          <a href="#">Coiffure Femme</a>
+                        </li>
+                        <li>
+                          <a href="#">Coiffure Homme</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Réparation </a>
+                    </li>
+                    <li>
+                      <a href="#">Nettoyage</a>
+                    </li>
+                    <li className="parent">
+                      <a href="#">
+                        Construction<span className="expand">»</span>
+                      </a>
+                      <ul className="child">
+                        <li>
+                          <a href="#">Electricité</a>
+                        </li>
+                        <li>
+                          <a href="#">Peinture</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </div>
 
             <div className="col-sm-8 part2 position-static">
@@ -137,7 +248,7 @@ const Nav = (props) => {
                     </Button>
                   </li> */}
 
-                  <li className="list-inline-item position-static">
+                  {/* <li className="list-inline-item position-static">
                     <Button onClick={() => setOpenMegaMenu(!openMegaMenu)}>
                       <Link>
                         Shop{" "}
@@ -151,7 +262,7 @@ const Nav = (props) => {
                         openMegaMenu === true && "open"
                       }`}
                     >
-                      {/* <div className="row">
+                      <div className="row">
                         {props.data.length !== 0 &&
                           props.data.map((item, index) => {
                             return (
@@ -190,14 +301,14 @@ const Nav = (props) => {
                             className="w-100"
                           />
                         </div>
-                      </div> */}
+                      </div>
                     </div>
-                  </li>
-                  <li className="list-inline-item">
+                  </li> */}
+                  {/* <li className="list-inline-item">
                     <Button>
                       <Link>Blog</Link>
                     </Button>
-                  </li>
+                  </li> */}
                   {/* <li className='list-inline-item'>
                                         <Button><Link>Pages  <KeyboardArrowDownIcon /></Link>
                                         </Button>
@@ -247,15 +358,15 @@ const Nav = (props) => {
             </div>
 
             <div className="col-sm-2 part3 d-flex align-items-center">
-              <div className="phNo d-flex align-items-center ml-auto">
+              {/* <div className="phNo d-flex align-items-center ml-auto">
                 <span>
                   <HeadphonesOutlinedIcon />
                 </span>
                 <div className="info ml-3">
                   <h3 className="text-g mb-0">92 20 46 71</h3>
-                  <p className="mb-0">24/7 Support Center</p>
+                  <p className="mb-0">24/7 Centre d'assistance 24/7</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -85,9 +85,9 @@ const CatSlider = (props) => {
                                     <div className='item' key={index} >
                                         <Link to={`/cat/${item.title.toLowerCase()}`}>
                                             <div className='info' style={{ background: itemBg[index] }}>
-                                                {/* <img src={item.image} width="80" /> */}
+                                                <img src={item.image+'?im=Resize=(500,500)'}className='w-100' />
                                                 <h5 className='text-capitalize mt-3'>{item.title}</h5>
-                                                <p>{totalLength[index]} Item</p>
+                                                {/* <p>{totalLength[index]} Item</p> */}
                                             </div>
                                         </Link>
 

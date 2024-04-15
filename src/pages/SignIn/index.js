@@ -70,14 +70,15 @@ const SignIn = () => {
               <CircularProgress color="inherit" />
             </Backdrop>
 
-            <h3>Se connecter</h3>
+            <h3>Connexion</h3>
             <form className="mt-4">
+            
               <div className="form-group mb-4 w-100">
                 <TextField
                   id="email"
                   type="email"
                   name="email"
-                  label="Email"
+                  label="Email ou Numéro de téléphone"
                   className="w-100"
                   onChange={onChangeField}
                   value={formFields.email}
@@ -89,7 +90,7 @@ const SignIn = () => {
                     id="password"
                     type={showPassword === false ? "password" : "text"}
                     name="password"
-                    label="Password"
+                    label="Mot de passe"
                     className="w-100"
                     onChange={onChangeField}
                     value={formFields.password}
@@ -113,19 +114,19 @@ const SignIn = () => {
                 </Button>
               </div>
 
-              <div className="form-group mt-5 mb-4 w-100 signInOr">
+              {/* <div className="form-group mt-5 mb-4 w-100 signInOr">
                 <p className="text-center">OR</p>
                 <Button className="w-100" variant="outlined">
                   <img src={GoogleImg} />
                   Se connecter with Google
                 </Button>
-              </div>
+              </div> */}
 
               <p className="text-center">
-                Not have an account
+                Vous n'avez pas de compte ?
                 <b>
                   {" "}
-                  <Link to="/signup">Sign Up</Link>
+                  <Link to="/signup">S'inscrire</Link>
                 </b>
               </p>
             </form>

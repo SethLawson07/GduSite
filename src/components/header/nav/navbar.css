@@ -1,0 +1,84 @@
+body,
+
+.menu-container{
+    /* padding-left: 50px; */
+}
+.multilevel-dropdown-menu {
+    font-family: Arial, sans-serif;
+}
+
+.title{
+    color: #fff;
+}
+.parent {
+    display: block;
+    position: relative;
+    float: left;
+    line-height: 50px;
+    background-color: #2D73E3;
+    border-right: #CCC 1px solid;
+    margin-right: 30px;
+    border-radius: 5px; /* Ajoutez la propriété border-radius avec la valeur souhaitée */
+  }
+  
+.parent a {
+    margin: 10px 24px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.parent:hover>ul {
+    display: block;
+    position: absolute;
+}
+
+.child {
+    display: none;
+}
+
+.child li {
+    background-color: #E4EFF7;
+    line-height: 40px;
+    border-bottom: #b5b5b5 1px solid;
+    border-right: #b5b5b5 1px solid;
+    width: 100%;
+}
+
+.child li a {
+    color: #000000;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0px;
+    min-width: 12em;
+}
+
+ul ul ul {
+    left: 100%;
+    top: 0;
+    margin-left: 1px;
+}
+
+li:hover {
+    background-color: #95B4CA;
+}
+
+.parent li:hover {
+    background-color: #2D73E3;
+}
+
+.expand {
+    font-size: 12px;
+    float: right;
+    margin-right: 5px;
+}
+
+.icon {
+    width: 45px; /* Ajustez la taille de l'icône selon vos préférences */
+    height: 45px; /* Ajustez la taille de l'icône selon vos préférences */
+    padding-right: 10px;
+    padding-bottom: 5px;
+  }
+  

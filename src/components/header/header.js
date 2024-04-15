@@ -29,6 +29,7 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import Navbar1 from "./nav/navbar";
 
 const Header = (props) => {
   const [isOpenDropDown, setisOpenDropDown] = useState(false);
@@ -47,20 +48,20 @@ const Header = (props) => {
   useEffect(() => {}, [context.cartItems]);
 
   const [categories, setcategories] = useState([
-    "Milks and Dairies",
-    "Wines & Drinks",
-    "Clothing & beauty",
-    "Fresh Seafood",
-    "Pet Foods & Toy",
-    "Fast food",
-    "Baking material",
-    "Vegetables",
-    "Fresh Fruit",
-    "Bread and Juice",
-    "Milks and Dairies",
-    "Wines & Drinks",
-    "Clothing & beauty",
-    "Fresh Seafood",
+    "Electronique",
+    "Restaurant",
+    // "Clothing & beauty",
+    // "Fresh Seafood",
+    // "Pet Foods & Toy",
+    // "Fast food",
+    // "Baking material",
+    // "Vegetables",
+    // "Fresh Fruit",
+    // "Bread and Juice",
+    // "Milks and Dairies",
+    // "Wines & Drinks",
+    // "Clothing & beauty",
+    // "Fresh Seafood",
   ]);
 
   const countryList = [];
@@ -150,19 +151,19 @@ const Header = (props) => {
             <div className="row">
               <div className="col-sm-2 part1 d-flex align-items-center">
                 <Link to="/">
-                  <img
+                  {/* <img
                     src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1712795376/Goodness/pmhamtkrlx1xio8vjc76.png"
                     className="logo"
-                    width={40}
-                    height={40}
-                  />
+                    width={30}
+                    height={30}
+                  /> */}
                 </Link>{" "}
                 <Link to="/" style={{ textDecoration: "none" }}>
                   <p
                     style={{
                       color: "#2D73E3",
                       fontWeight: "bold",
-                      marginTop: 15,
+                      marginTop: 10,
                       marginLeft: 5,
                       fontSize: "30px",
                       fontFamily: "sans-serif",
@@ -225,14 +226,14 @@ const Header = (props) => {
                   )}
                   <Select
                     data={categories}
-                    placeholder={"All Categories"}
+                    placeholder={"Categories"}
                     icon={false}
                   />
 
                   <div className="search">
                     <input
                       type="text"
-                      placeholder="Search for items..."
+                      placeholder="Rechercher ..."
                       ref={searchInput}
                     />
                     <SearchIcon className="searchIcon cursor" />
@@ -256,7 +257,7 @@ const Header = (props) => {
                     onClickAway={() => setisOpenDropDown(false)}
                   >
                     <ul className="list list-inline mb-0 headerTabs">
-                      <li className="list-inline-item">
+                      {/* <li className="list-inline-item">
                         <span>
                           <img src={IconCompare} />
                           <span className="badge bg-success rounded-circle">
@@ -264,7 +265,7 @@ const Header = (props) => {
                           </span>
                           Compare
                         </span>
-                      </li>
+                      </li> */}
                       <li className="list-inline-item">
                         <span>
                           <img src={IconHeart} />
@@ -342,6 +343,7 @@ const Header = (props) => {
         </header>
 
         <Nav data={props.data} openNav={isOpenNav} closeNav={closeNav} />
+        {/* <Navbar1/> */}
       </div>
 
       <div className="afterHeader"></div>

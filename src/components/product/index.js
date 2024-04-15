@@ -47,7 +47,8 @@ const Product = (props) => {
                 <>
                     <Link to={`/product/${productData.slugproduct}`}>
                         <div className='imgWrapper'>
-                            <div className='p-4 wrapper mb-3'>
+                            {/* <div className='p-4 wrapper mb-3'> */}
+                            <div className='p-2 wrapper mb-0'>
                                 <img src={productData.images[0]+'?im=Resize=(500,500)'} className='w-100' />
                             </div>
 

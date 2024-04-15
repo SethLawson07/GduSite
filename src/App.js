@@ -20,6 +20,7 @@ import SignUp from './pages/SignUp';
 import Loader from './assets/images/loading.gif';
 
 import data from './data';
+import Navbar1 from './components/header/nav/navbar';
 
 const MyContext = createContext();
 
@@ -87,6 +88,8 @@ function App() {
         ) : (
           <>
             <Header data={productData} />
+            {/* <Navbar1/> */}
+
             <Routes>
               <Route exact={true} path="/" element={<Home data={productData} />} />
               <Route exact={true} path="/cat/:id" element={<Listing data={productData} single={true} />} />
@@ -96,6 +99,7 @@ function App() {
               <Route exact={true} path="/signIn" element={<SignIn />} />
               <Route exact={true} path="/signUp" element={<SignUp />} />
               <Route exact={true} path="/checkout" element={<Checkout />} />
+              <Route exact={true} path="/oklm" element={<Navbar1 />} />
               <Route exact={true} path="*" element={<NotFound />} />
             </Routes>
             <Footer />

@@ -1,7 +1,7 @@
 .productThumb{width: 100%; height: auto;  border: 1px solid rgba(0,0,0,0.1); overflow: hidden; border-radius: 15px; padding:25px; transition: all 0.3s ease-in-out; position: relative;}
 
 .productThumb .badge{position: absolute; top: 0px; left: 0px; display: inline-block;
-background: red; z-index: 10; color: #fff; padding: 10px 25px; font-size: 16px;
+background: #F79327; z-index: 10; color: #fff; padding: 10px 25px; font-size: 16px;
 border-bottom-right-radius: 50px; border-top-left-radius: 5px; text-transform: capitalize;}
 
 .productThumb .badge.hot{background: #f74b81 !important;}

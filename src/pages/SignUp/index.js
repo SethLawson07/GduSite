@@ -43,7 +43,7 @@ const SignUp = () => {
               <li>
                 <Link to="/">Home</Link>{" "}
               </li>
-              <li>SignUp</li>
+              <li>S'inscrire</li>
             </ul>
           </div>
         </div>
@@ -58,8 +58,30 @@ const SignUp = () => {
               <CircularProgress color="inherit" />
             </Backdrop>
 
-            <h3>SignUp</h3>
+            <h3>Inscription</h3>
             <form className="mt-4">
+            <div className="form-group mb-4 w-100">
+                <TextField
+                  id="email"
+                  type="email"
+                  name="email"
+                  label="Nom complet"
+                  className="w-100"
+                  onChange={onChangeField}
+                  value={formFields.email}
+                />
+              </div>
+              <div className="form-group mb-4 w-100">
+                <TextField
+                  id="email"
+                  type="email"
+                  name="email"
+                  label="Numéro de téléphone"
+                  className="w-100"
+                  onChange={onChangeField}
+                  value={formFields.email}
+                />
+              </div>
               <div className="form-group mb-4 w-100">
                 <TextField
                   id="email"
@@ -120,11 +142,11 @@ const SignUp = () => {
               </div>
 
               <div className="form-group mt-5 mb-4 w-100">
-                <Button className="btn btn-g btn-lg w-100">Sign Up</Button>
+                <Button className="btn btn-g btn-lg w-100">S'inscrire</Button>
               </div>
 
               <p className="text-center">
-                Already have an account
+                Vous avez déjà un compte ?
                 <b>
                   {" "}
                   <Link to="/signIn">Se connecter</Link>

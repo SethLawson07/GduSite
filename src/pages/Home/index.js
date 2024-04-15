@@ -60,7 +60,7 @@ const Home = (props) => {
         setcatArray(list2)
 
         // setactiveTab(list2[0])
-        setactiveTab(list2)
+        setactiveTab(list2[0])
 
         window.scrollTo(0,0);
 
@@ -69,42 +69,12 @@ const Home = (props) => {
 
 
 
-
-    // useEffect(() => {
-    //     var arr = [];
-    //     setActiveTabData(arr);
-    //     prodData.length !== 0 &&
-    //         prodData.map((category, index) => {
-    //             category.SubCategory.map((subcategory, index_) => {
-    //                 if (subcategory.title === activeTab) {
-    //                     {
-    //                         subcategory.Item.length !== 0 &&
-    //                         subcategory.Item.map((item) => {
-    //                                 item.Product.length !== 0 &&
-    //                                 item.Product.map((product) => {
-    //                                     arr.push({ ...product, parentCatName: item.title, subCatName: item.title })
-    //                                 })                                })
-
-    //                         setActiveTabData(arr)
-    //                         // setTimeout(()=>{
-    //                         //     setIsLoadingProducts(false);
-    //                         // },[1000]);
-    //                     }
-    //                 }
-    //             })
-
-    //         })
-
-    // }, [activeTab, activeTabData])
-
     useEffect(() => {
         var arr = [];
         setActiveTabData(arr);
         prodData.length !== 0 &&
             prodData.map((category, index) => {
-                // category.SubCategory.map((subcategory, index_) => {
-                    if (category.title === activeTab) {
-                        {
+                    if (category.title === activeTab) {     
                             category.SubCategory.length !== 0 &&
                             category.SubCategory.map((subcategory) => {
                                 subcategory.Item.length !== 0 &&
@@ -120,12 +90,11 @@ const Home = (props) => {
                             // setTimeout(()=>{
                             //     setIsLoadingProducts(false);
                             // },[1000]);
-                        }
+                        
                     }
                 // })
 
             })
-
     }, [activeTab, activeTabData])
 
 
@@ -134,30 +103,49 @@ const Home = (props) => {
 
     const bestSellsArr = [];
 
-    useEffect(() => {
-        prodData.length !== 0 &&
-            prodData.map((category) => {
-                if (category.title === "Electronique") {
-                    category.SubCategory.length !== 0 &&
-                    category.SubCategory.map((subcategory) => {
-                        subcategory.Item.length !== 0 &&
-                        subcategory.Item.map((product, index) => {
-                            product.Product.length !== 0 &&
-                            product.Product.map((product, index) => {
-                                        bestSellsArr.push(product);
-                                    })
-                                })
-                        })
-                }
+    // useEffect(() => {
+    //     prodData.length !== 0 &&
+    //         prodData.map((category) => {
+    //             if (category.title === "Electronique") {
+    //                 category.SubCategory.length !== 0 &&
+    //                 category.SubCategory.map((subcategory) => {
+    //                     subcategory.Item.length !== 0 &&
+    //                     subcategory.Item.map((item, index) => {
+    //                         item.Product.length !== 0 &&
+    //                         item.Product.map((product, index) => {
+    //                                     bestSellsArr.push(product);
+    //                                 })
+    //                             })
+    //                     })
+    //                     setBestSells(bestSellsArr);
 
-            });
+    //             }
 
-
-        setBestSells(bestSellsArr);
-
-    }, [])
+    //         });
 
 
+    //     // setBestSells(bestSellsArr);
+
+    // }, [])
+
+    // useEffect(() => {
+    //     const tempBestSellsArr = [];
+    
+    //     prodData.forEach((category) => {
+    //         if (category.title === "Electronique") {
+    //             category.SubCategory.forEach((subcategory) => {
+    //                 subcategory.Item.forEach((item) => {
+    //                     item.Product.forEach((product) => {
+    //                         tempBestSellsArr.push(product);
+    //                     });
+    //                 });
+    //             });
+    //         }
+    //     });
+    
+    //     setBestSells(tempBestSellsArr);
+    // }, [prodData]);
+    
 
 
     return (
@@ -207,7 +195,7 @@ const Home = (props) => {
                                 return (
                                     <div className='item' key={index}>
 
-                                        <Product tag={item.type} item={item} />
+                                        <Product tag={item.brand} item={item} />
                                     </div>
                                 )
                             })
@@ -222,7 +210,7 @@ const Home = (props) => {
 
 
 
-
+{/* 
             <section className='homeProducts homeProductsRow2 pt-0'>
                 <div className='container-fluid'>
                     <div className='d-flex align-Item-center'>
@@ -233,7 +221,7 @@ const Home = (props) => {
                     <br className='res-hide' /><br  className='res-hide'/>
                     <div className='row'>
                         <div className='col-md-3 pr-5 res-hide'>
-                            <img src={Banner4} className='w-100' />
+                            <img className="rounded w-100" src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1713174739/Goodness/ynunvlwfhyay946yajfm.jpg" />
                         </div>
 
                         <div className='col-md-12'>
@@ -244,7 +232,7 @@ const Home = (props) => {
                                     bestSells.map((item, index) => {
                                         return (
                                             <div className='item' key={index}>
-                                                <Product tag={item.type} item={item} />
+                                                <Product tag={item.brand} item={item} />
                                             </div>
                                         )
                                     })
@@ -256,7 +244,7 @@ const Home = (props) => {
 
 
                 </div>
-            </section>
+            </section> */}
 
 
 
@@ -264,19 +252,19 @@ const Home = (props) => {
                 <div className='container-fluid'>
                     <div className='row'>
                         <div className='col'>
-                            <TopProducts title="Meilleure vente" />
+                            <TopProducts title="Meilleure vente" index="0" />
                         </div>
 
                         <div className='col'>
-                            <TopProducts title="Produits en vogue" />
+                            <TopProducts title="Produits en vogue" index="3" />
                         </div>
 
                         <div className='col'>
-                            <TopProducts title="Récemment ajoutés" />
+                            <TopProducts title="Récemment ajoutés" index="6"/>
                         </div>
 
                         <div className='col'>
-                            <TopProducts title="Mieux notés" />
+                            <TopProducts title="Mieux notés" index="9"/>
                         </div>
 
                     </div>
