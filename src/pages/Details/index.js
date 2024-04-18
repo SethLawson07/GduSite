@@ -19,6 +19,7 @@ import axios from "axios";
 import { MyContext } from "../../App";
 
 const DetailsPage = (props) => {
+
   const [zoomInage, setZoomImage] = useState(
     "https://www.jiomart.com/images/product/original/490000363/maggi-2-minute-masala-noodles-70-g-product-images-o490000363-p490000363-0-202305292130.jpg"
   );
@@ -224,8 +225,12 @@ const DetailsPage = (props) => {
 
   const addToCart = (item) => {
     context.addToCart(item);
+    // Ajoutez le produit au localStorage
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    cartItems.push(item);
+    localStorage.setItem('cart', JSON.stringify(cartItems));
     setIsadded(true);
-  };
+};
 
   const getCartData = async (url) => {
     try {

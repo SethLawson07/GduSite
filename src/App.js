@@ -4,7 +4,7 @@ import './App.css';
 import './responsive.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Header from './components/header/header';
+// import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Home from './pages/Home/index';
 import About from './pages/About/index';
@@ -20,12 +20,16 @@ import SignUp from './pages/SignUp';
 import Loader from './assets/images/loading.gif';
 
 import data from './data';
-import Navbar1 from './components/header/nav/navbar';
+// import Navbar1 from './components/header/nav/navbar';
+import HeadNav from './components/headnav';
 
 const MyContext = createContext();
 
 // Moved the function declarations here
-const addToCart = async (item) => { /* Function implementation */ }
+const addToCart = async (item) => { 
+  // setCartItems([...cartItems, item]);
+
+}
 const removeItemsFromCart = (id) => { /* Function implementation */ }
 const emptyCart = () => { /* Function implementation */ }
 const signOut = () => { /* Function implementation */ }
@@ -87,7 +91,9 @@ function App() {
           <div className='loader'><img src={Loader} alt="loading" /></div>
         ) : (
           <>
-            <Header data={productData} />
+            {/* <Header data={productData} /> */}
+            {/* <HeadNav /> */}
+
             {/* <Navbar1/> */}
 
             <Routes>
@@ -99,7 +105,6 @@ function App() {
               <Route exact={true} path="/signIn" element={<SignIn />} />
               <Route exact={true} path="/signUp" element={<SignUp />} />
               <Route exact={true} path="/checkout" element={<Checkout />} />
-              <Route exact={true} path="/oklm" element={<Navbar1 />} />
               <Route exact={true} path="*" element={<NotFound />} />
             </Routes>
             <Footer />

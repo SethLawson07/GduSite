@@ -1,0 +1,351 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'calibri', sans-serif; /* Utilisez le nom de votre police défini dans @font-face */
+  
+  }
+  
+  
+  .header1 {
+    background-color: #2896D7;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; /* Les éléments seront espacés uniformément sur la ligne */
+    align-items: center; /* Les éléments seront alignés au centre verticalement */
+    font-size: 27px;
+  }
+  
+  
+  .logo{
+    width: 30px;
+    height: 30px;
+  }
+  
+  .brand {
+    display: flex; 
+    align-items: center; 
+    font-size: 27px;
+
+  }
+
+  .name{
+    font-size: 27px;
+
+  }
+  
+  .brand .logo {
+    margin-right: 10px; 
+  }
+  
+  
+  .name {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+  }
+  
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    width: 600px;
+    height: 50px;
+    padding-right: 30px; /* Ajouter de l'espace à droite pour l'icône */
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center; /* Positionner l'icône à droite */
+    background-size: 20px 20px; /* Taille de l'icône */
+    padding-left: 10px;
+  
+  }
+  
+  .search-input:focus {
+    border-radius: 10px; /* Changer le border-radius lorsqu'il est en focus */
+    
+  }
+  
+  .right {
+    display: flex;
+    flex-direction: row; /* Affiche les éléments horizontalement */
+  }
+  
+  .right .subright {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    margin-right: 20px; /* Ajouter un espace entre les éléments */
+  }
+  
+  .right .subright:last-child {
+    margin-right: 0; /* Retirer la marge à droite pour le dernier élément */
+  }
+  
+  
+  /* NAVBAR */
+  nav{
+    background-color: #C6C1EF;
+    padding-left: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  
+  }
+  
+  
+  .category{
+    display: flex; 
+    align-items: center; 
+  
+  }
+  
+  svg {
+    width: 35px;
+    padding-right: 5px;
+    padding-left: 5px;
+    color: #fff;
+  }
+  
+  .svgtext{
+    color: #f1F1F1;
+  }
+  
+  .account {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 2px;
+    padding: 10px;
+    /* height:100px; */
+    top: 100%; /* Positionne le dropdown sous le div .category */
+  }
+  
+  .account:hover .dropdown-content,
+  .account:hover .svgtext,
+  .account:hover svg {
+    display: block;
+  }
+  
+  .dropdown-content a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f9f9f9;
+  }
+  
+  
+  .category{
+    width: 120px;
+    height: 40px;
+  
+    position: relative; /* Position relative pour positionner le dropdown */
+    cursor: pointer;
+  }
+  
+  .left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .category {
+    margin-right: 20px; /* Ajoute un espacement entre les éléments */
+  }
+  
+  
+  .category:hover {
+    outline: 1px solid #f2f2f2;
+    border-radius: 20px;
+    width: 120px;
+    height: 40px;
+    /* Ajoute une bordure noire lorsque la souris survole le div */
+  }
+    /* Affiche le dropdown lorsque le div .category est en focus */
+  
+  /* .category:focus .dropdown {
+    display: block; 
+  } */
+  
+  .dropdown {
+    margin-top:  14px;
+    width: 200px;
+    display: none; /* Masque le dropdown par défaut */
+    position: absolute; /* Position absolue par rapport à son parent .category */
+    top: 100%; /* Positionne le dropdown sous le div .category */
+    left: 0; /* Alignement à gauche */
+    background-color: #dcdde1;
+    border-radius: 5px;
+    /* border: 0.5px solid black;  */
+    padding: 5px; /* Ajoute un peu d'espace autour du contenu */
+    height: 450px;
+  }
+  
+  .dropdown ul {
+    list-style: none; /* Supprime les puces de liste */
+    padding: 0; /* Supprime le remplissage par défaut */
+    margin: 0; /* Supprime les marges par défaut */
+  }
+  
+  .dropdown li {
+    padding: 10px; /* Ajoute un peu d'espace autour des éléments de liste */
+  }
+  
+  /* Optionnel : pour styliser les options du dropdown */
+  .dropdown li:hover {
+    background-color: #f0f0f0; /* Couleur de fond lorsque survolé */
+  }
+  
+  
+  .scrollable-list {
+    max-height: 450px; /* Hauteur maximale de la liste avant l'apparition de la barre de défilement */
+    overflow-y: auto; /* Afficher une barre de défilement verticale si nécessaire */
+  }
+  
+  
+  /* CSS pour le deuxième niveau du dropdown */
+  
+  
+  .category-group {
+    display: flex; /* Utiliser Flexbox */
+    align-items: center; /* Centrer verticalement les éléments */
+  }
+  
+  .category-group h3 {
+    margin-right: 10px; /* Ajouter un espacement entre le titre et les sous-options */
+  }
+  .submenu p:hover {
+    background-color: #2896D7;
+    color: #2896D7; /* Optionnel : changer la couleur du texte en blanc pour une meilleure lisibilité */
+    font-weight: bold;
+  }
+  
+  
+  .second-dropdown {
+    display: grid; /* Utilisez CSS Grid */
+    grid-template-columns: repeat(4, 1fr); /* Quatre colonnes égales */
+    grid-gap: 10px; /* Ajoute de l'espace entre les colonnes */
+    position: absolute;
+    top: 0;
+    left: 95%;
+    background-color: #dfe6e9;
+    border-top-right-radius: 5px; /* Coin supérieur droit arrondi */
+    border-bottom-right-radius: 5px;   /* max-width: 800px; */
+    width: auto; /* La largeur s'ajustera en fonction du contenu */
+    min-width: 500px; /* Largeur minimale */
+    margin-top: 14px;
+    padding: 10px; /* Ajoute un peu d'espace autour du contenu */
+    height: 460px; /* Hauteur maximale pour le défilement */
+    overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+  }
+  
+  
+  
+  /* Pour afficher le sous-menu au survol et au focus */
+  .submenu:hover .second-dropdown,
+  .submenu:focus .second-dropdown,
+  .second-dropdown:hover,
+  .submenu:hover .second-dropdown:hover {
+    display: block;
+    
+  }
+  
+  /* Pour masquer le sous-menu par défaut */
+  .second-dropdown {
+    display: none;
+  }
+  
+  .res {
+    display: inline-block;
+    vertical-align: top; /* Pour aligner les éléments en haut */
+    margin-right: 10px !important;
+  
+  }
+  
+  .res-title{
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  li{
+    color: #353b48;
+  }
+  
+  @media screen and (max-width: 768px) {
+    header {
+      flex-direction: column; /* Affichage en colonne sur les petits écrans */
+      padding: 10px; /* Réduction de l'espacement du header */
+    }
+  
+    .brand,
+    .right {
+      width: 100%; /* Prend toute la largeur */
+      display: flex; /* Affichage en ligne */
+      justify-content: center; /* Centrage horizontal */
+      align-items: center; /* Centrage vertical */
+      margin-bottom: 10px; /* Espacement entre les éléments */
+  
+      
+    }
+  
+    .search-container {
+      order: 3; /* Réorganiser l'ordre pour placer la barre de recherche en bas */
+      margin-top: 10px; /* Espacement entre la barre de recherche et les autres éléments */
+    }
+  
+    .search-input {
+      width: 100%; /* Largeur de la barre de recherche sur toute la largeur */
+      max-width: 300px; /* Limite la largeur maximale de la barre de recherche */
+      margin: 5px 0; /* Espacement autour de la barre de recherche */
+    }
+  
+    .right {
+      flex-direction: row; /* Affichage en ligne pour les icônes à droite */
+      justify-content: space-between; /* Espacement uniforme entre les icônes */
+      width: auto; /* Largeur automatique */
+      align-items: center; /* Alignement vertical au centre */
+    }
+  
+    .right p {
+      margin: 5px; /* Espacement entre les icônes */
+    }
+  
+    .brand .name {
+      font-size: 16px; /* Réduction de la taille de la police du nom */
+    }
+  
+    .category {
+      width: auto; /* Largeur automatique pour les éléments de la navbar */
+      margin: 5px; /* Espacement entre les éléments de la navbar */
+      padding: 5px; /* Espacement interne des éléments de la navbar */
+    }
+  
+    .dropdown,
+    .second-dropdown {
+      width: 100%; /* Largeur maximale pour les dropdowns */
+      max-width: 300px; /* Limite la largeur maximale des dropdowns */
+      left: auto; /* Réinitialise la position gauche */
+    }
+  
+    .submenu:hover .second-dropdown,
+    .submenu:focus .second-dropdown,
+    .second-dropdown:hover,
+    .submenu:hover .second-dropdown:hover {
+      display: none; /* Masque les sous-menus par défaut sur les petits écrans */
+    }
+  }
+  
+  

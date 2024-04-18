@@ -13,6 +13,7 @@ import TopProducts from './TopProducts';
 import axios from 'axios';
 import { MyContext } from '../../App';
 import { Link } from 'react-router-dom';
+import TopSlider from '../../components/topslider';
 
 const Home = (props) => {
     const [prodData, setprodData] = useState(props.data)
@@ -150,7 +151,8 @@ const Home = (props) => {
 
     return (
         <div style={{display:'block'}}>
-            <SliderBanner />
+            {/* <SliderBanner /> */}
+            <TopSlider />
             <CatSlider data={prodData} />
 
             <Banners />
