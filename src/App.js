@@ -92,7 +92,7 @@ function App() {
         ) : (
           <>
             {/* <Header data={productData} /> */}
-            {/* <HeadNav /> */}
+            <HeadNav />
 
             {/* <Navbar1/> */}
 

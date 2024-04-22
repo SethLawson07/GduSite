@@ -1,24 +1,27 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'calibri', sans-serif; /* Utilisez le nom de votre police défini dans @font-face */
+    font-family: 'Lora', sans-serif; /* Utilisez le nom de votre police défini dans @font-face */
   
   }
   
   
   .header1 {
-    background-color: #2896D7;
-    padding: 20px;
+    /* background-color: #2896D7; */
+    background-color: #3B71DC;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
     display: flex;
     justify-content: space-between; /* Les éléments seront espacés uniformément sur la ligne */
     align-items: center; /* Les éléments seront alignés au centre verticalement */
-    font-size: 27px;
   }
   
   
   .logo{
-    width: 30px;
-    height: 30px;
+    width: 70px;
+    height: 70px;
   }
   
   .brand {
@@ -30,7 +33,7 @@ body, html {
 
   .name{
     font-size: 27px;
-
+margin-top: 10px;
   }
   
   .brand .logo {
@@ -39,7 +42,7 @@ body, html {
   
   
   .name {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 500;
     color: #fff;
   }
@@ -51,8 +54,8 @@ body, html {
   }
   
   .search-input {
-    width: 600px;
-    height: 50px;
+    width: 800px;
+    height: 60px;
     padding-right: 30px; /* Ajouter de l'espace à droite pour l'icône */
     border: 2px solid #ccc;
     border-radius: 30px;
@@ -87,28 +90,29 @@ body, html {
   
   
   /* NAVBAR */
-  nav{
-    background-color: #C6C1EF;
+  .nav1{
+    background-color: #F2F8FD;
     padding-left: 50px;
-    padding-top: 10px;
+    padding-top: 25px;
     padding-bottom: 10px;
   
   }
   
-  
-  .category{
-    display: flex; 
-    align-items: center; 
-  
-  }
-  
+
+
   svg {
     width: 35px;
     padding-right: 5px;
     padding-left: 5px;
-    color: #fff;
+    color: #46474A;
   }
   
+
+  .svgnav{
+    width: 40px;
+    margin-bottom: 5px;
+    
+  }
   .svgtext{
     color: #f1F1F1;
   }
@@ -150,11 +154,13 @@ body, html {
   
   
   .category{
-    width: 120px;
-    height: 40px;
-  
-    position: relative; /* Position relative pour positionner le dropdown */
+    width: 160px;
+    height: 50px;
+    display: flex; 
+    align-items: center; 
+    position: relative; 
     cursor: pointer;
+    margin-right: 20px; 
   }
   
   .left {
@@ -162,16 +168,14 @@ body, html {
     align-items: center;
   }
   
-  .category {
-    margin-right: 20px; /* Ajoute un espacement entre les éléments */
-  }
+ 
   
   
   .category:hover {
-    outline: 1px solid #f2f2f2;
+    outline: 5px solid #3B71DC;
     border-radius: 20px;
-    width: 120px;
-    height: 40px;
+    width: 160px;
+    height: 50px;
     /* Ajoute une bordure noire lorsque la souris survole le div */
   }
     /* Affiche le dropdown lorsque le div .category est en focus */
@@ -180,18 +184,25 @@ body, html {
     display: block; 
   } */
   
+  .dropTitle{
+    margin-top: 10px;
+    font-size: 22px;
+    color:#46474A;
+    padding-left: 10px;
+    font-weight: bold;
+  }
   .dropdown {
-    margin-top:  14px;
-    width: 200px;
+    margin-top:  18px;
+    width: 300px;
     display: none; /* Masque le dropdown par défaut */
     position: absolute; /* Position absolue par rapport à son parent .category */
     top: 100%; /* Positionne le dropdown sous le div .category */
     left: 0; /* Alignement à gauche */
-    background-color: #dcdde1;
+    background-color: #fff;
     border-radius: 5px;
     /* border: 0.5px solid black;  */
     padding: 5px; /* Ajoute un peu d'espace autour du contenu */
-    height: 450px;
+    height: 700px;
   }
   
   .dropdown ul {
@@ -211,8 +222,9 @@ body, html {
   
   
   .scrollable-list {
-    max-height: 450px; /* Hauteur maximale de la liste avant l'apparition de la barre de défilement */
+    max-height: 700px; /* Hauteur maximale de la liste avant l'apparition de la barre de défilement */
     overflow-y: auto; /* Afficher une barre de défilement verticale si nécessaire */
+    margin-right: 20px;
   }
   
   
@@ -240,16 +252,18 @@ body, html {
     grid-gap: 10px; /* Ajoute de l'espace entre les colonnes */
     position: absolute;
     top: 0;
-    left: 95%;
-    background-color: #dfe6e9;
+    left: 90%;
+    background-color: #E6F1FC;
     border-top-right-radius: 5px; /* Coin supérieur droit arrondi */
     border-bottom-right-radius: 5px;   /* max-width: 800px; */
     width: auto; /* La largeur s'ajustera en fonction du contenu */
-    min-width: 500px; /* Largeur minimale */
+    min-width: 800px; /* Largeur minimale */
     margin-top: 14px;
     padding: 10px; /* Ajoute un peu d'espace autour du contenu */
-    height: 460px; /* Hauteur maximale pour le défilement */
+    height: 700px; /* Hauteur maximale pour le défilement */
     overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+
+    
   }
   
   
@@ -276,13 +290,33 @@ body, html {
   }
   
   .res-title{
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
+    color: #2E2F32;
   }
   
   li{
-    color: #353b48;
+    color: #46474A;
   }
+  
+
+  .toggle-dropdown {
+    display: none; /* Masque la case à cocher */
+  }
+  
+  .category .dropdown {
+    display: none; /* Masque le dropdown par défaut */
+  }
+  
+  .toggle-dropdown:checked + .category .dropdown {
+    display: block; /* Affiche le dropdown lorsque la case à cocher est cochée */
+  }
+  
+  /* Masque le dropdown lorsque la case à cocher est décochée */
+  .toggle-dropdown:not(:checked) + .category .dropdown {
+    display: none;
+  }
+
   
   @media screen and (max-width: 768px) {
     header {
