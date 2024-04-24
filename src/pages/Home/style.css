@@ -16,6 +16,7 @@
 .topProductsSection{padding: 35px 0px;}
 
 
+
 .newsLetterSection{width: 100%; height: auto;}
 .newsLetterSection .box{background: url(../../assets/images/bg.png); width: 100%; height: auto; padding: 60px 80px; border-radius: 30px; overflow: hidden;}
 
@@ -25,3 +26,8 @@
 .newsLetterSection .box .img{width: 45%;}
 .newsLetterSection .box .img img{position: relative; top: 60px;}
 .newsLetterSection .box  .newsLetterBanner{position: relative !important; left: 0px !important; bottom: inherit !important;}
+
+.ctitle{
+    font-size: 30px;
+    color: #46474A;
+}

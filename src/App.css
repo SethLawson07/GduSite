@@ -24,7 +24,8 @@ body{font-family: 'Lato', sans-serif; font-size: 22px;}
 .btn-lg{font-size: 24px !important; padding: 10px 25px !important;}
 .bg-g,.bg-success{background: #2D73E3 !important;}
 .text-g{color: #2D73E3;}
-.text-org{color: #FDC040 !important;}
+/* .text-org{color: #FDC040 !important;} */
+.text-org{color: #2ecc71 !important;}
 .text-light{color: #8b8b8b !important;}
 p{color: #7E7E7E;}
 

@@ -18,7 +18,7 @@ import Product from "../../components/product";
 import axios from "axios";
 import { MyContext } from "../../App";
 
-const DetailsPage = (props) => {
+const DetailsService = (props) => {
 
   const [zoomInage, setZoomImage] = useState(
     "https://www.jiomart.com/images/product/original/490000363/maggi-2-minute-masala-noodles-70-g-product-images-o490000363-p490000363-0-202305292130.jpg"
@@ -118,18 +118,18 @@ const DetailsPage = (props) => {
 
     
 
-      props.data[0]["categories"].length !== 0 &&
-      props.data[0]["categories"].map((category) => {
-        category.SubCategory.length !== 0 &&
-        category.SubCategory.map((subcategory) => {
-          subcategory.Item.length !== 0 &&
-          subcategory.Item.map((item) => {
-                item.Product.map((product) => {
-                  if (product.slugproduct === id) {
-                    setCurrentProduct(product);
+      props.data[0]["services"].length !== 0 &&
+      props.data[0]["services"].map((service) => {
+        service.TypeService.length !== 0 &&
+        service.TypeService.map((typeservice) => {
+          // subcategory.Item.length !== 0 &&
+          // subcategory.Item.map((item) => {
+            // typeservice.Product.map((product) => {
+                  if (typeservice.slugtypeservice === id) {
+                    setCurrentProduct(typeservice);
                   }
-              });
-            });
+              // });
+            // });
           });
       });
 
@@ -319,8 +319,8 @@ const DetailsPage = (props) => {
                   className="zoomSliderBig"
                   ref={zoomSliderBig}
                 >
-                  {currentProduct.images !== undefined &&
-                    currentProduct.images.map((imgUrl, index) => {
+                  {currentProduct.image !== undefined &&
+                    currentProduct.image.map((imgUrl, index) => {
                       return (
                         <div className="item">
                           <InnerImageZoom
@@ -335,8 +335,8 @@ const DetailsPage = (props) => {
               </div>
 
               <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
-                {currentProduct.images !== undefined &&
-                  currentProduct.images.map((imgUrl, index) => {
+                {currentProduct.image !== undefined &&
+                  currentProduct.image.map((imgUrl, index) => {
                     return (
                       <div className="item">
                         <img
@@ -353,7 +353,7 @@ const DetailsPage = (props) => {
 
             {/* product info code start here */}
             <div className="col-md-7 productInfo">
-              <h1>{currentProduct.name}</h1>
+              <h1>{currentProduct.title}</h1>
               {/* <div className="d-flex align-items-center mb-4 mt-3">
                 <Rating
                   name="half-rating-read"
@@ -368,14 +368,14 @@ const DetailsPage = (props) => {
                 <span className="text-g priceLarge">
                   {currentProduct.price} Fcfa
                 </span>
-                <div className="ml-3 d-flex flex-column">
+                {/* <div className="ml-3 d-flex flex-column">
                   <span className="text-org discount">
                     {currentProduct.discount} de reduction
                   </span>
                   <span className="text-light oldPrice">
                     {currentProduct.oldPrice} Fcfa
                   </span>
-                </div>
+                </div> */}
               </div>
 
               <p>{currentProduct.description}</p>
@@ -831,4 +831,4 @@ const DetailsPage = (props) => {
   );
 };
 
-export default DetailsPage;
+export default DetailsService;

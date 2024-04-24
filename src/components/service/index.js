@@ -10,18 +10,18 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 import { MyContext } from '../../App';
 
-const Product = (props) => {
-    const [productData, setProductData] = useState();
+const Service = (props) => {
+    const [tsData, setTsData] = useState();
     const [isAdded, setIsAdded] = useState(false);
     const context = useContext(MyContext);
 
     useEffect(() => {
-        setProductData(props.item);
+        setTsData(props.item);
     }, [props.item]);
 
     const setProductCat = () => {
-        sessionStorage.setItem('parentCat', productData.parentCatName);
-        sessionStorage.setItem('subCatName', productData.subCatName);
+        sessionStorage.setItem('parentCat', tsData.parentCatName);
+        sessionStorage.setItem('subCatName', tsData.subCatName);
     };
 
     const addToCart = (item) => {
@@ -35,16 +35,16 @@ const Product = (props) => {
 
     return (
         <div className='productThumb' onClick={setProductCat}>
-            {props.brand !== null && props.brand !== "" && (
+            {props.brand !== null && props.brand !== undefined && (
                 <span className={`badge ${props.brand}`}>{props.brand}</span>
             )}
 
-            {productData !== undefined && (
+            {tsData !== undefined && (
                 <>
-                    <Link to={`/product/${productData.slugproduct}`}>
+                    <Link to={`/typeservice/${tsData.slugtypeservice}`}>
                         <div className='imgWrapper'>
                             <div className='p-2 wrapper mb-0'>
-                                <img src={productData.images[0] + '?im=Resize=(500,500)'} className='w-100' />
+                                <img src={tsData.image[0] + '?im=Resize=(500,500)'} className='w-100' />
                             </div>
 
                             <div className='overlay transition'>
@@ -70,24 +70,21 @@ const Product = (props) => {
                     </Link>
 
                     <div className='info'>
-                        {/* <span className='d-block catName'>{productData.brand}</span> */}
+                        {/* <span className='d-block catName'>{tsData.brand}</span> */}
                         <h4 className='title'>
-                            <Link to={`/product/${productData.slugproduct}`}>{productData.name.substr(0, 50) + ''}</Link>
+                            <Link>{tsData.title.substr(0, 50) + ''}</Link>
                         </h4>
-                        {/* <Rating name='half-rating-read' value={parseFloat(productData.rating)} precision={0.5} readOnly /> */}
-                        {/* <span className='brand d-block text-g'>By <Link className='text-g'>{productData.brand}</Link></span> */}
+                        {/* <Rating name='half-rating-read' value={parseFloat(tsData.rating)} precision={0.5} readOnly /> */}
+                        {/* <span className='brand d-block text-g'>By <Link className='text-g'>{tsData.brand}</Link></span> */}
 
                         <div className='d-flex align-items-center mt-3'>
                             <div className='d-flex align-items-center w-100'>
-                                <span className='price text-g font-weight-bold'>{productData.price} Fcfa</span>{' '}
-                                <span className='oldPrice ml-auto'>{productData.oldPrice} Fcfa</span>
+                                <span className='price text-g font-weight-bold'>{tsData.price} Fcfa</span>{' '}
+                                {/* <span className='oldPrice ml-auto'>{tsData.oldPrice} Fcfa</span> */}
                             </div>
                         </div>
-                        <h4 className='discount'>
-                            <span>{productData.discount} Fcfa de reduction</span>
-                        </h4>
 
-                        <Button className='w-100 transition mt-3' onClick={() => addToCart(productData)}>
+                        <Button className='w-100 transition mt-3' onClick={() => addToCart(tsData)}>
                             <ShoppingCartOutlinedIcon />
                             {isAdded === true ? 'Ajouté' : 'Ajouter au panier'}
                         </Button>
@@ -98,4 +95,4 @@ const Product = (props) => {
     );
 };
 
-export default Product;
+export default Service;

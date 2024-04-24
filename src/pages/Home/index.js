@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import SliderBanner from "./slider/index";
 import CatSlider from "../../components/catSlider";
-
-import Banners from "../../components/banners";
 
 import "./style.css";
 import Product from "../../components/product";
-import Banner4 from "../../assets/images/banner4.jpg";
 
 import Slider from "react-slick";
 import TopProducts from "./TopProducts";
@@ -15,6 +11,10 @@ import { MyContext } from "../../App";
 import { Link } from "react-router-dom";
 import TopSlider from "../../components/topslider";
 import MidSlider from "../../components/midslider/midslider";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import ServiceSlider from "../../components/serviceSlider";
+import Service from "../../components/service";
 
 const Home = (props) => {
   const [prodData, setprodData] = useState(props.data);
@@ -40,206 +40,355 @@ const Home = (props) => {
     arrows: context.windowWidth < 992 ? false : true,
   };
 
-  const catArr = [];
-
-  useEffect(() => {
-    prodData.length !== 0 &&
-      prodData.map((category) => {
-        catArr.push(category.title);
-
-        // category.SubCategory.length !== 0 &&
-        // category.SubCategory.map((subcategory) => {
-        //     subcategory.Item.length !== 0 &&
-        //     subcategory.Item.map((item) => {
-        //             catArr.push(item.title);
-        //     })
-        // })
-      });
-
-    const list2 = catArr.filter(
-      (category, index) => catArr.indexOf(category) === index
-    );
-
-    setcatArray(list2);
-
-    // setactiveTab(list2[0])
-    setactiveTab(list2[0]);
-
-    window.scrollTo(0, 0);
-  }, []);
-  // })
-
-  useEffect(() => {
-    var arr = [];
-    setActiveTabData(arr);
-    prodData.length !== 0 &&
-      prodData.map((category, index) => {
-        if (category.title === activeTab) {
-          category.SubCategory.length !== 0 &&
-            category.SubCategory.map((subcategory) => {
-              subcategory.Item.length !== 0 &&
-                subcategory.Item.map((item) => {
-                  item.Product.length !== 0 &&
-                    item.Product.map((product) => {
-                      arr.push({
-                        ...product,
-                        parentCatName: item.title,
-                        subCatName: item.title,
-                      });
-                    });
-                });
-            });
-
-          setActiveTabData(arr);
-          // setTimeout(()=>{
-          //     setIsLoadingProducts(false);
-          // },[1000]);
-        }
-        // })
-      });
-  }, [activeTab, activeTabData]);
-
-  const bestSellsArr = [];
-
-  // useEffect(() => {
-  //     prodData.length !== 0 &&
-  //         prodData.map((category) => {
-  //             if (category.title === "Electronique") {
-  //                 category.SubCategory.length !== 0 &&
-  //                 category.SubCategory.map((subcategory) => {
-  //                     subcategory.Item.length !== 0 &&
-  //                     subcategory.Item.map((item, index) => {
-  //                         item.Product.length !== 0 &&
-  //                         item.Product.map((product, index) => {
-  //                                     bestSellsArr.push(product);
-  //                                 })
-  //                             })
-  //                     })
-  //                     setBestSells(bestSellsArr);
-
-  //             }
-
-  //         });
-
-  //     // setBestSells(bestSellsArr);
-
-  // }, [])
-
-  // useEffect(() => {
-  //     const tempBestSellsArr = [];
-
-  //     prodData.forEach((category) => {
-  //         if (category.title === "Electronique") {
-  //             category.SubCategory.forEach((subcategory) => {
-  //                 subcategory.Item.forEach((item) => {
-  //                     item.Product.forEach((product) => {
-  //                         tempBestSellsArr.push(product);
-  //                     });
-  //                 });
-  //             });
-  //         }
-  //     });
-
-  //     setBestSells(tempBestSellsArr);
-  // }, [prodData]);
-
-  
   return (
     <div style={{ display: "block" }}>
       {/* <SliderBanner /> */}
 
       <TopSlider />
-      <CatSlider data={prodData} />
+
+      {/* Produits populaires */}
+      <section className="homeProducts homeProductWrapper">
+        <div className="container-fluid">
+          <div className="d-flex align-Item-center homeProductsTitleWrap">
+            <h4 className="hd mb-0 mt-0 res-full ctitle">Produits populaires</h4>
+          </div>
+
+          <Carousel
+            additionalTransfrom={0}
+            arrows
+            autoPlaySpeed={3000}
+            centerMode={false}
+            className=""
+            containerClass="container-with-dots"
+            dotListClass=""
+            draggable
+            focusOnSelect={false}
+            infinite
+            itemClass="carouselItem"
+            partialVisible={false}
+            keyBoardControl
+            minimumTouchDrag={80}
+            pauseOnHover
+            renderArrowsWhenDisabled={false}
+            renderButtonGroupOutside={false}
+            renderDotsOutside={false}
+            responsive={{
+              desktop: {
+                breakpoint: {
+                  max: 3000,
+                  min: 1024,
+                },
+                items: 4,
+                partialVisibilityGutter: 40,
+              },
+              mobile: {
+                breakpoint: {
+                  max: 464,
+                  min: 0,
+                },
+                items: 1,
+                partialVisibilityGutter: 30,
+              },
+              tablet: {
+                breakpoint: {
+                  max: 1024,
+                  min: 464,
+                },
+                items: 2,
+                partialVisibilityGutter: 30,
+              },
+            }}
+            rewind={false}
+            rewindWithAnimation={false}
+            rtl={false}
+            shouldResetAutoplay
+            showDots={false}
+            sliderClass=""
+            slidesToSlide={1}
+            swipeable
+          >
+            {prodData[0]["latest"].length !== 0 &&
+              prodData[0]["latest"].map((item, index) => {
+                return (
+                  <div className="item" key={index}>
+                    <Product brand={item.brand} item={item} />
+                  </div>
+                );
+              })}
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Area One */}
+
+      <section className="homeProducts homeProductWrapper">
+        {prodData[0]["areaOne"].length !== 0 &&
+          prodData[0]["areaOne"].map((area, index) => {
+            return (
+              <div className="container-fluid" key={index}>
+                {area.Section.length !== 0 &&
+                  area.Section.map((section, secIndex) => {
+                    return (
+                      <div key={secIndex}>
+                        <div className="d-flex align-Item-center homeProductsTitleWrap">
+                          <h4 className="hd mb-0 mt-0 res-full ctitle">
+                            {section.title}
+                          </h4>
+                        </div>
+                        <Carousel
+                          additionalTransfrom={0}
+                          arrows
+                          autoPlaySpeed={3000}
+                          centerMode={false}
+                          className=""
+                          containerClass="container-with-dots"
+                          dotListClass=""
+                          draggable
+                          focusOnSelect={false}
+                          infinite
+                          itemClass="carouselItem"
+                          partialVisible={false}
+                          keyBoardControl
+                          minimumTouchDrag={80}
+                          pauseOnHover
+                          renderArrowsWhenDisabled={false}
+                          renderButtonGroupOutside={false}
+                          renderDotsOutside={false}
+                          responsive={{
+                            desktop: {
+                              breakpoint: {
+                                max: 3000,
+                                min: 1024,
+                              },
+                              items: 4,
+                              partialVisibilityGutter: 40,
+                            },
+                            mobile: {
+                              breakpoint: {
+                                max: 464,
+                                min: 0,
+                              },
+                              items: 1,
+                              partialVisibilityGutter: 30,
+                            },
+                            tablet: {
+                              breakpoint: {
+                                max: 1024,
+                                min: 464,
+                              },
+                              items: 2,
+                              partialVisibilityGutter: 30,
+                            },
+                          }}
+                          rewind={false}
+                          rewindWithAnimation={false}
+                          rtl={false}
+                          shouldResetAutoplay
+                          showDots={false}
+                          sliderClass=""
+                          slidesToSlide={1}
+                          swipeable
+                        >
+                          {section.Product.length !== 0 &&
+                            section.Product.map((item, prodIndex) => {
+                              return (
+                                <div className="item" key={prodIndex}>
+                                  <Product brand={item.brand} item={item} />
+                                </div>
+                              );
+                            })}
+                        </Carousel>
+                      </div>
+                    );
+                  })}
+              </div>
+            );
+          })}
+      </section>
 
       {/* <Banners /> */}
       <MidSlider />
 
+      {/* Area Two */}
+
       <section className="homeProducts homeProductWrapper">
-        <div className="container-fluid">
-          <div className="d-flex align-Item-center homeProductsTitleWrap">
-            <h2 className="hd mb-0 mt-0 res-full">Produits populaires</h2>
-            <ul className="list list-inline ml-auto filterTab mb-0 res-full">
-              {catArray.length !== 0 &&
-                catArray.map((cat, index) => {
-                  return (
-                    <li className="list list-inline-item" key={index}>
-                      <Link
-                        className={`cursor text-capitalize 
-                                                ${
-                                                  activeTabIndex === index
-                                                    ? "act"
-                                                    : ""
-                                                }`}
-                        onClick={() => {
-                          setactiveTab(cat);
-                          setactiveTabIndex(index);
-                          productRow.current.scrollLeft = 0;
-                          setIsLoadingProducts(true);
-                        }}
-                      >
-                        {cat}
-                      </Link>
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
-
-          <div
-            className={`productRow ${isLoadingProducts === true && "loading"}`}
-            ref={productRow}
-          >
-            {activeTabData.length !== 0 &&
-              activeTabData.map((item, index) => {
-                return (
-                  <div className="item" key={index}>
-                    <Product tag={item.brand} item={item} />
-                  </div>
-                );
-              })}
-          </div>
-        </div>
+        {prodData[0]["areaTwo"].length !== 0 &&
+          prodData[0]["areaTwo"].map((area, index) => {
+            return (
+              <div className="container-fluid" key={index}>
+                {area.Section.length !== 0 &&
+                  area.Section.map((section, secIndex) => {
+                    return (
+                      <div key={secIndex}>
+                        <div className="d-flex align-Item-center homeProductsTitleWrap">
+                          <h4 className="hd mb-0 mt-0 res-full ctitle">
+                            {section.title}
+                          </h4>
+                        </div>
+                        <Carousel
+                          additionalTransfrom={0}
+                          arrows
+                          autoPlaySpeed={3000}
+                          centerMode={false}
+                          className=""
+                          containerClass="container-with-dots"
+                          dotListClass=""
+                          draggable
+                          focusOnSelect={false}
+                          infinite
+                          itemClass="carouselItem"
+                          partialVisible={false}
+                          keyBoardControl
+                          minimumTouchDrag={80}
+                          pauseOnHover
+                          renderArrowsWhenDisabled={false}
+                          renderButtonGroupOutside={false}
+                          renderDotsOutside={false}
+                          responsive={{
+                            desktop: {
+                              breakpoint: {
+                                max: 3000,
+                                min: 1024,
+                              },
+                              items: 4,
+                              partialVisibilityGutter: 40,
+                            },
+                            mobile: {
+                              breakpoint: {
+                                max: 464,
+                                min: 0,
+                              },
+                              items: 1,
+                              partialVisibilityGutter: 30,
+                            },
+                            tablet: {
+                              breakpoint: {
+                                max: 1024,
+                                min: 464,
+                              },
+                              items: 2,
+                              partialVisibilityGutter: 30,
+                            },
+                          }}
+                          rewind={false}
+                          rewindWithAnimation={false}
+                          rtl={false}
+                          shouldResetAutoplay
+                          showDots={false}
+                          sliderClass=""
+                          slidesToSlide={1}
+                          swipeable
+                        >
+                          {section.Product.length !== 0 &&
+                            section.Product.map((item, prodIndex) => {
+                              return (
+                                <div className="item" key={prodIndex}>
+                                  <Product brand={item.brand} item={item} />
+                                </div>
+                              );
+                            })}
+                        </Carousel>
+                      </div>
+                    );
+                  })}
+              </div>
+            );
+          })}
       </section>
+      {/* Type de Service */}
+      <ServiceSlider data={prodData[0]["services"]} />
 
-      {/* 
-            <section className='homeProducts homeProductsRow2 pt-0'>
-                <div className='container-fluid'>
-                    <div className='d-flex align-Item-center'>
-                        <h2 className='hd mb-0 mt-0'>Meilleures ventes quotidiennes</h2>
-
-                    </div>
-
-                    <br className='res-hide' /><br  className='res-hide'/>
-                    <div className='row'>
-                        <div className='col-md-3 pr-5 res-hide'>
-                            <img className="rounded w-100" src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1713174739/Goodness/ynunvlwfhyay946yajfm.jpg" />
+      {/* Section des services  */}
+      <section className="homeProducts homeProductWrapper">
+        {prodData[0]["areaThree"].length !== 0 &&
+          prodData[0]["areaThree"].map((area, index) => {
+            return (
+              <div className="container-fluid" key={index}>
+                {area.Section.length !== 0 &&
+                  area.Section.map((section, secIndex) => {
+                    return (
+                      <div key={secIndex}>
+                        <div className="d-flex align-Item-center homeProductsTitleWrap">
+                          <h4 className="hd mb-0 mt-0 res-full ctitle">
+                            {section.title}
+                          </h4>
                         </div>
-
-                        <div className='col-md-12'>
-                            <Slider {...settings} className='prodSlider'>
-
-                                {
-                                    bestSells.length !== 0 &&
-                                    bestSells.map((item, index) => {
-                                        return (
-                                            <div className='item' key={index}>
-                                                <Product tag={item.brand} item={item} />
-                                            </div>
-                                        )
-                                    })
-                                }
-
-                            </Slider>
-                        </div>
-                    </div>
-
-
-                </div>
-            </section> */}
+                        <Carousel
+                          additionalTransfrom={0}
+                          arrows
+                          autoPlaySpeed={3000}
+                          centerMode={false}
+                          className=""
+                          containerClass="container-with-dots"
+                          dotListClass=""
+                          draggable
+                          focusOnSelect={false}
+                          infinite
+                          itemClass="carouselItem"
+                          partialVisible={false}
+                          keyBoardControl
+                          minimumTouchDrag={80}
+                          pauseOnHover
+                          renderArrowsWhenDisabled={false}
+                          renderButtonGroupOutside={false}
+                          renderDotsOutside={false}
+                          responsive={{
+                            desktop: {
+                              breakpoint: {
+                                max: 3000,
+                                min: 1024,
+                              },
+                              items: 4,
+                              partialVisibilityGutter: 40,
+                            },
+                            mobile: {
+                              breakpoint: {
+                                max: 464,
+                                min: 0,
+                              },
+                              items: 1,
+                              partialVisibilityGutter: 30,
+                            },
+                            tablet: {
+                              breakpoint: {
+                                max: 1024,
+                                min: 464,
+                              },
+                              items: 2,
+                              partialVisibilityGutter: 30,
+                            },
+                          }}
+                          rewind={false}
+                          rewindWithAnimation={false}
+                          rtl={false}
+                          shouldResetAutoplay
+                          showDots={false}
+                          sliderClass=""
+                          slidesToSlide={1}
+                          swipeable
+                        >
+                          {section.TypeService.length !== 0 &&
+                            section.TypeService.map((item, prodIndex) => {
+                              return (
+                                <div className="item" key={prodIndex}>
+                                  <Service brand={item.brand} item={item} />
+                                </div>
+                              );
+                            })}
+                        </Carousel>
+                      </div>
+                    );
+                  })}
+              </div>
+            );
+          })}
+      </section>
 
       <MidSlider />
 
-      <section className="topProductsSection">
+      <CatSlider data={prodData[0]["categories"]} />
+
+      {/* <section className="topProductsSection">
         <div className="container-fluid">
           <div className="row">
             <div className="col">
@@ -259,7 +408,7 @@ const Home = (props) => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

@@ -40,8 +40,8 @@ const Sidebar = (props) => {
     var catLength = 0;
     var lengthArr = [];
     useEffect(() => {
-        props.data.length !== 0 &&
-        props.data.map((category, index) => {
+        props.data[0]["categories"].length !== 0 &&
+        props.data[0]["categories"].map((category, index) => {
             category.SubCategory.length !== 0 &&
             category.SubCategory.map((subcategory) => {
                 subcategory.Item.length !== 0 &&
@@ -129,7 +129,7 @@ const Sidebar = (props) => {
                     <h3>Category</h3>
                     <div className='catList'>
                         {
-                            props.data.length !== 0 && props.data.map((item, index) => {
+                            props.data[0]["categories"].length !== 0 && props.data[0]["categories"].map((item, index) => {
                                 return (
                                     <Link to={`/cat/${item.title.toLowerCase()}`}>
                                         <div className='catItem d-flex align-items-center'>

@@ -22,6 +22,7 @@ import Loader from './assets/images/loading.gif';
 import data from './data';
 // import Navbar1 from './components/header/nav/navbar';
 import HeadNav from './components/headnav';
+import DetailsService from './pages/DetailsService';
 
 const MyContext = createContext();
 
@@ -37,7 +38,7 @@ const signIn = () => { /* Function implementation */ }
 const openFilters = () => { /* Function implementation */ }
 
 function App() {
-  const [productData, setProductData] = useState([]);
+  const [homeData, setHomeData] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -47,21 +48,23 @@ function App() {
   const [cartTotalAmount, setCartTotalAmount] = useState();
 
   useEffect(() => {
-    getData('https://gubackend.onrender.com/product');
+    getData('https://gubackend.onrender.com/home/site');
     const is_Login = localStorage.getItem('isLogin');
     setIsLogin(is_Login);
   }, []);
 
   useEffect(() => {
-    if (productData.length !== 0) {
+    if (homeData.length !== 0) {
       setIsloading(false);
     }
-  }, [productData]);
+    // console.log(homeData)
+
+  }, [homeData]);
 
   const getData = async (url) => {
     try {
       const response = await axios.get(url);
-      setProductData(response.data.data);
+      setHomeData(response.data.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -91,16 +94,17 @@ function App() {
           <div className='loader'><img src={Loader} alt="loading" /></div>
         ) : (
           <>
-            {/* <Header data={productData} /> */}
+            {/* <Header data={homeData} /> */}
             <HeadNav />
 
             {/* <Navbar1/> */}
 
             <Routes>
-              <Route exact={true} path="/" element={<Home data={productData} />} />
-              <Route exact={true} path="/cat/:id" element={<Listing data={productData} single={true} />} />
-              <Route exact={true} path="/cat/:id/:id" element={<Listing data={data.productData} single={false} />} />
-              <Route exact={true} path="/product/:id" element={<DetailsPage data={productData} />} />
+              <Route exact={true} path="/" element={<Home data={homeData} />} />
+              <Route exact={true} path="/cat/:id" element={<Listing data={homeData} single={true} />} />
+              <Route exact={true} path="/cat/:id/:id" element={<Listing data={data.homeData} single={false} />} />
+              <Route exact={true} path="/product/:id" element={<DetailsPage data={homeData} />} /> 
+              <Route exact={true} path="/typeservice/:id" element={<DetailsService data={homeData} />} /> 
               <Route exact={true} path="/cart" element={<Cart />} />
               <Route exact={true} path="/signIn" element={<SignIn />} />
               <Route exact={true} path="/signUp" element={<SignUp />} />

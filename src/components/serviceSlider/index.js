@@ -4,7 +4,7 @@ import './style.css';
 import { Link } from 'react-router-dom';
 
 import { MyContext } from '../../App';
-const CatSlider = (props) => {
+const ServiceSlider = (props) => {
 
     const [allData, setAllData] = useState(props.data);
     const [totalLength, setTotalLength] = useState([]);
@@ -49,29 +49,14 @@ const CatSlider = (props) => {
 
     var catLength = 0;
     var lengthArr = [];
-    useEffect(() => {
-        allData.length !== 0 &&
-        allData.map((category, index) => {
-                category.SubCategory.length !== 0 &&
-                category.SubCategory.map((subcategory) => {
-
-                    })
-                lengthArr.push(catLength)
-                catLength = 0;
-            })
-
-        const list = lengthArr.filter((item, index) => lengthArr.indexOf(item) === index);
-        setTotalLength(list)
-
-
-    }, []);
+  
 
 
     return (
         <>
             <div className='catSliderSection'>
                 <div className='container-fluid' ref={slider}>
-                    <h2 className='hd ctitle'>Catégories</h2>
+                    <h2 className='hd ctitle'>Services</h2>
                     <Slider {...settings} className='cat_slider_Main' id="cat_slider_Main" >
 
 
@@ -102,4 +87,4 @@ const CatSlider = (props) => {
     )
 }
 
-export default CatSlider;
+export default ServiceSlider;

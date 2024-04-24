@@ -47,7 +47,7 @@ const Footer = () => {
       </section>
 
       <div className="footerWrapper">
-        <div className="footerBoxes">
+        {/* <div className="footerBoxes">
           <div className="container-fluid">
             <div className="row">
               <div className="col">
@@ -111,7 +111,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <footer>
           <div className="container-fluid">

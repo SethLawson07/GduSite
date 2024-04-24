@@ -24,8 +24,10 @@ const Listing = (props) => {
   var itemsData = [];
 
   useEffect(() => {
-    props.data.length !== 0 &&
-      props.data.map((category, index) => {
+  //   console.log(  props.data[0]["categories"]
+  // )
+    props.data[0]["categories"].length !== 0 &&
+      props.data[0]["categories"].map((category, index) => {
         //page == single cat
         if (props.single === true) {
           if (category.title.toLowerCase() == id.toLowerCase()) {
@@ -70,13 +72,15 @@ const Listing = (props) => {
     );
 
     setData(list2);
+    console.log("siiii")
+    console.log(list2)
 
     window.scrollTo(0, 0);
   }, [id]);
 
   const filterByBrand = (keyword) => {
-    props.data.length !== 0 &&
-      props.data.map((item, index) => {
+    props.data[0]["categories"].length !== 0 &&
+      props.data[0]["categories"].map((item, index) => {
         //page == single cat
         if (props.single === true) {
           item.Item.length !== 0 &&
@@ -116,22 +120,22 @@ const Listing = (props) => {
         }
       });
 
-    const list2 = itemsData.filter(
-      (item, index) => itemsData.indexOf(item) === index
-    );
-    //console.log(itemsData)
+    // const list2 = itemsData.filter(
+    //   (item, index) => itemsData.indexOf(item) === index
+    // );
+    // //console.log(itemsData)
 
-    setData(list2);
+    // setData(list2);
 
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   };
   const filterByPrice = (minValue, maxValue) => {
   }
   const filterByRating = (keyword) => {
   }
   // const filterByPrice = (minValue, maxValue) => {
-  //   props.data.length !== 0 &&
-  //     props.data.map((item, index) => {
+  //   props.data[0]["categories"].length !== 0 &&
+  //     props.data[0]["categories"].map((item, index) => {
   //       //page == single cat
   //       if (props.single === true) {
   //         if (id === item.title.toLowerCase()) {
@@ -183,8 +187,8 @@ const Listing = (props) => {
   // };
 
   // const filterByRating = (keyword) => {
-  //   props.data.length !== 0 &&
-  //     props.data.map((item, index) => {
+  //   props.data[0]["categories"].length !== 0 &&
+  //     props.data[0]["categories"].map((item, index) => {
   //       //page == single cat
   //       if (props.single === true) {
   //         if (item.title.toLowerCase() == id.toLowerCase()) {
@@ -436,7 +440,7 @@ const Listing = (props) => {
                     data.map((item, index) => {
                       return (
                         <div className="item" key={index}>
-                          <Product tag={item.type} item={item} />
+                          <Product tag={item.brand} item={item} />
                         </div>
                       );
                     })}
