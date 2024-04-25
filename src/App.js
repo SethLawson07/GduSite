@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import './responsive.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import Header from './components/header/header';
 import Footer from './components/footer/footer';
@@ -23,6 +24,10 @@ import data from './data';
 // import Navbar1 from './components/header/nav/navbar';
 import HeadNav from './components/headnav';
 import DetailsService from './pages/DetailsService';
+import { persistor, store } from './state/store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
 
 const MyContext = createContext();
 
@@ -88,6 +93,10 @@ function App() {
   }
 
   return (
+    <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+
+    {/* Votre application */}
     <BrowserRouter>
       <MyContext.Provider value={value}>
         {isLoading ? (
@@ -116,6 +125,10 @@ function App() {
         )}
       </MyContext.Provider>
     </BrowserRouter>
+    </PersistGate>
+
+    </Provider>
+
   );
 }
 

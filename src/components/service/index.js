@@ -46,7 +46,7 @@ const Service = (props) => {
                             <div className='p-2 wrapper mb-0'>
                                 <img src={tsData.image[0] + '?im=Resize=(500,500)'} className='w-100' />
                             </div>
-
+{/* 
                             <div className='overlay transition'>
                                 <ul className='list list-inline mb-0'>
                                     <li className='list-inline-item'>
@@ -65,7 +65,7 @@ const Service = (props) => {
                                         </Link>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
                     </Link>
 
@@ -84,10 +84,10 @@ const Service = (props) => {
                             </div>
                         </div>
 
-                        <Button className='w-100 transition mt-3' onClick={() => addToCart(tsData)}>
+                        {/* <Button className='w-100 transition mt-3' onClick={() => addToCart(tsData)}>
                             <ShoppingCartOutlinedIcon />
-                            {isAdded === true ? 'Ajouté' : 'Ajouter au panier'}
-                        </Button>
+                           Commander
+                        </Button> */}
                     </div>
                 </>
             )}

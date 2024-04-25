@@ -17,13 +17,14 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
 import { MyContext } from "../../App";
+import { login } from "../../services/auth";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [showLoader, setShowLoader] = useState(false);
 
-  const [formFields, setFormFields] = useState({
+  const [customer, setCustomer] = useState({
     email: "",
     password: "",
   });
@@ -36,14 +37,22 @@ const SignIn = () => {
     const name = e.target.name;
     const value = e.target.value;
 
-    setFormFields(() => ({
-      ...formFields,
+    setCustomer(() => ({
+      ...customer,
       [name]: value,
     }));
   };
 
-  const signIn = () => {
-    setShowLoader(true);
+  const signIn = async () => {
+
+    try {
+      setShowLoader(true);
+      const response = await login(customer);
+      console.log(response);
+      setShowLoader(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -72,7 +81,6 @@ const SignIn = () => {
 
             <h3>Connexion</h3>
             <form className="mt-4">
-            
               <div className="form-group mb-4 w-100">
                 <TextField
                   id="email"
@@ -81,7 +89,7 @@ const SignIn = () => {
                   label="Email ou Numéro de téléphone"
                   className="w-100"
                   onChange={onChangeField}
-                  value={formFields.email}
+                  value={customer.email}
                 />
               </div>
               <div className="form-group mb-4 w-100">
@@ -93,7 +101,7 @@ const SignIn = () => {
                     label="Mot de passe"
                     className="w-100"
                     onChange={onChangeField}
-                    value={formFields.password}
+                    value={customer.password}
                   />
                   <Button
                     className="icon"

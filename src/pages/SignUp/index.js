@@ -11,6 +11,8 @@ import GoogleImg from "../../assets/images/google.png";
 
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { register } from "../../services/auth";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,7 +20,9 @@ const SignUp = () => {
 
   const [showLoader, setShowLoader] = useState(false);
 
-  const [formFields, setFormFields] = useState({
+  const [customer, setCustomer] = useState({
+    user_name: "",
+    phone: "",
     email: "",
     password: "",
     conformPassword: "",
@@ -28,11 +32,44 @@ const SignUp = () => {
     const name = e.target.name;
     const value = e.target.value;
 
-    setFormFields(() => ({
-      ...formFields,
+    setCustomer(() => ({
+      ...customer,
       [name]: value,
     }));
   };
+  const notify = (msg) => toast(msg);
+
+  const signUp = async () => {
+    if (
+      !customer.user_name ||
+      !customer.phone ||
+      !customer.email ||
+      !customer.password ||
+      !customer.conformPassword
+    ) {
+      toast.warn("Veuillez remplir tous les champs !");
+      return; 
+    }
+  
+    if (customer.password !== customer.conformPassword) {
+      toast.warn("Les mots de passe ne correspondent pas !");
+      return; 
+    }
+  
+    try {
+      setShowLoader(true);
+      const response = await register(customer);
+      console.log(response);
+      if(response.error){
+        toast.warn(response.message);
+
+      }
+      setShowLoader(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
 
   return (
     <>
@@ -60,26 +97,28 @@ const SignUp = () => {
 
             <h3>Inscription</h3>
             <form className="mt-4">
-            <div className="form-group mb-4 w-100">
+              <div className="form-group mb-4 w-100">
                 <TextField
-                  id="email"
-                  type="email"
-                  name="email"
+                  id="user_name"
+                  type="text"
+                  name="user_name"
                   label="Nom complet"
                   className="w-100"
                   onChange={onChangeField}
-                  value={formFields.email}
+                  value={customer.user_name}
+                  required
                 />
               </div>
               <div className="form-group mb-4 w-100">
                 <TextField
-                  id="email"
-                  type="email"
-                  name="email"
+                  id="phone"
+                  type="phone"
+                  name="phone"
                   label="Numéro de téléphone"
                   className="w-100"
                   onChange={onChangeField}
-                  value={formFields.email}
+                  value={customer.phone}
+                  required
                 />
               </div>
               <div className="form-group mb-4 w-100">
@@ -90,7 +129,8 @@ const SignUp = () => {
                   label="Email"
                   className="w-100"
                   onChange={onChangeField}
-                  value={formFields.email}
+                  value={customer.email}
+                  required
                 />
               </div>
               <div className="form-group mb-4 w-100">
@@ -102,7 +142,8 @@ const SignUp = () => {
                     label="Password"
                     className="w-100"
                     onChange={onChangeField}
-                    value={formFields.password}
+                    value={customer.password}
+                    required
                   />
                   <Button
                     className="icon"
@@ -126,7 +167,8 @@ const SignUp = () => {
                     label="Confirm Password"
                     className="w-100"
                     onChange={onChangeField}
-                    value={formFields.conformPassword}
+                    value={customer.conformPassword}
+                    required
                   />
                   <Button
                     className="icon"
@@ -142,7 +184,9 @@ const SignUp = () => {
               </div>
 
               <div className="form-group mt-5 mb-4 w-100">
-                <Button className="btn btn-g btn-lg w-100">S'inscrire</Button>
+                <Button className="btn btn-g btn-lg w-100" onClick={signUp}>
+                  S'inscrire
+                </Button>
               </div>
 
               <p className="text-center">
@@ -156,6 +200,7 @@ const SignUp = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 };

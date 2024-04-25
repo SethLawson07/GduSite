@@ -17,13 +17,12 @@ import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import Product from "../../components/product";
 import axios from "axios";
 import { MyContext } from "../../App";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, selectCartItems } from "../../state/cartSlice";
+import QuantitySelector from "../cart/qteselector";
+import { calculateDiscountPrice } from "../../utils";
 
 const DetailsPage = (props) => {
-
-  const [zoomInage, setZoomImage] = useState(
-    "https://www.jiomart.com/images/product/original/490000363/maggi-2-minute-masala-noodles-70-g-product-images-o490000363-p490000363-0-202305292130.jpg"
-  );
-
   const [bigImageSize, setBigImageSize] = useState([1500, 1500]);
   const [smlImageSize, setSmlImageSize] = useState([150, 150]);
 
@@ -46,8 +45,6 @@ const DetailsPage = (props) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   const [rating, setRating] = useState(0.0);
-
-  const [reviewsArr, setReviewsArr] = useState([]);
 
   const [isAlreadyAddedInCart, setisAlreadyAddedInCart] = useState(false);
 
@@ -116,20 +113,18 @@ const DetailsPage = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    
-
-      props.data[0]["categories"].length !== 0 &&
+    props.data[0]["categories"].length !== 0 &&
       props.data[0]["categories"].map((category) => {
         category.SubCategory.length !== 0 &&
-        category.SubCategory.map((subcategory) => {
-          subcategory.Item.length !== 0 &&
-          subcategory.Item.map((item) => {
+          category.SubCategory.map((subcategory) => {
+            subcategory.Item.length !== 0 &&
+              subcategory.Item.map((item) => {
                 item.Product.map((product) => {
                   if (product.slugproduct === id) {
                     setCurrentProduct(product);
                   }
+                });
               });
-            });
           });
       });
 
@@ -157,157 +152,28 @@ const DetailsPage = (props) => {
     if (related_products.length !== 0) {
       setRelatedProducts(related_products);
     }
-
-    showReviews();
-
-    getCartData("http://localhost:5000/cartItems");
   }, [id]);
 
-  const changeInput = (name, value) => {
-    if (name === "rating") {
-      setRating(value);
-    }
-    setReviewFields(() => ({
-      ...reviewFields,
-      [name]: value,
-      productId: id,
-      date: new Date().toLocaleString(),
-    }));
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+
+  const addToCartHandler = (item) => {
+    dispatch(addToCart(item));
   };
 
-  const reviews_Arr = [];
-
-  const submitReview = async (e) => {
-    e.preventDefault();
-
-    try {
-      await axios
-        .post("http://localhost:5000/productReviews", reviewFields)
-        .then((response) => {
-          reviews_Arr.push(response.data);
-          setReviewFields(() => ({
-            review: "",
-            userName: "",
-            rating: 0.0,
-            productId: 0,
-            date: "",
-          }));
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
-
-    showReviews();
+  const isProductInCart = () => {
+    return cartItems.some((item) => item.id === currentProduct.id);
   };
 
-  var reviews_Arr2 = [];
-  const showReviews = async () => {
-    try {
-      await axios
-        .get("http://localhost:5000/productReviews")
-        .then((response) => {
-          if (response.data.length !== 0) {
-            response.data.map((item) => {
-              if (item.productId === id) {
-                reviews_Arr2.push(item);
-              }
-            });
-          }
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
-
-    if (reviews_Arr2.length !== 0) {
-      setReviewsArr(reviews_Arr2);
-    }
-  };
-
-  const addToCart = (item) => {
-    context.addToCart(item);
-    // Ajoutez le produit au localStorage
-    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    cartItems.push(item);
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-    setIsadded(true);
-};
-
-  const getCartData = async (url) => {
-    try {
-      await axios.get(url).then((response) => {
-        response.data.length !== 0 &&
-          response.data.map((item) => {
-            if (parseInt(item.id) === parseInt(id)) {
-              setisAlreadyAddedInCart(true);
-            }
-          });
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
+  const getProductQuantityInCart = () => {
+    const cartItem = cartItems.find((item) => item.id === currentProduct.id);
+    return cartItem ? cartItem.quantity : 0;
   };
 
   return (
     <>
-      {context.windowWidth < 992 && (
-        <Button
-          className={`btn-g btn-lg w-100 filterBtn {isAlreadyAddedInCart===true && 'no-click'}`}
-          onClick={() => addToCart(currentProduct)}
-        >
-          <ShoppingCartOutlinedIcon />
-          {isAdded === true || isAlreadyAddedInCart === true
-            ? "Ajouté"
-            : "Ajouter au panier"}
-        </Button>
-      )}
-
       <section className="detailsPage mb-5">
-        {context.windowWidth > 992 && (
-          <div className="breadcrumbWrapper mb-4">
-            <div className="container-fluid">
-              <ul className="breadcrumb breadcrumb2 mb-0">
-                <li>
-                  <Link>Home</Link>{" "}
-                </li>
-                <li>
-                  <Link
-                    to={`/cat/${prodCat.parentCat
-                      .split(" ")
-                      .join("-")
-                      .toLowerCase()}`}
-                    onClick={() =>
-                      sessionStorage.setItem(
-                        "cat",
-                        prodCat.parentCat.split(" ").join("-").toLowerCase()
-                      )
-                    }
-                    className="text-capitalize"
-                  >
-                    {prodCat.parentCat}
-                  </Link>{" "}
-                </li>
-
-                <li>
-                  <Link
-                    to={`/cat/${prodCat.parentCat.toLowerCase()}/${prodCat.subCatName
-                      .replace(/\s/g, "-")
-                      .toLowerCase()}`}
-                    onClick={() =>
-                      sessionStorage.setItem(
-                        "cat",
-                        prodCat.subCatName.toLowerCase()
-                      )
-                    }
-                    className="text-capitalize"
-                  >
-                    {prodCat.subCatName}
-                  </Link>{" "}
-                </li>
-                <li>{currentProduct.name}</li>
-              </ul>
-            </div>
-          </div>
-        )}
+        <br />
 
         <div className="container detailsContainer pt-3 pb-3">
           <div className="row">
@@ -354,27 +220,22 @@ const DetailsPage = (props) => {
             {/* product info code start here */}
             <div className="col-md-7 productInfo">
               <h1>{currentProduct.name}</h1>
-              {/* <div className="d-flex align-items-center mb-4 mt-3">
-                <Rating
-                  name="half-rating-read"
-                  value={parseFloat(currentProduct.rating)}
-                  precision={0.5}
-                  readOnly
-                />
-                <span className="text-light ml-2">(32 reviews)</span>
-              </div> */}
 
               <div className="priceSec d-flex align-items-center mb-3">
                 <span className="text-g priceLarge">
-                  {currentProduct.price} Fcfa
+                {calculateDiscountPrice(currentProduct.price,currentProduct.discount)} 
                 </span>
                 <div className="ml-3 d-flex flex-column">
-                  <span className="text-org discount">
-                    {currentProduct.discount} de reduction
-                  </span>
-                  <span className="text-light oldPrice">
-                    {currentProduct.oldPrice} Fcfa
-                  </span>
+                  {currentProduct.discount !== "0" && (
+                    <span className="text-org discount">
+                      {currentProduct.discount} de reduction
+                    </span>
+                  )}
+                  {currentProduct.discount !== "0" && (
+                    <span className="text-light oldPrice">
+                      {currentProduct.price} Fcfa
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -451,12 +312,17 @@ const DetailsPage = (props) => {
 
               <div className="d-flex align-items-center">
                 <div className="d-flex align-items-center">
-                  {context.windowWidth > 992 && (
+                  {isProductInCart() ? (
+                    <QuantitySelector
+                      itemId={currentProduct.id}
+                      quantity={getProductQuantityInCart()}
+                    />
+                  ) : (
                     <Button
                       className={`btn-g btn-lg addtocartbtn ${
                         isAlreadyAddedInCart === true && "no-click"
                       }`}
-                      onClick={() => addToCart(currentProduct)}
+                      onClick={() => addToCartHandler(currentProduct)}
                     >
                       <ShoppingCartOutlinedIcon />
                       {isAdded === true || isAlreadyAddedInCart === true
@@ -464,11 +330,9 @@ const DetailsPage = (props) => {
                         : " Ajouter au panier"}
                     </Button>
                   )}
+
                   <Button className=" btn-lg addtocartbtn  ml-3  wishlist btn-border">
                     <FavoriteBorderOutlinedIcon />{" "}
-                  </Button>
-                  <Button className=" btn-lg addtocartbtn ml-3 btn-border">
-                    <CompareArrowsIcon />
                   </Button>
                 </div>
               </div>
@@ -497,17 +361,6 @@ const DetailsPage = (props) => {
                     }}
                   >
                     Additional info
-                  </Button>
-                </li>
-                <li className="list-inline-item">
-                  <Button
-                    className={`${activeTabs === 2 && "active"}`}
-                    onClick={() => {
-                      setActiveTabs(2);
-                      showReviews();
-                    }}
-                  >
-                    Reviews (3)
                   </Button>
                 </li>
               </ul>
@@ -611,198 +464,6 @@ const DetailsPage = (props) => {
                         </tr>
                       </tbody>
                     </table>
-                  </div>
-                </div>
-              )}
-
-              {activeTabs === 2 && (
-                <div className="tabContent">
-                  <div className="row">
-                    <div className="col-md-8">
-                      <h3>Customer questions & answers</h3>
-                      <br />
-
-                      {reviewsArr.length !== 0 &&
-                        reviewsArr !== undefined &&
-                        reviewsArr.map((item, index) => {
-                          return (
-                            <div
-                              className="card p-4 reviewsCard flex-row"
-                              key={index}
-                            >
-                              <div className="image">
-                                <div className="rounded-circle">
-                                  <img src="https://wp.alithemes.com/html/nest/demo/assets/imgs/blog/author-2.png" />
-                                </div>
-                                <span className="text-g d-block text-center font-weight-bold">
-                                  {item.userName}
-                                </span>
-                              </div>
-
-                              <div className="info pl-5">
-                                <div className="d-flex align-items-center w-100">
-                                  <h5 className="text-light">{item.date}</h5>
-                                  <div className="ml-auto">
-                                    <Rating
-                                      name="half-rating-read"
-                                      value={parseFloat(item.rating)}
-                                      precision={0.5}
-                                      readOnly
-                                    />
-                                  </div>
-                                </div>
-
-                                <p>{item.review} </p>
-                              </div>
-                            </div>
-                          );
-                        })}
-
-                      <br className="res-hide" />
-
-                      <br className="res-hide" />
-
-                      <form className="reviewForm" onSubmit={submitReview}>
-                        <h4>Add a review</h4> <br />
-                        <div className="form-group">
-                          <textarea
-                            className="form-control"
-                            placeholder="Write a Review"
-                            name="review"
-                            value={reviewFields.review}
-                            onChange={(e) =>
-                              changeInput(e.target.name, e.target.value)
-                            }
-                          ></textarea>
-                        </div>
-                        <div className="row">
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <input
-                                type="text"
-                                value={reviewFields.userName}
-                                className="form-control"
-                                placeholder="Name"
-                                name="userName"
-                                onChange={(e) =>
-                                  changeInput(e.target.name, e.target.value)
-                                }
-                              />
-                            </div>
-                          </div>
-
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <Rating
-                                name="rating"
-                                value={rating}
-                                precision={0.5}
-                                onChange={(e) =>
-                                  changeInput(e.target.name, e.target.value)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <br />
-                        <div className="form-group">
-                          <Button type="submit" className="btn-g btn-lg">
-                            Submit Review
-                          </Button>
-                        </div>
-                      </form>
-                    </div>
-
-                    <div className="col-md-4 pl-5 reviewBox">
-                      <h4>Customer reviews</h4>
-
-                      <div className="d-flex align-items-center mt-2">
-                        <Rating
-                          name="half-rating-read"
-                          defaultValue={4.5}
-                          precision={0.5}
-                          readOnly
-                        />
-                        <strong className="ml-3">4.8 out of 5</strong>
-                      </div>
-
-                      <br />
-
-                      <div className="progressBarBox d-flex align-items-center">
-                        <span className="mr-3">5 star</span>
-                        <div
-                          className="progress"
-                          style={{ width: "85%", height: "20px" }}
-                        >
-                          <div
-                            className="progress-bar bg-success"
-                            style={{ width: "75%", height: "20px" }}
-                          >
-                            75%
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="progressBarBox d-flex align-items-center">
-                        <span className="mr-3">4 star</span>
-                        <div
-                          className="progress"
-                          style={{ width: "85%", height: "20px" }}
-                        >
-                          <div
-                            className="progress-bar bg-success"
-                            style={{ width: "50%", height: "20px" }}
-                          >
-                            50%
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="progressBarBox d-flex align-items-center">
-                        <span className="mr-3">3 star</span>
-                        <div
-                          className="progress"
-                          style={{ width: "85%", height: "20px" }}
-                        >
-                          <div
-                            className="progress-bar bg-success"
-                            style={{ width: "55%", height: "20px" }}
-                          >
-                            55%
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="progressBarBox d-flex align-items-center">
-                        <span className="mr-3">2 star</span>
-                        <div
-                          className="progress"
-                          style={{ width: "85%", height: "20px" }}
-                        >
-                          <div
-                            className="progress-bar bg-success"
-                            style={{ width: "35%", height: "20px" }}
-                          >
-                            35%
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="progressBarBox d-flex align-items-center">
-                        <span className="mr-3">1 star</span>
-                        <div
-                          className="progress"
-                          style={{ width: "85%", height: "20px" }}
-                        >
-                          <div
-                            className="progress-bar bg-success"
-                            style={{ width: "25%", height: "20px" }}
-                          >
-                            25%
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               )}
