@@ -20,7 +20,6 @@ import { MyContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, selectCartItems } from "../../state/cartSlice";
 import QuantitySelector from "../cart/qteselector";
-import { calculateDiscountPrice } from "../../utils";
 
 const DetailsPage = (props) => {
   const [bigImageSize, setBigImageSize] = useState([1500, 1500]);
@@ -170,7 +169,20 @@ const DetailsPage = (props) => {
     return cartItem ? cartItem.quantity : 0;
   };
 
+  const calculateDiscountPrice = (price, discount) => {
+    if (!price || !discount) {
+      // Handle case where price or discount is undefined
+      return "Price or discount not available";
+    }
+  
+    const priceWithoutSpaces = parseFloat(price.replace(/\s/g, ""));
+    const discountWithoutSpaces = parseFloat(discount.replace(/\s/g, ""));
+    const discountPrice = priceWithoutSpaces - discountWithoutSpaces;
+    return discountPrice.toLocaleString("fr-FR") + " F CFA";
+  };
+  
   return (
+
     <>
       <section className="detailsPage mb-5">
         <br />
@@ -223,7 +235,10 @@ const DetailsPage = (props) => {
 
               <div className="priceSec d-flex align-items-center mb-3">
                 <span className="text-g priceLarge">
-                {calculateDiscountPrice(currentProduct.price,currentProduct.discount)} 
+                  {calculateDiscountPrice(
+                    currentProduct.price,
+                    currentProduct.discount
+                  )}
                 </span>
                 <div className="ml-3 d-flex flex-column">
                   {currentProduct.discount !== "0" && (
