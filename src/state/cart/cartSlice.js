@@ -9,7 +9,7 @@ export const cartSlice = createSlice({
     addToCart: (state, action) => {
       const newItem = {
         ...action.payload,
-        quantity: 1 // Définir la quantité par défaut à 1
+        quantity: 1 
       };
       state.items.push(newItem);
     },

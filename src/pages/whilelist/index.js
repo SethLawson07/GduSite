@@ -4,62 +4,35 @@ import "./style.css";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import Rating from "@mui/material/Rating";
 import { Button, TextField } from "@mui/material";
-import QuantitySelector from "./qteselector";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { MyContext } from "../../App";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  emptyCart,
-  removeFromCart,
-  selectCartItems,
-  updateQuantity,
-} from "../../state/cart/cartSlice";
 import { calculateDiscountPrice } from "../../utils";
+import {
+  emptyWishList,
+  removeFromWishList,
+  selectWishListItems,
+} from "../../state/wishlist/wishListSlice";
 
-const Cart = () => {
+const WishList = () => {
   const context = useContext(MyContext);
-  const cartItems = useSelector(selectCartItems);
+  const wishList = useSelector(selectWishListItems);
   const dispatch = useDispatch();
 
   const handleRemoveItem = (itemId) => {
-    dispatch(removeFromCart(itemId));
+    dispatch(removeFromWishList(itemId));
   };
 
   const handleClearCart = () => {
-    dispatch(emptyCart());
+    dispatch(emptyWishList());
   };
 
   const calculateSubtotal = (item) => {
     const priceWithoutSpaces = parseFloat(item.price.replace(/\s/g, ""));
     const discountWithoutSpaces = parseFloat(item.discount.replace(/\s/g, ""));
-    const subtotal = (priceWithoutSpaces-discountWithoutSpaces) * item.quantity;
+    const subtotal =
+      (priceWithoutSpaces - discountWithoutSpaces) * item.quantity;
     return subtotal.toLocaleString("fr-FR") + " F CFA";
-  };
-
-  const calculateTotalOldPrice = () => {
-    const totalPrice = cartItems.reduce(
-      (total, item) =>
-        total + parseFloat(item.price.replace(/\s/g, "")) * item.quantity,
-      0
-    );
-    return totalPrice.toLocaleString("fr-FR") + " F CFA";
-  };
-
-  const calculateTotalPrice = () => {
-    const totalPrice = cartItems.reduce(
-      (total, item) =>
-        total + (parseFloat(item.price.replace(/\s/g, ""))-parseFloat(item.discount.replace(/\s/g, ""))) * item.quantity,
-      0
-    );
-    return totalPrice.toLocaleString("fr-FR") + " F CFA";
-  };
-
-  const calculateTotalDiscount = () => {
-    const totalPrice = cartItems.reduce(
-      (total, item) => total + parseFloat(item.discount.replace(/\s/g, ""))*item.quantity,
-      0
-    );
-    return totalPrice.toLocaleString("fr-FR") + " F CFA";
   };
 
   return (
@@ -72,7 +45,7 @@ const Cart = () => {
                 <Link to={"/"}>Accueil</Link>
               </li>
               <li>Magasin</li>
-              <li>Panier</li>
+              <li>Liste de souhaits</li>
             </ul>
           </div>
         </div>
@@ -81,13 +54,13 @@ const Cart = () => {
       <section className="cartSection mb-5">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-12">
               <div className="d-flex align-items-center w-100">
                 <div className="left">
                   {/* <h1 className="hd mb-0">Votre Panier</h1> */}
                   <p>
-                    Il y a <span className="text-g">{cartItems.length}</span>{" "}
-                    produit(s) dans votre panier
+                    Il y a <span className="text-g">{wishList.length}</span>{" "}
+                    produit(s) dans votre liste de souhaits
                   </p>
                 </div>
 
@@ -95,7 +68,7 @@ const Cart = () => {
                   className="ml-auto clearCart d-flex align-items-center cursor"
                   onClick={handleClearCart}
                 >
-                  <DeleteOutlineOutlinedIcon /> Vider le Panier
+                  <DeleteOutlineOutlinedIcon /> Vider votre liste de souhaits
                 </span>
               </div>
 
@@ -106,14 +79,12 @@ const Cart = () => {
                       <tr>
                         <th>Produit</th>
                         <th>Prix Unitaire</th>
-                        <th>Quantité</th>
-                        <th>Sous-total</th>
                         <th>&nbsp;</th>
                       </tr>
                     </thead>
 
                     <tbody>
-                      {cartItems.map((item, index) => (
+                      {wishList.map((item, index) => (
                         <tr key={index}>
                           <td width={"40%"}>
                             <div className="d-flex align-items-center">
@@ -152,27 +123,7 @@ const Cart = () => {
                             )}
                           </td>
 
-                          <td>
-                            {/* <QuantitySelector
-                              quantity={item.quantity}
-                              onIncrease={() =>
-                                handleUpdateQuantity(item.id, item.quantity + 1)
-                              }
-                              onDecrease={() =>
-                                handleUpdateQuantity(item.id, item.quantity - 1)
-                              }
-                            /> */}
-                            <QuantitySelector
-                              itemId={item.id}
-                              quantity={item.quantity}
-                            />
-                          </td>
-
-                          <td>
-                            <span className="text-g">
-                              {calculateSubtotal(item)}
-                            </span>
-                          </td>
+                          <td></td>
 
                           <td align="center">
                             <span
@@ -206,48 +157,9 @@ const Cart = () => {
               <div className="d-flex align-items-center">
                 <Link to="/">
                   <Button className="btn-g">
-                    <KeyboardBackspaceIcon /> Continuer vos Achats
+                    <KeyboardBackspaceIcon /> Continuer à remplir votre liste de
+                    souhaits
                   </Button>
-                </Link>
-              </div>
-            </div>
-
-            <div className="col-md-4 cartRightBox">
-              <div className="card p-4 ">
-                <div className="d-flex align-items-center mb-4">
-                  <h4 className="mb-0 text-light">Total</h4>
-                  <h3 className="ml-auto mb-0 font-weight-bold">
-                    <span className="text-g">{calculateTotalOldPrice()}</span>
-                  </h3>
-                </div>
-                <div className="d-flex align-items-center mb-4">
-                  <h4 className="mb-0 text-light">Gain</h4>
-                  <h3 className="ml-auto mb-0 font-weight-bold">
-                    <span className="text-success">
-                      - {calculateTotalDiscount()}
-                    </span>
-                  </h3>
-                </div>
-                <div className="d-flex align-items-center mb-4">
-                  <TextField
-                    id="outlined-basic"
-                    label="Code Promo"
-                    variant="outlined"
-                  />
-                  <Button variant="outlined" size="large">
-                    Appliquer
-                  </Button>
-                </div>
-
-                <br />
-                <div className="d-flex align-items-center mb-4">
-                  <h4 className="mb-0 text-light">Total à payer:</h4>
-                  <h3 className="ml-auto mb-0 font-weight-bold">
-                    <span className="text-g">{calculateTotalPrice()}</span>
-                  </h3>
-                </div>
-                <Link to={"/checkout"}>
-                  <Button className="btn-g btn-lg">Commander</Button>
                 </Link>
               </div>
             </div>
@@ -258,4 +170,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default WishList;

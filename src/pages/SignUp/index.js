@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import "./style.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -15,6 +15,8 @@ import { register } from "../../services/auth";
 import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
+  let navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
 
@@ -50,6 +52,22 @@ const SignUp = () => {
       toast.warn("Veuillez remplir tous les champs !");
       return; 
     }
+
+    if (
+      customer.user_name.length<5
+
+    ) {
+      toast.warn("Veuillez indiquez un nom complet !");
+      return; 
+    }
+
+    if (
+      customer.password.length<6
+
+    ) {
+      toast.warn("Votre mot de passe est court !");
+      return; 
+    }
   
     if (customer.password !== customer.conformPassword) {
       toast.warn("Les mots de passe ne correspondent pas !");
@@ -59,12 +77,19 @@ const SignUp = () => {
     try {
       setShowLoader(true);
       const response = await register(customer);
-      console.log(response);
-      if(response.error){
-        toast.warn(response.message);
+      if(!response.error){
+        toast.success(response.message, {
+          onClose: () => {
+            navigate("/signin")
+            setShowLoader(false);
+
+          },
+        });
+      } else{
+        toast.error(response.message)
+        setShowLoader(false);
 
       }
-      setShowLoader(false);
     } catch (error) {
       console.error(error);
     }

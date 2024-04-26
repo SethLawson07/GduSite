@@ -10,7 +10,7 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import { useSelector, useDispatch } from "react-redux";
 
 import { MyContext } from "../../App";
-import { addToCart, selectCartItems } from "../../state/cartSlice";
+import { addToCart, selectCartItems } from "../../state/cart/cartSlice";
 import QuantitySelector from "../../pages/cart/qteselector";
 import { calculateDiscountPrice } from "../../utils";
 

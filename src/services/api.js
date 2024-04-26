@@ -26,7 +26,7 @@ export const get = async (endpoint) => {
         throw new Error('Aucune donnée fournie')
       }
     //   const sc = localStorage.getItem('sc')
-     // console.log(sc);
+    //  console.log(data);
      const response = await fetch(API_URL+endpoint, {
       method: 'POST',
         headers: {
@@ -37,12 +37,8 @@ export const get = async (endpoint) => {
         body: JSON.stringify(data),
       })
  
-      if (response.status === 200) {
-        const result = await response.json()
-        return result
-      } else {
-        throw new Error(`Erreur! statut: ${response.status}`)
-      }
+      const result = await response.json()
+      return result
     } catch (err) {
       console.error(err)
     }

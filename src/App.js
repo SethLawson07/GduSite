@@ -1,46 +1,55 @@
-import React, { useEffect, useState, createContext } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import './responsive.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState, createContext } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import "./responsive.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 // import Header from './components/header/header';
-import Footer from './components/footer/footer';
-import Home from './pages/Home/index';
-import About from './pages/About/index';
-import Listing from './pages/Listing';
-import NotFound from './pages/NotFound';
-import DetailsPage from './pages/Details';
-import Checkout from './pages/checkout';
+import Footer from "./components/footer/footer";
+import Home from "./pages/Home/index";
+import About from "./pages/About/index";
+import Listing from "./pages/Listing";
+import NotFound from "./pages/NotFound";
+import DetailsPage from "./pages/Details";
+import Checkout from "./pages/checkout";
 
-import axios from 'axios';
-import Cart from './pages/cart';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Loader from './assets/images/loading.gif';
+import axios from "axios";
+import Cart from "./pages/cart";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Loader from "./assets/images/loading.gif";
 
-import data from './data';
+import data from "./data";
 // import Navbar1 from './components/header/nav/navbar';
-import HeadNav from './components/headnav';
-import DetailsService from './pages/DetailsService';
-import { persistor, store } from './state/store';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-
+import HeadNav from "./components/headnav";
+import DetailsService from "./pages/DetailsService";
+import { persistor, store } from "./state/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import WishList from "./pages/whilelist";
 
 const MyContext = createContext();
 
 // Moved the function declarations here
-const addToCart = async (item) => { 
+const addToCart = async (item) => {
   // setCartItems([...cartItems, item]);
-
-}
-const removeItemsFromCart = (id) => { /* Function implementation */ }
-const emptyCart = () => { /* Function implementation */ }
-const signOut = () => { /* Function implementation */ }
-const signIn = () => { /* Function implementation */ }
-const openFilters = () => { /* Function implementation */ }
+};
+const removeItemsFromCart = (id) => {
+  /* Function implementation */
+};
+const emptyCart = () => {
+  /* Function implementation */
+};
+const signOut = () => {
+  /* Function implementation */
+};
+const signIn = () => {
+  /* Function implementation */
+};
+const openFilters = () => {
+  /* Function implementation */
+};
 
 function App() {
   const [homeData, setHomeData] = useState([]);
@@ -53,8 +62,8 @@ function App() {
   const [cartTotalAmount, setCartTotalAmount] = useState();
 
   useEffect(() => {
-    getData('https://gubackend.onrender.com/home/site');
-    const is_Login = localStorage.getItem('isLogin');
+    getData("https://gubackend.onrender.com/home/site");
+    const is_Login = localStorage.getItem("isLogin");
     setIsLogin(is_Login);
   }, []);
 
@@ -63,7 +72,6 @@ function App() {
       setIsloading(false);
     }
     // console.log(homeData)
-
   }, [homeData]);
 
   const getData = async (url) => {
@@ -73,7 +81,7 @@ function App() {
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   const value = {
     cartItems,
@@ -89,49 +97,73 @@ function App() {
     isopenNavigation,
     setIsopenNavigation,
     setCartTotalAmount,
-    cartTotalAmount
-  }
+    cartTotalAmount,
+  };
 
   return (
     <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
+        {/* Votre application */}
+        <BrowserRouter>
+          <MyContext.Provider value={value}>
+            {isLoading ? (
+              <div className="loader">
+                <img src={Loader} alt="loading" />
+              </div>
+            ) : (
+              <>
+                {/* <Header data={homeData} /> */}
+                <HeadNav />
 
-    {/* Votre application */}
-    <BrowserRouter>
-      <MyContext.Provider value={value}>
-        {isLoading ? (
-          <div className='loader'><img src={Loader} alt="loading" /></div>
-        ) : (
-          <>
-            {/* <Header data={homeData} /> */}
-            <HeadNav />
+                {/* <Navbar1/> */}
 
-            {/* <Navbar1/> */}
-
-            <Routes>
-              <Route exact={true} path="/" element={<Home data={homeData} />} />
-              <Route exact={true} path="/cat/:id" element={<Listing data={homeData} single={true} />} />
-              <Route exact={true} path="/cat/:id/:id" element={<Listing data={data.homeData} single={false} />} />
-              <Route exact={true} path="/product/:id" element={<DetailsPage data={homeData} />} /> 
-              <Route exact={true} path="/typeservice/:id" element={<DetailsService data={homeData} />} /> 
-              <Route exact={true} path="/cart" element={<Cart />} />
-              <Route exact={true} path="/signIn" element={<SignIn />} />
-              <Route exact={true} path="/signUp" element={<SignUp />} />
-              <Route exact={true} path="/checkout" element={<Checkout />} />
-              <Route exact={true} path="*" element={<NotFound />} />
-            </Routes>
-            <Footer />
-          </>
-        )}
-      </MyContext.Provider>
-    </BrowserRouter>
-    </PersistGate>
-
+                <Routes>
+                  <Route
+                    exact={true}
+                    path="/"
+                    element={<Home data={homeData} />}
+                  />
+                  <Route
+                    exact={true}
+                    path="/cat/:id"
+                    element={<Listing data={homeData} single={true} />}
+                  />
+                  <Route
+                    exact={true}
+                    path="/cat/:id/:id"
+                    element={<Listing data={data.homeData} single={false} />}
+                  />
+                  <Route
+                    exact={true}
+                    path="/product/:id"
+                    element={<DetailsPage data={homeData} />}
+                  />
+                  <Route
+                    exact={true}
+                    path="/typeservice/:id"
+                    element={<DetailsService data={homeData} />}
+                  />
+                  <Route exact={true} path="/cart" element={<Cart />} />
+                  <Route
+                    exact={true}
+                    path="/wishlist"
+                    element={<WishList />}
+                  />
+                  <Route exact={true} path="/signin" element={<SignIn />} />
+                  <Route exact={true} path="/signup" element={<SignUp />} />
+                  <Route exact={true} path="/checkout" element={<Checkout />} />
+                  <Route exact={true} path="*" element={<NotFound />} />
+                </Routes>
+                <Footer />
+              </>
+            )}
+          </MyContext.Provider>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
-
   );
 }
 
 export default App;
 
-export { MyContext }
+export { MyContext };

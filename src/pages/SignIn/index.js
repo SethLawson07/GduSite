@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import "./style.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -12,20 +12,22 @@ import GoogleImg from "../../assets/images/google.png";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { useNavigate } from "react-router-dom";
 
 import { useContext } from "react";
 
 import { MyContext } from "../../App";
 import { login } from "../../services/auth";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const SignIn = () => {
+  let navigate=useNavigate()
   const [showPassword, setShowPassword] = useState(false);
 
   const [showLoader, setShowLoader] = useState(false);
 
   const [customer, setCustomer] = useState({
-    email: "",
+    email_or_phone_or_phone: "",
     password: "",
   });
 
@@ -45,11 +47,32 @@ const SignIn = () => {
 
   const signIn = async () => {
 
+    if (
+      !customer.email_or_phone ||
+      !customer.password
+    ) {
+      toast.warn("Veuillez remplir tous les champs !");
+      return; 
+    }
     try {
       setShowLoader(true);
       const response = await login(customer);
-      console.log(response);
-      setShowLoader(false);
+      if(!response.error){
+        toast.success(response.message, {
+          onClose: () => {
+            localStorage.setItem("islogin", true);
+            localStorage.setItem("customer", JSON.stringify(response.data));
+            navigate("/")
+            setShowLoader(false);
+
+          },
+        });
+      } else{
+        toast.error(response.message)
+        setShowLoader(false);
+
+      }
+
     } catch (error) {
       console.error(error);
     }
@@ -83,13 +106,13 @@ const SignIn = () => {
             <form className="mt-4">
               <div className="form-group mb-4 w-100">
                 <TextField
-                  id="email"
-                  type="email"
-                  name="email"
+                  id="email_or_phone"
+                  type="email_or_phone"
+                  name="email_or_phone"
                   label="Email ou Numéro de téléphone"
                   className="w-100"
                   onChange={onChangeField}
-                  value={customer.email}
+                  value={customer.email_or_phone}
                 />
               </div>
               <div className="form-group mb-4 w-100">
@@ -141,6 +164,8 @@ const SignIn = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
+
     </>
   );
 };

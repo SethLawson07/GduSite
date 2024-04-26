@@ -18,8 +18,12 @@ import Product from "../../components/product";
 import axios from "axios";
 import { MyContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, selectCartItems } from "../../state/cartSlice";
+import { addToCart, selectCartItems } from "../../state/cart/cartSlice";
 import QuantitySelector from "../cart/qteselector";
+import {
+  addToWishList,
+  selectWishListItems,
+} from "../../state/wishlist/wishListSlice";
 
 const DetailsPage = (props) => {
   const [bigImageSize, setBigImageSize] = useState([1500, 1500]);
@@ -155,13 +159,22 @@ const DetailsPage = (props) => {
 
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
+  const wishList = useSelector(selectWishListItems);
 
   const addToCartHandler = (item) => {
     dispatch(addToCart(item));
   };
 
+  const addToWishListHandler = (item) => {
+    dispatch(addToWishList(item));
+  };
+
   const isProductInCart = () => {
     return cartItems.some((item) => item.id === currentProduct.id);
+  };
+
+  const isProductInWishList = () => {
+    return wishList.some((item) => item.id === currentProduct.id);
   };
 
   const getProductQuantityInCart = () => {
@@ -174,15 +187,14 @@ const DetailsPage = (props) => {
       // Handle case where price or discount is undefined
       return "Price or discount not available";
     }
-  
+
     const priceWithoutSpaces = parseFloat(price.replace(/\s/g, ""));
     const discountWithoutSpaces = parseFloat(discount.replace(/\s/g, ""));
     const discountPrice = priceWithoutSpaces - discountWithoutSpaces;
     return discountPrice.toLocaleString("fr-FR") + " F CFA";
   };
-  
-  return (
 
+  return (
     <>
       <section className="detailsPage mb-5">
         <br />
@@ -345,10 +357,21 @@ const DetailsPage = (props) => {
                         : " Ajouter au panier"}
                     </Button>
                   )}
-
-                  <Button className=" btn-lg addtocartbtn  ml-3  wishlist btn-border">
-                    <FavoriteBorderOutlinedIcon />{" "}
-                  </Button>
+                  {isProductInWishList() ? (
+                    <Link
+                      to="/wishlist"
+                      className="btn-lg addtocartbtn ml-3 wishlist btn-border"
+                    >
+                      Voir ma liste de souhaits
+                    </Link>
+                  ) : (
+                    <Button
+                      className=" btn-lg addtocartbtn  ml-3  wishlist btn-border"
+                      onClick={() => addToWishListHandler(currentProduct)}
+                    >
+                      <FavoriteBorderOutlinedIcon />{" "}
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
