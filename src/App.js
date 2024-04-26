@@ -27,7 +27,7 @@ import DetailsService from "./pages/DetailsService";
 import { persistor, store } from "./state/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import WishList from "./pages/whilelist";
+import WishList from "./pages/wishlist";
 
 const MyContext = createContext();
 

@@ -78,14 +78,50 @@ margin-top: 10px;
   }
   
   .right .subright {
+
     display: flex;
     align-items: center;
     margin: 0;
-    margin-right: 20px; /* Ajouter un espace entre les éléments */
+    padding-right: 20px; /* Ajouter un espace entre les éléments */
   }
   
   .right .subright:last-child {
     margin-right: 0; /* Retirer la marge à droite pour le dernier élément */
+  }
+
+  .cart-icon-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: yellow;
+    color: black;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .islogin-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: green;
+    color: black;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   
@@ -95,10 +131,9 @@ margin-top: 10px;
     padding-left: 50px;
     padding-top: 25px;
     padding-bottom: 10px;
-  
+    display: flex;
   }
   
-
 
   svg {
     width: 35px;
@@ -112,6 +147,13 @@ margin-top: 10px;
     width: 40px;
     margin-bottom: 5px;
     
+  }
+
+  .svgsr{
+    width: 45px;
+    padding-right: 5px;
+    padding-left: 5px;
+    color: #46474A;
   }
   .svgtext{
     color: #f1F1F1;
@@ -131,8 +173,9 @@ margin-top: 10px;
     z-index: 1;
     border-radius: 2px;
     padding: 10px;
-    /* height:100px; */
+    height:100px;
     top: 100%; /* Positionne le dropdown sous le div .category */
+    right: 50%;
   }
   
   .account:hover .dropdown-content,
@@ -153,7 +196,7 @@ margin-top: 10px;
   }
   
   
-  .category{
+  .category, .service{
     width: 160px;
     height: 50px;
     display: flex; 
@@ -163,6 +206,7 @@ margin-top: 10px;
     margin-right: 20px; 
   }
   
+  
   .left {
     display: flex;
     align-items: center;
@@ -171,18 +215,13 @@ margin-top: 10px;
  
   
   
-  .category:hover {
+  .category:hover,.service:hover {
     outline: 5px solid #3B71DC;
     border-radius: 20px;
     width: 160px;
     height: 50px;
-    /* Ajoute une bordure noire lorsque la souris survole le div */
   }
-    /* Affiche le dropdown lorsque le div .category est en focus */
-  
-  /* .category:focus .dropdown {
-    display: block; 
-  } */
+   
   
   .dropTitle{
     margin-top: 10px;
@@ -265,6 +304,26 @@ margin-top: 10px;
 
     
   }
+
+  .service-dropdown {
+    display: grid; /* Utilisez CSS Grid */
+    grid-template-columns: repeat(4, 1fr); /* Quatre colonnes égales */
+    grid-gap: 10px; /* Ajoute de l'espace entre les colonnes */
+    position: absolute;
+    top: 0;
+    /* left: 0%; */
+    background-color: #E6F1FC;
+    border-top-right-radius: 5px; /* Coin supérieur droit arrondi */
+    border-bottom-right-radius: 5px;   /* max-width: 800px; */
+    width: auto; /* La largeur s'ajustera en fonction du contenu */
+    min-width: 800px; /* Largeur minimale */
+    margin-top: 65px;
+    padding: 10px; /* Ajoute un peu d'espace autour du contenu */
+    height: 700px; /* Hauteur maximale pour le défilement */
+    overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+
+    
+  }
   
   
   
@@ -300,22 +359,40 @@ margin-top: 10px;
   }
   
 
-  .toggle-dropdown {
-    display: none; /* Masque la case à cocher */
+  .toggle-dropdown,.toggle-servicedropdown {
+    display: none; 
   }
   
   .category .dropdown {
     display: none; /* Masque le dropdown par défaut */
   }
   
-  .toggle-dropdown:checked + .category .dropdown {
-    display: block; /* Affiche le dropdown lorsque la case à cocher est cochée */
-  }
-  
-  /* Masque le dropdown lorsque la case à cocher est décochée */
-  .toggle-dropdown:not(:checked) + .category .dropdown {
-    display: none;
-  }
+  /* Dropdown pour les catégories */
+.toggle-dropdown:checked + .category .dropdown {
+  display: block;
+}
+
+.toggle-dropdown:not(:checked) + .category .dropdown {
+  display: none;
+}
+
+/* Dropdown pour les services */
+.toggle-servicedropdown:checked + .service .service-dropdown {
+  display: block;
+}
+
+.toggle-servicedropdown:not(:checked) + .service .service-dropdown {
+  display: none;
+}
+
+.toggle-servicedropdown:not(:checked) + .service .service-dropdown {
+  display: none;
+}
+
+/* Désactiver le dropdown des catégories lorsque celui des services est activé */
+.toggle-servicedropdown:checked ~ .category .dropdown {
+  display: none;
+}
 
   
   @media screen and (max-width: 768px) {
@@ -367,6 +444,12 @@ margin-top: 10px;
       padding: 5px; /* Espacement interne des éléments de la navbar */
     }
   
+
+    .service {
+      width: auto; /* Largeur automatique pour les éléments de la navbar */
+      margin: 5px; /* Espacement entre les éléments de la navbar */
+      padding: 5px; 
+    }
     .dropdown,
     .second-dropdown {
       width: 100%; /* Largeur maximale pour les dropdowns */

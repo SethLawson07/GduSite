@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./style.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -12,16 +12,14 @@ import GoogleImg from "../../assets/images/google.png";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-
 import { useContext } from "react";
 
 import { MyContext } from "../../App";
 import { login } from "../../services/auth";
 import { ToastContainer, toast } from "react-toastify";
 
-
 const SignIn = () => {
-  let navigate=useNavigate()
+  let navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const [showLoader, setShowLoader] = useState(false);
@@ -46,33 +44,27 @@ const SignIn = () => {
   };
 
   const signIn = async () => {
-
-    if (
-      !customer.email_or_phone ||
-      !customer.password
-    ) {
+    if (!customer.email_or_phone || !customer.password) {
       toast.warn("Veuillez remplir tous les champs !");
-      return; 
+      return;
     }
     try {
       setShowLoader(true);
       const response = await login(customer);
-      if(!response.error){
+      if (!response.error) {
         toast.success(response.message, {
           onClose: () => {
+            navigate("/");
             localStorage.setItem("islogin", true);
             localStorage.setItem("customer", JSON.stringify(response.data));
-            navigate("/")
+            window.location.reload();
             setShowLoader(false);
-
           },
         });
-      } else{
-        toast.error(response.message)
+      } else {
+        toast.error(response.message);
         setShowLoader(false);
-
       }
-
     } catch (error) {
       console.error(error);
     }
@@ -165,7 +157,6 @@ const SignIn = () => {
         </div>
       </section>
       <ToastContainer />
-
     </>
   );
 };
