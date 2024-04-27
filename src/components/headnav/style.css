@@ -242,6 +242,9 @@ margin-top: 10px;
     /* border: 0.5px solid black;  */
     padding: 5px; /* Ajoute un peu d'espace autour du contenu */
     height: 700px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    
   }
   
   .dropdown ul {
@@ -260,12 +263,12 @@ margin-top: 10px;
   }
   
   
-  .scrollable-list {
-    max-height: 700px; /* Hauteur maximale de la liste avant l'apparition de la barre de défilement */
-    overflow-y: auto; /* Afficher une barre de défilement verticale si nécessaire */
+  /* .scrollable-list {
+    max-height: 700px; 
+    overflow-y: auto; 
     margin-right: 20px;
   }
-  
+   */
   
   /* CSS pour le deuxième niveau du dropdown */
   
@@ -291,7 +294,7 @@ margin-top: 10px;
     grid-gap: 10px; /* Ajoute de l'espace entre les colonnes */
     position: absolute;
     top: 0;
-    left: 90%;
+    left: 100%;
     background-color: #E6F1FC;
     border-top-right-radius: 5px; /* Coin supérieur droit arrondi */
     border-bottom-right-radius: 5px;   /* max-width: 800px; */
@@ -367,14 +370,19 @@ margin-top: 10px;
     display: none; /* Masque le dropdown par défaut */
   }
   
+  /* .open {
+    display: 'block' 
+  } */
   /* Dropdown pour les catégories */
-.toggle-dropdown:checked + .category .dropdown {
+/* .toggle-dropdown:checked + .category .dropdown {
   display: block;
 }
 
 .toggle-dropdown:not(:checked) + .category .dropdown {
   display: none;
-}
+} */
+
+
 
 /* Dropdown pour les services */
 .toggle-servicedropdown:checked + .service .service-dropdown {
@@ -385,14 +393,9 @@ margin-top: 10px;
   display: none;
 }
 
-.toggle-servicedropdown:not(:checked) + .service .service-dropdown {
-  display: none;
-}
 
-/* Désactiver le dropdown des catégories lorsque celui des services est activé */
-.toggle-servicedropdown:checked ~ .category .dropdown {
-  display: none;
-}
+/* test */
+
 
   
   @media screen and (max-width: 768px) {
@@ -465,4 +468,6 @@ margin-top: 10px;
     }
   }
   
-  
+  .etenfin{
+    display: none;
+  }

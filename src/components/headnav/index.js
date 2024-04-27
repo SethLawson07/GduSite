@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./style.css"; // Assurez-vous d'importer votre fichier de styles
 import { allCategories } from "../../services/product";
 import { Link } from "react-router-dom";
@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems } from "../../state/cart/cartSlice";
 import { selectWishListItems } from "../../state/wishlist/wishListSlice";
 import { Button } from "@mui/material";
+
+
 
 const Header = () => {
   const [loggedIn, setLoggedIn] = useState(false); // State to store login status
@@ -29,7 +31,6 @@ const Header = () => {
     setLoggedIn(false); // Update login status
     setUsername(""); // Clear username
   };
-
 
   return (
     <div className="header1">
@@ -96,12 +97,11 @@ const Header = () => {
               </svg>
               <div class="cart-badge">{cartItems.length}</div>
             </div>
-           
+
             {/* <span className="svgtext">Panier</span> */}
           </div>
         </Link>
         <div className="subright account">
-
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill={loggedIn ? "green" : "none"}
@@ -116,15 +116,21 @@ const Header = () => {
               d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
             />
           </svg>
-          
+
           {/* <span className="svgtext">Compte</span> */}
           <div className="dropdown-content">
             {/* Display username if logged in */}
-            {loggedIn && <><span>{username} </span><br /></>}
+            {loggedIn && (
+              <>
+                <span>{username} </span>
+                <br />
+              </>
+            )}
             {/* Display appropriate button based on login status */}
             {loggedIn ? (
-              <Button color="error" onClick={handleLogout}>Déconnexion</Button>
-
+              <Button color="error" onClick={handleLogout}>
+                Déconnexion
+              </Button>
             ) : (
               <>
                 <Link to="signin">Connexion</Link>
@@ -140,7 +146,10 @@ const Header = () => {
 
 const Nav = () => {
   const [categories, setCategories] = useState([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // État pour contrôler la visibilité du dropdown
+  const [activeCategory, setActiveCategory] = useState(null); // État pour stocker la catégorie survolée
 
+  
   async function fetchData() {
     try {
       const res = await allCategories();
@@ -154,6 +163,52 @@ const Nav = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    // const handleClickOutsideDropdown = (event) => {
+    //   const dropdown = document.querySelector(".dropdown");
+
+    //   if (dropdown && !dropdown.contains(event.target)) {
+    //     setDropdownOpen(false); // Fermer le dropdown lorsque le clic est en dehors
+    //   }
+    // };
+
+    // const handleClickOutsideDropdown = (event) => {
+    //   const dropdown = document.querySelector(".dropdown");
+    //   const category = document.querySelector(".category");
+
+    //   if (
+    //     dropdown &&
+    //     category && // Vérifier si les éléments existent
+    //     !dropdown.contains(event.target) && // Vérifier si le clic est en dehors du dropdown
+    //     !category.contains(event.target) // Vérifier si le clic est sur la catégorie
+    //   ) {
+    //     setDropdownOpen(false); // Fermer le dropdown
+    //   }
+    // };
+
+    const handleClickOutsideDropdown = (event) => {
+      const dropdown = document.querySelector(".dropdown");
+      const category = document.querySelector(".category");
+    
+      if (
+        category && // Vérifier si les éléments existent
+        dropdown &&
+        !dropdown.contains(event.target) && // Vérifier si le clic est en dehors du dropdown
+        !category.contains(event.target) // Vérifier si le clic est sur la catégorie
+      ) {
+        setDropdownOpen(false); // Fermer le dropdown
+      }
+    };
+    
+    // Ajouter un écouteur d'événements de clic au niveau de l'élément racine de l'application
+    document.addEventListener("mousedown", handleClickOutsideDropdown);
+
+    return () => {
+      // Nettoyer l'écouteur d'événements lors du démontage du composant
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
+    };
+  }, []);
+
   return (
     <nav className="nav1">
       <div className="left">
@@ -161,87 +216,77 @@ const Nav = () => {
           type="checkbox"
           id="toggle-dropdown"
           className="toggle-dropdown"
+          onChange={() => setDropdownOpen(!dropdownOpen)} // Inverser l'état de visibilité du dropdown lorsqu'on clique sur l'input
         />
-        <label for="toggle-dropdown" className="category test1">
+        <label htmlFor="toggle-dropdown" className="category test1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
             className="w-6 h-6 svgnav"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
             />
           </svg>
           Catégories
-          <div className="dropdown">
+          <div
+            className={`dropdown ${dropdownOpen ? "open" : ""}`}
+            style={{ display: dropdownOpen ? "block" : "none" }}
+          >
+            {" "}
+            {/* Ajouter la classe "open" lorsque le dropdown est ouvert */}
             <ul className="scrollable-list">
               <div style={{ textAlign: "left" }}>
                 <p className="dropTitle">All Categories</p>
               </div>{" "}
               {categories.map((category) => (
-                <li key={category.id} className="submenu">
-                  {category.title}
-                  <ul className="second-dropdown">
-                    {category.SubCategory.map((subCategory) => (
-                      // <div key={subCategory.id} className="resn">
-                      //   <span className="res-title">{subCategory.title}</span>
-                      <ul className="res">
-                        <li className="dropTitle">{subCategory.title}</li>
-
-                        {subCategory.Item.map((item) => (
-                          <li key={item.id}>{item.title}</li>
-                        ))}
-                      </ul>
-                      // </div>
-                    ))}
-                  </ul>
-                </li>
+                  <li
+                    key={category.id}
+                    className="submenu"
+                    onMouseEnter={() => setActiveCategory(category.title)} // Définir la catégorie survolée
+                    onMouseLeave={() => setActiveCategory(null)} // Réinitialiser la catégorie survolée lorsque la souris quitte
+                  >
+                    {category.title}
+                    <ul
+                      className="second-dropdown"
+                      style={{
+                        display:
+                          activeCategory === category.title ? "block" : "none", // Afficher le second dropdown si la catégorie est survolée
+                      }}
+                    >
+                      {category.SubCategory.map((subCategory) => (
+                        <ul className="res">
+                          <li className="dropTitle">{subCategory.title}</li>
+                          {subCategory.Item.map((item) => (
+                            <li key={item.id}>{item.title}</li>
+                          ))}
+                        </ul>
+                      ))}
+                    </ul>
+                  </li>
               ))}
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
+              <li className="submenu">test</li>
             </ul>
           </div>
         </label>
-
-        {/* <div>
-          <p>oklm1</p>
-        </div> */}
       </div>
-
-      {/* <div className="left">
-        <input
-          type="checkbox"
-          id="toggle-servicedropdown"
-          className="toggle-servicedropdown"
-        />
-        <label for="toggle-servicedropdown" className="service test1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            className="w-6 h-6 svgnav"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
-            />
-          </svg>
-          Services
-          <ul className="service-dropdown"></ul>
-        </label>
-
-        
-      </div> */}
-
-      {/* <div>
-          <p>oklm1</p>
-        </div> */}
     </nav>
   );
 };
