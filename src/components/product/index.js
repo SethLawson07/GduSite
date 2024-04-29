@@ -13,6 +13,7 @@ import { MyContext } from "../../App";
 import { addToCart, selectCartItems } from "../../state/cart/cartSlice";
 import QuantitySelector from "../../pages/cart/qteselector";
 import { calculateDiscountPrice } from "../../utils";
+import { Add } from "@mui/icons-material";
 
 const Product = (props) => {
   const [productData, setProductData] = useState();
@@ -42,8 +43,6 @@ const Product = (props) => {
     return cartItem ? cartItem.quantity : 0;
   };
 
-
-
   return (
     <div className="productThumb" onClick={setProductCat}>
       {props.brand !== null && props.brand !== "" && (
@@ -54,32 +53,22 @@ const Product = (props) => {
         <>
           <Link to={`/product/${productData.slugproduct}`}>
             <div className="imgWrapper">
-              <div className="p-2 wrapper mb-0">
-                <img
+              <div className="p-0 wrapperm mb-4">
+                {/* <img
                   src={productData.images[0] + "?im=Resize=(500,500)"}
+                  // src={productData.images[0]}
                   className="w-100"
+                /> */}
+                <img
+                  src={productData.images[0]}
+                  className="w-100"
+                  style={{
+                    objectFit: "cover",
+                    width: "200px",
+                    height: "250px",
+                  }}
                 />
               </div>
-
-              {/* <div className="overlay transition">
-                <ul className="list list-inline mb-0">
-                  <li className="list-inline-item">
-                    <Link className="cursor" tooltip="Add to Wishlist">
-                      <FavoriteBorderOutlinedIcon />
-                    </Link>
-                  </li>
-                  <li className="list-inline-item">
-                    <Link className="cursor" tooltip="Compare">
-                      <CompareArrowsOutlinedIcon />
-                    </Link>
-                  </li>
-                  <li className="list-inline-item">
-                    <Link className="cursor" tooltip="Quick View">
-                      <RemoveRedEyeOutlinedIcon />
-                    </Link>
-                  </li>
-                </ul>
-              </div> */}
             </div>
           </Link>
 
@@ -92,18 +81,23 @@ const Product = (props) => {
             <div className="d-flex align-items-center mt-3">
               <div className="d-flex align-items-center w-100">
                 <span className="price text-g font-weight-bold">
-                  {calculateDiscountPrice(productData.price,productData.discount)} 
+                  {calculateDiscountPrice(
+                    productData.price,
+                    productData.discount
+                  )}
                 </span>{" "}
                 {productData.discount !== "0" && (
-                  <span className="oldPrice ml-auto">
+                  <span className="oldPrice ml-auto " >
                     {productData.price} Fcfa
                   </span>
                 )}
               </div>
             </div>
             <h4 className="discount">
-              {productData.discount !== "0" && (
-                <span>{productData.discount} Fcfa de reduction</span>
+              {productData.discount !== "0" ? (
+                <span>{productData.discount} Fcfa de réduction</span>
+              ) : (
+                <span>&nbsp;</span>
               )}
             </h4>
 
@@ -111,15 +105,18 @@ const Product = (props) => {
               <QuantitySelector
                 itemId={productData.id}
                 quantity={getProductQuantityInCart()}
+                className="text-center" // Ajout de la classe pour centrer le composant
+
               />
             ) : (
               <Button
-                className="w-100 transition mt-3"
-                onClick={() => addToCartHandler(productData)}
-              >
-                <ShoppingCartOutlinedIcon />
-                Ajouter au panier
-              </Button>
+              className="w-100 transition mt-3 rounded-button"
+              onClick={() => addToCartHandler(productData)}
+            >
+              <ShoppingCartOutlinedIcon className="iconAddCart" />
+              Ajouter au panier
+            </Button>
+            
             )}
           </div>
         </>

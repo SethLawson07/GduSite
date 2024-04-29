@@ -50,10 +50,11 @@ const Home = (props) => {
       <section className="homeProducts homeProductWrapper">
         <div className="container-fluid">
           <div className="d-flex align-Item-center homeProductsTitleWrap">
-            <h4 className="hd mb-0 mt-0 res-full ctitle">Produits populaires</h4>
+            <h4 className="hd mb-0 mt-0 res-full ctitle">Produits ajoutés récemment</h4>
           </div>
 
           <Carousel
+        
             additionalTransfrom={0}
             arrows
             autoPlaySpeed={3000}
@@ -78,7 +79,7 @@ const Home = (props) => {
                   max: 3000,
                   min: 1024,
                 },
-                items: 4,
+                items: 5,
                 partialVisibilityGutter: 40,
               },
               mobile: {
@@ -160,7 +161,7 @@ const Home = (props) => {
                                 max: 3000,
                                 min: 1024,
                               },
-                              items: 4,
+                              items: 5,
                               partialVisibilityGutter: 40,
                             },
                             mobile: {
@@ -250,7 +251,7 @@ const Home = (props) => {
                                 max: 3000,
                                 min: 1024,
                               },
-                              items: 4,
+                              items: 5,
                               partialVisibilityGutter: 40,
                             },
                             mobile: {
@@ -338,7 +339,7 @@ const Home = (props) => {
                                 max: 3000,
                                 min: 1024,
                               },
-                              items: 4,
+                              items: 5,
                               partialVisibilityGutter: 40,
                             },
                             mobile: {

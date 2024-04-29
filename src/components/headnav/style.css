@@ -98,7 +98,7 @@ margin-top: 10px;
     position: absolute;
     top: -8px;
     right: -8px;
-    background-color: yellow;
+    background-color: #f9ca24;
     color: black;
     border-radius: 50%;
     width: 20px;
@@ -142,7 +142,6 @@ margin-top: 10px;
     color: #46474A;
   }
   
-
   .svgnav{
     width: 40px;
     margin-bottom: 5px;
@@ -153,7 +152,7 @@ margin-top: 10px;
     width: 45px;
     padding-right: 5px;
     padding-left: 5px;
-    color: #46474A;
+    color: #fff;
   }
   .svgtext{
     color: #f1F1F1;
@@ -196,7 +195,21 @@ margin-top: 10px;
   }
   
   
-  .category, .service{
+  .category{
+    width: 180px;
+    height: 50px;
+    display: flex; 
+    align-items: center; 
+    position: relative; 
+    cursor: pointer;
+    margin-right: 20px; 
+    outline: 1px solid #f2f2f2;
+    border-radius: 20px;
+    padding: 5px;
+  }
+  
+
+ .service{
     width: 160px;
     height: 50px;
     display: flex; 
@@ -204,6 +217,9 @@ margin-top: 10px;
     position: relative; 
     cursor: pointer;
     margin-right: 20px; 
+    outline: 1px solid #f2f2f2;
+    border-radius: 20px;    padding: 5px;
+
   }
   
   
@@ -215,13 +231,20 @@ margin-top: 10px;
  
   
   
-  .category:hover,.service:hover {
+  .category:hover {
+    outline: 5px solid #3B71DC;
+    border-radius: 20px;
+    width: 180px;
+    height: 50px;
+  }
+   
+
+  .service:hover {
     outline: 5px solid #3B71DC;
     border-radius: 20px;
     width: 160px;
     height: 50px;
   }
-   
   
   .dropTitle{
     margin-top: 10px;
@@ -307,7 +330,7 @@ margin-top: 10px;
     grid-gap: 10px; /* Ajoute de l'espace entre les colonnes */
     position: absolute;
     top: 130%;
-    left: 186%;
+    left: 166%;
     background-color: #E6F1FC;
     border-top-right-radius: 5px; /* Coin supérieur droit arrondi */
     border-bottom-right-radius: 5px;   /* max-width: 800px; */

@@ -24,6 +24,7 @@ import {
   addToWishList,
   selectWishListItems,
 } from "../../state/wishlist/wishListSlice";
+import "./style.css"
 
 const DetailsPage = (props) => {
   const [bigImageSize, setBigImageSize] = useState([1500, 1500]);
@@ -135,26 +136,33 @@ const DetailsPage = (props) => {
 
     const related_products = [];
 
-    props.data[0]["categories"].length !== 0 &&
-      props.data[0]["categories"].map((item) => {
-        if (prodCat.parentCat === item.title) {
-          item.Item.length !== 0 &&
-            item.Item.map((item_) => {
-              if (prodCat.subCatName === item_.title) {
-                item_.Product.length !== 0 &&
-                  item_.Product.map((product, index) => {
-                    if (product.slugitem !== id) {
-                      related_products.push(product);
-                    }
-                  });
+    const currentItem = props.data[0]["categories"]
+    .flatMap(category => category.SubCategory.flatMap(subcategory => subcategory.Item))
+    .find(item => item.Product.some(product => product.slugproduct === id));
+  
+  if (currentItem) {
+    const currentItemID = currentItem.id;
+  
+    props.data[0]["categories"].forEach(category => {
+      category.SubCategory.forEach(subcategory => {
+        subcategory.Item.forEach(item => {
+          if (item.Product.length !== 0 && item.id === currentItemID) {
+            item.Product.forEach(product => {
+              if (product.slugproduct !== id) {
+                related_products.push(product);
               }
             });
-        }
+          }
+        });
       });
-
-    if (related_products.length !== 0) {
-      setRelatedProducts(related_products);
-    }
+    });
+  }
+  
+  if (related_products.length !== 0) {
+    setRelatedProducts(related_products);
+  }
+  
+    
   }, [id]);
 
   const dispatch = useDispatch();
@@ -222,8 +230,8 @@ const DetailsPage = (props) => {
                       );
                     })}
                 </Slider>
+           
               </div>
-
               <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
                 {currentProduct.images !== undefined &&
                   currentProduct.images.map((imgUrl, index) => {
@@ -238,6 +246,7 @@ const DetailsPage = (props) => {
                     );
                   })}
               </Slider>
+            
             </div>
             {/* productZoom code ends here */}
 
@@ -255,7 +264,7 @@ const DetailsPage = (props) => {
                 <div className="ml-3 d-flex flex-column">
                   {currentProduct.discount !== "0" && (
                     <span className="text-org discount">
-                      {currentProduct.discount} de reduction
+                      {currentProduct.discount} gagné
                     </span>
                   )}
                   {currentProduct.discount !== "0" && (
@@ -346,9 +355,7 @@ const DetailsPage = (props) => {
                     />
                   ) : (
                     <Button
-                      className={`btn-g btn-lg addtocartbtn ${
-                        isAlreadyAddedInCart === true && "no-click"
-                      }`}
+                      className="btn-g btn-lg addtocartbtn rounded-button"
                       onClick={() => addToCartHandler(currentProduct)}
                     >
                       <ShoppingCartOutlinedIcon />

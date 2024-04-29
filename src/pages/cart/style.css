@@ -14,8 +14,25 @@
 .cartWrapper table tbody td .info a{color: rgba(0,0,0,0.7);}
 .cartWrapper table tbody td .info a:hover{text-decoration: none;}
 
-.cartWrapper table tbody td span{font-weight: 600; font-size: 28px;}
-.cartWrapper table tbody td span.text-g{font-weight: bold;}
+.cartWrapper table tbody td span{font-weight: 600;font-size: 22px;}
+.cartWrapper table tbody td span.text-g{font-weight: bold;font-size: 22px}
 
 .cartRightBox{padding-left: 100px;}
 .cartRightBox .card{position: sticky; top: 150px;}
+
+.fs{
+    font-size: 22px;
+}
+
+.textBold{
+font-weight: bold;
+}
+
+.textSemiBold{
+    font-weight: 600;
+}
+
+.textDark{
+    color: #141824;
+}
+

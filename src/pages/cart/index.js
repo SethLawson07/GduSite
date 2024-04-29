@@ -114,9 +114,9 @@ const Cart = () => {
 
                     <tbody>
                       {cartItems.map((item, index) => (
-                        <tr key={index}>
+                        <tr key={index} className="fs">
                           <td width={"40%"}>
-                            <div className="d-flex align-items-center">
+                            <div className="d-flex align-items-center ">
                               <div className="img">
                                 <Link to={`/product/${item.slugproduct}`}>
                                   <img
@@ -130,14 +130,14 @@ const Cart = () => {
 
                               <div className="info pl-4">
                                 <Link to={`/product/${item.slugproduct}`}>
-                                  <h4>{item.name}</h4>
+                                  <h4 className="fs">{item.name}</h4>
                                 </Link>
                               </div>
                             </div>
                           </td>
 
                           <td width="20%">
-                            <span>
+                            <span >
                               {" "}
                               {calculateDiscountPrice(
                                 item.price,
@@ -146,22 +146,14 @@ const Cart = () => {
                             </span>{" "}
                             <br />
                             {item.discount !== "0" && (
-                              <span className="oldPrice ml-auto">
+                              <span className="oldPrice ml-auto fs">
                                 {item.price} F CFA
                               </span>
                             )}
                           </td>
 
                           <td>
-                            {/* <QuantitySelector
-                              quantity={item.quantity}
-                              onIncrease={() =>
-                                handleUpdateQuantity(item.id, item.quantity + 1)
-                              }
-                              onDecrease={() =>
-                                handleUpdateQuantity(item.id, item.quantity - 1)
-                              }
-                            /> */}
+                          
                             <QuantitySelector
                               itemId={item.id}
                               quantity={item.quantity}
@@ -169,7 +161,7 @@ const Cart = () => {
                           </td>
 
                           <td>
-                            <span className="text-g">
+                            <span className="text-g fs">
                               {calculateSubtotal(item)}
                             </span>
                           </td>
@@ -214,14 +206,18 @@ const Cart = () => {
 
             <div className="col-md-4 cartRightBox">
               <div className="card p-4 ">
+              <div className="d-flex align-items-center mb-4">
+                  <h1 className="mb-0 textDark textBold">Résumé</h1>
+                
+                </div>
                 <div className="d-flex align-items-center mb-4">
-                  <h4 className="mb-0 text-light">Total</h4>
+                  <h4 className="mb-0 textDark">Coût total </h4>
                   <h3 className="ml-auto mb-0 font-weight-bold">
                     <span className="text-g">{calculateTotalOldPrice()}</span>
                   </h3>
                 </div>
                 <div className="d-flex align-items-center mb-4">
-                  <h4 className="mb-0 text-light">Gain</h4>
+                  <h4 className="mb-0 textDark">Gagné</h4>
                   <h3 className="ml-auto mb-0 font-weight-bold">
                     <span className="text-success">
                       - {calculateTotalDiscount()}
@@ -229,6 +225,13 @@ const Cart = () => {
                   </h3>
                 </div>
                 <div className="d-flex align-items-center mb-4">
+                <h4 className="mb-0 textDark">Code promo</h4>
+                
+                </div>
+              
+
+                <div className="d-flex align-items-center mb-4">
+       
                   <TextField
                     id="outlined-basic"
                     label="Code Promo"
@@ -241,9 +244,9 @@ const Cart = () => {
 
                 <br />
                 <div className="d-flex align-items-center mb-4">
-                  <h4 className="mb-0 text-light">Total à payer:</h4>
+                  <h3 className="mb-0 textDark textSemiBold">Total à payer :</h3>
                   <h3 className="ml-auto mb-0 font-weight-bold">
-                    <span className="text-g">{calculateTotalPrice()}</span>
+                    <span className="text-g textSemiBold">{calculateTotalPrice()}</span>
                   </h3>
                 </div>
                 <Link to={"/checkout"}>

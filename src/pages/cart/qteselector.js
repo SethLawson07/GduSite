@@ -3,7 +3,7 @@ import { Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useDispatch } from "react-redux";
-import { updateQuantity } from "../../state/cart/cartSlice";
+import { removeFromCart, updateQuantity } from "../../state/cart/cartSlice";
 
 const QuantitySelector = ({ itemId, quantity }) => {
   const dispatch = useDispatch();
@@ -15,6 +15,8 @@ const QuantitySelector = ({ itemId, quantity }) => {
   const handleDecrease = () => {
     if (quantity > 1) {
       dispatch(updateQuantity({ itemId, newQuantity: quantity - 1 }));
+    }else {
+      dispatch(removeFromCart(itemId)); // Supprimer le produit si la quantité atteint zéro
     }
   };
 
@@ -25,7 +27,7 @@ const QuantitySelector = ({ itemId, quantity }) => {
         className="m-2 btn-lg"
         variant="outlined"
         onClick={handleDecrease}
-        disabled={quantity <= 1}
+        // disabled={quantity <= 0}
       >
         {" "}
         <RemoveIcon />
