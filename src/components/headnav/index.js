@@ -7,8 +7,6 @@ import { selectCartItems } from "../../state/cart/cartSlice";
 import { selectWishListItems } from "../../state/wishlist/wishListSlice";
 import { Button } from "@mui/material";
 
-
-
 const Header = () => {
   const [loggedIn, setLoggedIn] = useState(false); // State to store login status
   const [username, setUsername] = useState(""); // State to store username
@@ -149,7 +147,8 @@ const Nav = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false); // État pour contrôler la visibilité du dropdown
   const [activeCategory, setActiveCategory] = useState(null); // État pour stocker la catégorie survolée
 
-  
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
+
   async function fetchData() {
     try {
       const res = await allCategories();
@@ -164,32 +163,10 @@ const Nav = () => {
   }, []);
 
   useEffect(() => {
-    // const handleClickOutsideDropdown = (event) => {
-    //   const dropdown = document.querySelector(".dropdown");
-
-    //   if (dropdown && !dropdown.contains(event.target)) {
-    //     setDropdownOpen(false); // Fermer le dropdown lorsque le clic est en dehors
-    //   }
-    // };
-
-    // const handleClickOutsideDropdown = (event) => {
-    //   const dropdown = document.querySelector(".dropdown");
-    //   const category = document.querySelector(".category");
-
-    //   if (
-    //     dropdown &&
-    //     category && // Vérifier si les éléments existent
-    //     !dropdown.contains(event.target) && // Vérifier si le clic est en dehors du dropdown
-    //     !category.contains(event.target) // Vérifier si le clic est sur la catégorie
-    //   ) {
-    //     setDropdownOpen(false); // Fermer le dropdown
-    //   }
-    // };
-
     const handleClickOutsideDropdown = (event) => {
       const dropdown = document.querySelector(".dropdown");
       const category = document.querySelector(".category");
-    
+
       if (
         category && // Vérifier si les éléments existent
         dropdown &&
@@ -197,9 +174,13 @@ const Nav = () => {
         !category.contains(event.target) // Vérifier si le clic est sur la catégorie
       ) {
         setDropdownOpen(false); // Fermer le dropdown
+        setActiveCategoryId(null);
+      } else {
+        setActiveCategoryId(null);
+        setDropdownOpen(false);
       }
     };
-    
+
     // Ajouter un écouteur d'événements de clic au niveau de l'élément racine de l'application
     document.addEventListener("mousedown", handleClickOutsideDropdown);
 
@@ -245,18 +226,25 @@ const Nav = () => {
                 <p className="dropTitle">All Categories</p>
               </div>{" "}
               {categories.map((category) => (
+                <>
                   <li
                     key={category.id}
                     className="submenu"
-                    onMouseEnter={() => setActiveCategory(category.title)} // Définir la catégorie survolée
-                    onMouseLeave={() => setActiveCategory(null)} // Réinitialiser la catégorie survolée lorsque la souris quitte
+                    onMouseOver={() => {
+                      setActiveCategoryId(category.id);
+                      // console.log("Active category ID:", category.id);
+                    }}
+                    // onMouseOut={() => {
+                    //   setActiveCategoryId(null);
+                    //   console.log("Active category ID:", null);
+                    // }}
                   >
                     {category.title}
-                    <ul
+                    {/* <ul
                       className="second-dropdown"
                       style={{
                         display:
-                          activeCategory === category.title ? "block" : "none", // Afficher le second dropdown si la catégorie est survolée
+                          activeCategoryId === category.id ? "block" : "none", // Afficher le second dropdown si la catégorie est survolée
                       }}
                     >
                       {category.SubCategory.map((subCategory) => (
@@ -267,8 +255,9 @@ const Nav = () => {
                           ))}
                         </ul>
                       ))}
-                    </ul>
+                    </ul> */}
                   </li>
+                </>
               ))}
               <li className="submenu">test</li>
               <li className="submenu">test</li>
@@ -284,6 +273,34 @@ const Nav = () => {
               <li className="submenu">test</li>
               <li className="submenu">test</li>
             </ul>
+          </div>
+          <div
+            className="second-dropdown"
+            style={{
+              display: activeCategoryId ? "block" : "none", // Afficher le second dropdown si la catégorie est survolée
+            }}
+          >
+            {categories.map(
+              (category) =>
+                activeCategoryId === category.id && (
+                  <ul key={category.id} className="">
+                    {category.SubCategory.map((subCategory) => (
+                      <ul key={subCategory.id} className="res">
+                        <li className="dropTitle">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 24 24" stroke-width="1.5" stroke="blue" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+</svg>
+
+                          {subCategory.title}</li>
+                        {subCategory.Item.map((item) => (
+                          <li key={item.id} className="subDropTitle">{item.title}</li>
+                        ))}
+                      </ul>
+                    ))}
+                  </ul>
+                )
+            )}
           </div>
         </label>
       </div>
