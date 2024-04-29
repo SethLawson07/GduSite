@@ -256,7 +256,7 @@ margin-top: 10px;
     
   }
   
-  .dropdown ul {
+  .dropdown, .service-dropdown ul {
     list-style: none; /* Supprime les puces de liste */
     padding: 0; /* Supprime le remplissage par défaut */
     margin: 0; /* Supprime les marges par défaut */
@@ -289,6 +289,10 @@ margin-top: 10px;
   
   .category-group h3 {
     margin-right: 10px; /* Ajouter un espacement entre le titre et les sous-options */
+  }
+
+  .submenu{
+    margin-left: 10px;
   }
   .submenu p:hover {
     background-color: #2896D7;
@@ -401,13 +405,13 @@ margin-top: 10px;
 
 
 /* Dropdown pour les services */
-.toggle-servicedropdown:checked + .service .service-dropdown {
+/* .toggle-servicedropdown:checked + .service .service-dropdown {
   display: block;
 }
 
 .toggle-servicedropdown:not(:checked) + .service .service-dropdown {
   display: none;
-}
+} */
 
 
 /* test */

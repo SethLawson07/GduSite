@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./style.css"; // Assurez-vous d'importer votre fichier de styles
-import { allCategories } from "../../services/product";
+import { allCategories, allServices } from "../../services/product";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems } from "../../state/cart/cartSlice";
@@ -144,17 +144,20 @@ const Header = () => {
 
 const Nav = () => {
   const [categories, setCategories] = useState([]);
+  const [services, setServices] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false); // État pour contrôler la visibilité du dropdown
-  const [activeCategory, setActiveCategory] = useState(null); // État pour stocker la catégorie survolée
+  const [dropdownOpen2, setDropdownOpen2] = useState(false); // État pour contrôler la visibilité du service dropdown
 
   const [activeCategoryId, setActiveCategoryId] = useState(null);
 
   async function fetchData() {
     try {
-      const res = await allCategories();
-      setCategories(res.data);
+      let catgs = await allCategories();
+      let servs = await allServices();
+      setCategories(catgs.data);
+      setServices(servs.data);
     } catch (error) {
-      console.log("Error fetching categories:", error);
+      console.log("Error fetching", error);
     }
   }
 
@@ -175,20 +178,44 @@ const Nav = () => {
       ) {
         setDropdownOpen(false); // Fermer le dropdown
         setActiveCategoryId(null);
-      } else {
-        setActiveCategoryId(null);
-        setDropdownOpen(false);
-      }
+      } 
+    
+    };
+
+
+    const handleClickOutsideServiceDropdown = (event) => {
+      const servicedropdown = document.querySelector(".service-dropdown");
+      const service = document.querySelector(".service");
+
+      if (
+        service && // Vérifier si les éléments existent
+        servicedropdown &&
+        !servicedropdown.contains(event.target) && // Vérifier si le clic est en dehors du dropdown
+        !service.contains(event.target) // Vérifier si le clic est sur la catégorie
+      ) {
+        setDropdownOpen2(false); // Fermer le dropdown
+      } 
     };
 
     // Ajouter un écouteur d'événements de clic au niveau de l'élément racine de l'application
     document.addEventListener("mousedown", handleClickOutsideDropdown);
+    document.addEventListener("mousedown", handleClickOutsideServiceDropdown);
 
     return () => {
       // Nettoyer l'écouteur d'événements lors du démontage du composant
       document.removeEventListener("mousedown", handleClickOutsideDropdown);
+      document.removeEventListener("mousedown", handleClickOutsideServiceDropdown);
     };
   }, []);
+
+  const handleLabelClick = () => {
+    // Vérifier s'il y a des catégories disponibles
+    if (categories.length > 0) {
+      // Extraire l'ID de la première catégorie et le définir comme activeCategoryId
+      setActiveCategoryId(categories[0].id);
+    }
+  };
+  
 
   return (
     <nav className="nav1">
@@ -197,9 +224,15 @@ const Nav = () => {
           type="checkbox"
           id="toggle-dropdown"
           className="toggle-dropdown"
-          onChange={() => setDropdownOpen(!dropdownOpen)} // Inverser l'état de visibilité du dropdown lorsqu'on clique sur l'input
-        />
-        <label htmlFor="toggle-dropdown" className="category test1">
+          onChange={() => {
+            setDropdownOpen(!dropdownOpen)
+          }
+          
+          } // Inverser l'état de visibilité du dropdown lorsqu'on clique sur l'input
+     
+     />
+        <label htmlFor="toggle-dropdown" className="category test1"   onClick={handleLabelClick}
+>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -222,7 +255,8 @@ const Nav = () => {
             {" "}
             {/* Ajouter la classe "open" lorsque le dropdown est ouvert */}
             <ul className="scrollable-list">
-              <div style={{ textAlign: "left" }}>
+              {/* <div style={{ textAlign: "left" }}> */}
+              <div style={{   marginLeft: "20px" }}>
                 <p className="dropTitle">All Categories</p>
               </div>{" "}
               {categories.map((category) => (
@@ -240,22 +274,7 @@ const Nav = () => {
                     // }}
                   >
                     {category.title}
-                    {/* <ul
-                      className="second-dropdown"
-                      style={{
-                        display:
-                          activeCategoryId === category.id ? "block" : "none", // Afficher le second dropdown si la catégorie est survolée
-                      }}
-                    >
-                      {category.SubCategory.map((subCategory) => (
-                        <ul className="res">
-                          <li className="dropTitle">{subCategory.title}</li>
-                          {subCategory.Item.map((item) => (
-                            <li key={item.id}>{item.title}</li>
-                          ))}
-                        </ul>
-                      ))}
-                    </ul> */}
+                   
                   </li>
                 </>
               ))}
@@ -275,10 +294,13 @@ const Nav = () => {
             </ul>
           </div>
           <div
-            className="second-dropdown"
+            // className="second-dropdown"
             style={{
-              display: activeCategoryId ? "block" : "none", // Afficher le second dropdown si la catégorie est survolée
+              display: activeCategoryId ? "block" : "none",display: dropdownOpen ? "block" : "none"  // Afficher le second dropdown si la catégorie est survolée
             }}
+
+            className={`second-dropdown ${dropdownOpen ? "open" : ""}`}
+            // style={{ }}
           >
             {categories.map(
               (category) =>
@@ -287,14 +309,32 @@ const Nav = () => {
                     {category.SubCategory.map((subCategory) => (
                       <ul key={subCategory.id} className="res">
                         <li className="dropTitle">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 24 24" stroke-width="1.5" stroke="blue" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
-</svg>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="blue"
+                            class="w-6 h-6"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+                            />
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M6 6h.008v.008H6V6Z"
+                            />
+                          </svg>
 
-                          {subCategory.title}</li>
+                          {subCategory.title}
+                        </li>
                         {subCategory.Item.map((item) => (
-                          <li key={item.id} className="subDropTitle">{item.title}</li>
+                          <li key={item.id} className="subDropTitle">
+                            {item.title}
+                          </li>
                         ))}
                       </ul>
                     ))}
@@ -303,6 +343,77 @@ const Nav = () => {
             )}
           </div>
         </label>
+      </div>
+
+        <div className="left"   
+>
+        <input
+          type="checkbox"
+          id="toggle-servicedropdown"
+          className="toggle-servicedropdown"
+          onChange={() => setDropdownOpen2(!dropdownOpen2)} // Inverser l'état de visibilité du dropdown lorsqu'on clique sur l'input
+
+        />
+        <label for="toggle-servicedropdown" className="service test1" >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className="w-6 h-6 svgnav"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
+            />
+          </svg>
+          Services
+          <ul 
+          
+          className={`service-dropdown ${dropdownOpen2 ? "open" : ""}`}
+          style={{ display: dropdownOpen2 ? "block" : "none" }}
+          >
+  
+                    {services.map((service) => (
+                      <ul key={service.id} className="res">
+                        <li className="dropTitle">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="blue"
+                            class="w-6 h-6"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+                            />
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M6 6h.008v.008H6V6Z"
+                            />
+                          </svg>
+
+                          {service.title}
+                        </li>
+                        {service.TypeService.map((typeservice) => (
+                          <li key={typeservice.id} className="subDropTitle">
+                            {typeservice.title}
+                          </li>
+                        ))}
+                      </ul>
+                )
+            )}
+
+          </ul>
+        </label>
+
+        
       </div>
     </nav>
   );
