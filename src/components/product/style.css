@@ -68,6 +68,38 @@ border-bottom-right-radius: 50px; border-top-left-radius: 5px; text-transform: c
 .rounded-button {
      border-radius: 50px;
    }
+
+   .imgWrapper {
+     position: relative;
+   }
+   
+   .heartIcon {
+     position: absolute;
+     top: 10px; /* Ajustez la position verticale selon vos besoins */
+     right: 10px; /* Ajustez la position horizontale selon vos besoins */
+     z-index: 1; /* Assurez-vous que l'icône est au-dessus de l'image */
+   }
+   
    
 
- 
+   .heartIconSvg {
+     font-size: 64px; /* Ajustez la taille de l'icône selon vos besoins */
+     color: red; /* Définissez la couleur de l'icône (par exemple, rouge) */
+   }
+   
+
+   .circleIconContainer {
+     width: 40px; /* Largeur du cercle */
+     height: 40px; /* Hauteur du cercle */
+     background-color: white; /* Couleur de fond du cercle */
+     border-radius: 50%; /* Pour rendre le conteneur circulaire */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     cursor: pointer; /* Curseur pointer pour indiquer l'interactivité */
+     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre pour effet de profondeur */
+   }
+   
+   span{
+     text-decoration: none;
+   }

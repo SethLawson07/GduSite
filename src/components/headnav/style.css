@@ -276,7 +276,8 @@ margin-top: 10px;
     height: 700px;
     overflow-x: hidden;
     overflow-y: scroll;
-    
+    z-index: 500;
+
   }
   
   .dropdown, .service-dropdown ul {
@@ -340,7 +341,7 @@ margin-top: 10px;
     padding: 10px; /* Ajoute un peu d'espace autour du contenu */
     height: 700px; /* Hauteur maximale pour le défilement */
     overflow: auto; 
-    
+    z-index: 500;
 
     
   }
@@ -367,6 +368,7 @@ margin-top: 10px;
     padding: 10px; /* Ajoute un peu d'espace autour du contenu */
     height: 700px; /* Hauteur maximale pour le défilement */
     overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+    z-index: 500;
 
     
   }

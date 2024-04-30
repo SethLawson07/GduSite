@@ -16,7 +16,7 @@ const QuantitySelector = ({ itemId, quantity }) => {
     if (quantity > 1) {
       dispatch(updateQuantity({ itemId, newQuantity: quantity - 1 }));
     }else {
-      dispatch(removeFromCart(itemId)); // Supprimer le produit si la quantité atteint zéro
+      dispatch(removeFromCart(itemId)); 
     }
   };
 

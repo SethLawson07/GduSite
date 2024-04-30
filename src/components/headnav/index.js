@@ -275,6 +275,8 @@ const Nav = () => {
               </div>{" "}
               {categories.map((category) => (
                 <>
+                                           {/* <Link to={`item/${category.title}`} onClick={ () =>{setDropdownOpen(false)}} > */}
+
                   <li
                     key={category.id}
                     className="submenu"
@@ -288,7 +290,8 @@ const Nav = () => {
                     // }}
                   >
                     {category.title}
-                  </li>
+                  </li> 
+                  {/* </Link> */}
                 </>
               ))}
               <li className="submenu">test</li>
@@ -345,9 +348,13 @@ const Nav = () => {
                           {subCategory.title}
                         </li>
                         {subCategory.Item.map((item) => (
+                                                                     
+
+                           <Link to={`item/${item.slugitem}`} onClick={ () =>{setDropdownOpen(false)}} style={{textDecoration:"none"}} >
                           <li key={item.id} className="subDropTitle">
                             {item.title}
                           </li>
+                           </Link>
                         ))}
                       </ul>
                     ))}
