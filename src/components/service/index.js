@@ -45,7 +45,7 @@ const Service = (props) => {
             <div className="imgWrapper">
               <div className="p-0 wrapperm mb-0">
                 <img
-                  src={tsData.image}
+                  src={tsData.image[0]}
                   className="w-100"
                   style={{
                     objectFit: "cover",
