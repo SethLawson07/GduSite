@@ -18,64 +18,46 @@ const Categories = (props) => {
   const context = useContext(MyContext);
 
   const [currentId, setCurrentId] = useState();
+  const [title, setTitle] = useState("");
+
 
   let { id } = useParams();
-
   var itemsData = [];
 
+
   useEffect(() => {
- 
-    props.data[0]["categories"].length !== 0 &&
-      props.data[0]["categories"].map((category, index) => {
-        //page == single cat
-        if (props.single === true) {
-          if (category.title.toLowerCase() == id.toLowerCase()) {
-            category.SubCategory.length !== 0 &&
-              category.SubCategory.map((subcategory) => {
-                subcategory.Item.map((item, index__) => {
-                  item.Product.length !== 0 &&
-                  item.Product.map((item_, index_) => {
-                    itemsData.push({
-                      ...item_,
-                      parentCatName: item.title,
-                      subCatName: item_.title,
-                    });
-                });
-              });
-              });
-          }
-        }
-        //page == double cat
-        else {
-          category.Item.length !== 0 &&
-          category.Item.map((item_, index_) => {
-              // console.log(item_.title.replace(/[^A-Za-z]/g,"-").toLowerCase())
-              if (
-                item_.title.split(" ").join("-").toLowerCase() ==
-                id.split(" ").join("-").toLowerCase()
-              ) {
-                item_.Product.map((item__, index__) => {
-                  itemsData.push({
-                    ...item__,
-                    parentCatName: category.title,
-                    subCatName: item_.title,
-                  });
-                });
+    let uniqueProducts = {}; // Utilisation d'un objet pour stocker temporairement les produits uniques
+  
+    props.data[0]["categories"].forEach((category) => {
+      // Vérifier si la catégorie correspond à l'ID
+      if (category.slugcategory.toLowerCase() === id.toLowerCase()) {
+        setTitle(category.title);
+        category.SubCategory.forEach((subcategory) => {
+          subcategory.Item.forEach((item) => {
+            item.Product.forEach((product) => {
+              // Vérifier si le produit avec le même ID a déjà été ajouté
+              if (!uniqueProducts[product.id]) {
+                uniqueProducts[product.id] = {
+                  ...product,
+                  parentCatName: item.title,
+                  subCatName: subcategory.title,
+                };
               }
             });
-        }
-      });
-
-    const list2 = itemsData.filter(
-      (item, index) => itemsData.indexOf(item) === index
-    );
-
-    setData(list2);
-    console.log("siiii")
-    console.log(list2)
-
+          });
+        });
+      }
+    });
+  
+    // Convertir l'objet en tableau
+    const uniqueProductsArray = Object.values(uniqueProducts);
+    setData(uniqueProductsArray);
+    console.log("siiii");
+    console.log(uniqueProductsArray);
+  
     window.scrollTo(0, 0);
   }, [id]);
+  
 
   const filterByBrand = (keyword) => {
     props.data[0]["categories"].length !== 0 &&
@@ -128,10 +110,8 @@ const Categories = (props) => {
 
     // window.scrollTo(0, 0);
   };
-  const filterByPrice = (minValue, maxValue) => {
-  }
-  const filterByRating = (keyword) => {
-  }
+  const filterByPrice = (minValue, maxValue) => {};
+  const filterByRating = (keyword) => {};
   // const filterByPrice = (minValue, maxValue) => {
   //   props.data[0]["categories"].length !== 0 &&
   //     props.data[0]["categories"].map((item, index) => {
@@ -268,10 +248,10 @@ const Categories = (props) => {
         <div className="container-fluid">
           {
             <div className="breadcrumb flex-column">
-              <h1 className="text-capitalize">{id.split("-").join(" ")}</h1>
+              <h1 className="text-capitalize">{title}</h1>
               <ul className="list list-inline mb-0">
                 <li className="list-inline-item">
-                  <Link to={""}>Home </Link>
+                  <Link to={"/"}>Accueil </Link>
                 </li>
                 <li className="list-inline-item">
                   <Link
@@ -313,8 +293,9 @@ const Categories = (props) => {
               <div className="col-md-9 rightContent homeProducts pt-0">
                 <div className="topStrip d-flex align-items-center">
                   <p className="mb-0">
-                    We found <span className="text-success">{data.length}</span>{" "}
-                    items for you!
+                    {/* Nous avons trouvé{" "} */}
+                    <span className="text-success">{data.length}</span> produits
+                    pour vous !
                   </p>
                   <div className="ml-auto d-flex align-items-center">
                     <div className="tab_ position-relative">
@@ -439,7 +420,7 @@ const Categories = (props) => {
                     data.map((item, index) => {
                       return (
                         <div className="item" key={index}>
-                          <Product tag={item.brand} item={item} />
+                          <Product brand={item.brand} item={item} />
                         </div>
                       );
                     })}

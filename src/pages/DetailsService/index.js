@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { Button } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
-
 import Product from "../../components/product";
 import { MyContext } from "../../App";
 
@@ -112,11 +111,11 @@ const DetailsService = (props) => {
           service.TypeService.map((typeservice) => {
             // subcategory.Item.length !== 0 &&
             // subcategory.Item.map((item) => {
-            // typeservice.Product.map((product) => {
-            if (typeservice.slugtypeservice === id) {
-              setCurrentProduct(typeservice);
-            }
-            // });
+            typeservice.ItemService.map((item) => {
+              if (item.slugitemservice === id) {
+                setCurrentProduct(item);
+              }
+            });
             // });
           });
       });
@@ -125,22 +124,27 @@ const DetailsService = (props) => {
 
     const related_products = [];
 
-    props.data[0]["categories"].length !== 0 &&
-      props.data[0]["categories"].map((item) => {
-        if (prodCat.parentCat === item.title) {
-          item.Item.length !== 0 &&
-            item.Item.map((item_) => {
-              if (prodCat.subCatName === item_.title) {
-                item_.Product.length !== 0 &&
-                  item_.Product.map((product, index) => {
-                    if (product.slugitem !== id) {
-                      related_products.push(product);
-                    }
-                  });
+    const currentItem = props.data[0]["services"]
+      .flatMap((service) => service.TypeService)
+      .find((typeservice) =>
+        typeservice.ItemService.some((item) => item.slugitemservice === id)
+      );
+
+    if (currentItem) {
+      const currentItemID = currentItem.id;
+
+      props.data[0]["services"].forEach((service) => {
+        service.TypeService.forEach((typeservice) => {
+          typeservice.ItemService.forEach((item) => {
+            if ( item.id === currentItemID) {
+              if (item.slugserviceproduct !== id) {
+                related_products.push(item);
               }
-            });
-        }
+            }
+          });
+        });
       });
+    }
 
     if (related_products.length !== 0) {
       setRelatedProducts(related_products);

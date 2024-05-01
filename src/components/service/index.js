@@ -41,7 +41,7 @@ const Service = (props) => {
 
       {tsData !== undefined && (
         <>
-          <Link to={`/typeservice/${tsData.slugtypeservice}`}>
+          <Link to={`/typeservice/${tsData.slugitemservice}`}>
             <div className="imgWrapper">
               <div className="p-0 wrapperm mb-0">
                 <img
@@ -68,7 +68,7 @@ const Service = (props) => {
             <div className="d-flex align-items-center mt-3">
               <div className="d-flex align-items-center w-100">
                 <span className="price text-g font-weight-bold">
-                  {tsData.price} Fcfa
+                  {tsData.price} Fcfa 
                 </span>{" "}
                 {/* <span className='oldPrice ml-auto'>{tsData.oldPrice} Fcfa</span> */}
               </div>

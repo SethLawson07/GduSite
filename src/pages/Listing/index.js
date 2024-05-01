@@ -24,7 +24,6 @@ const Listing = (props) => {
   var itemsData = [];
 
   useEffect(() => {
- 
     props.data[0]["categories"].length !== 0 &&
       props.data[0]["categories"].map((category, index) => {
         //page == single cat
@@ -34,21 +33,21 @@ const Listing = (props) => {
               category.SubCategory.map((subcategory) => {
                 subcategory.Item.map((item, index__) => {
                   item.Product.length !== 0 &&
-                  item.Product.map((item_, index_) => {
-                    itemsData.push({
-                      ...item_,
-                      parentCatName: item.title,
-                      subCatName: item_.title,
+                    item.Product.map((item_, index_) => {
+                      itemsData.push({
+                        ...item_,
+                        parentCatName: item.title,
+                        subCatName: item_.title,
+                      });
                     });
                 });
-              });
               });
           }
         }
         //page == double cat
         else {
           category.Item.length !== 0 &&
-          category.Item.map((item_, index_) => {
+            category.Item.map((item_, index_) => {
               // console.log(item_.title.replace(/[^A-Za-z]/g,"-").toLowerCase())
               if (
                 item_.title.split(" ").join("-").toLowerCase() ==
@@ -71,8 +70,8 @@ const Listing = (props) => {
     );
 
     setData(list2);
-    console.log("siiii")
-    console.log(list2)
+    console.log("siiii");
+    console.log(list2);
 
     window.scrollTo(0, 0);
   }, [id]);
@@ -128,10 +127,8 @@ const Listing = (props) => {
 
     // window.scrollTo(0, 0);
   };
-  const filterByPrice = (minValue, maxValue) => {
-  }
-  const filterByRating = (keyword) => {
-  }
+  const filterByPrice = (minValue, maxValue) => {};
+  const filterByRating = (keyword) => {};
   // const filterByPrice = (minValue, maxValue) => {
   //   props.data[0]["categories"].length !== 0 &&
   //     props.data[0]["categories"].map((item, index) => {
@@ -313,8 +310,9 @@ const Listing = (props) => {
               <div className="col-md-9 rightContent homeProducts pt-0">
                 <div className="topStrip d-flex align-items-center">
                   <p className="mb-0">
-                    We found <span className="text-success">{data.length}</span>{" "}
-                    items for you!
+                    {" "}
+                    <span className="text-success">{data.length}</span> articles
+                    pour vous !
                   </p>
                   <div className="ml-auto d-flex align-items-center">
                     <div className="tab_ position-relative">

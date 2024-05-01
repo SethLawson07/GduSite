@@ -277,7 +277,7 @@ const Nav = () => {
               </div>{" "}
               {categories.map((category) => (
                 <>
-                  {/* <Link to={`item/${category.title}`} onClick={ () =>{setDropdownOpen(false)}} > */}
+                  <Link to={`categories/${category.slugcategory}`} onClick={ () =>{setDropdownOpen(false)}} >
 
                   <li
                     key={category.id}
@@ -293,7 +293,7 @@ const Nav = () => {
                   >
                     {category.title}
                   </li>
-                  {/* </Link> */}
+                  </Link>
                 </>
               ))}
               <li className="submenu">test</li>
@@ -343,17 +343,17 @@ const Nav = () => {
                           {subCategory.title}
                         </li>
                         {subCategory.Item.map((item) => (
-                          // <Link
-                          //   to={`item/${item.slugitem}`}
-                          //   onClick={() => {
-                          //     setDropdownOpen(false);
-                          //   }}
-                          //   style={{ textDecoration: "none" }}
-                          // >
+                          <Link
+                            to={`item/${item.slugitem}`}
+                            onClick={() => {
+                              setDropdownOpen(false);
+                            }}
+                            style={{ textDecoration: "none" }}
+                          >
                             <li key={item.id} className="subDropTitle">
                               {item.title}
                             </li>
-                          // </Link>
+                           </Link>
                         ))}
                       </ul>
                     ))}
@@ -420,7 +420,7 @@ const Nav = () => {
               </div>{" "}
               {services.map((service) => (
                 <>
-                  {/* <Link to={`item/${category.title}`} onClick={ () =>{setDropdownOpen(false)}} > */}
+                  <Link to={`services/${service.slugservice}`} onClick={ () =>{setDropdownOpen1(false)}} >
 
                   <li
                     key={service.id}
@@ -436,7 +436,7 @@ const Nav = () => {
                   >
                     {service.title}
                   </li>
-                  {/* </Link> */}
+                  </Link>
                 </>
               ))}
               <li className="submenu">test</li>
@@ -489,17 +489,17 @@ const Nav = () => {
                           {typeservice.title}
                         </li>
                         {typeservice.ItemService.map((item) => (
-                          // <Link
-                          //   to={`item/${item.slugitemservice}`}
-                          //   onClick={() => {
-                          //     setDropdownOpen1(false);
-                          //   }}
-                          //   style={{ textDecoration: "none" }}
-                          // >
+                          <Link
+                            to={`typeservice/${item.slugitemservice}`}
+                            onClick={() => {
+                              setDropdownOpen1(false);
+                            }}
+                            style={{ textDecoration: "none" }}
+                          >
                             <li key={item.id} className="subDropTitle">
                               {item.title}
                             </li>
-                          // </Link>
+                          </Link>
                         ))}
                       </ul>
                     ))}

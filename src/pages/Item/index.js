@@ -14,6 +14,7 @@ const Item = (props) => {
   const [showPerPage, setHhowPerPage] = useState(3);
 
   const [data, setData] = useState([]);
+ 
 
   const context = useContext(MyContext);
 
@@ -25,59 +26,54 @@ const Item = (props) => {
   var itemsData = [];
 
   useEffect(() => {
-    // const foundItem= props.data[0]["categories"].find(category =>
-    //   category.SubCategory.some(subcategory =>
-    //     subcategory.Item.some(item =>
-    //         item.slugitem === id
-    //     )
-    //   )
-    // );
-
-    // if (foundProduct) {
-    //   setItemTitle(foundProduct.title);
-    // }
-
+    let uniqueProducts = {}; // Utilisation d'un objet pour stocker temporairement les produits uniques
+  
+    props.data[0]["categories"].forEach((category) => {
+      category.SubCategory.forEach((subcategory) => {
+        subcategory.Item.forEach((item) => {
+          if (item.slugitem.toLowerCase() === id.toLowerCase()) {
+            setItemTitle(item.title);
+            item.Product.forEach((product) => {
+              // Vérifier si le produit avec le même ID a déjà été ajouté
+              if (!uniqueProducts[product.id]) {
+                uniqueProducts[product.id] = {
+                  ...product,
+                  parentCatName: item.title,
+                  subCatName: product.title,
+                };
+              }
+            });
+          }
+        });
+      });
+    });
+  
+    // Convertir l'objet en tableau
+    const uniqueProductsArray = Object.values(uniqueProducts);
+    setData(uniqueProductsArray);
+  
+    window.scrollTo(0, 0);
+  }, [id]);
+  
+  
+  const filterByBrand = (keyword) => {
     props.data[0]["categories"].length !== 0 &&
       props.data[0]["categories"].map((category, index) => {
-        // if (props.single === true) {
-        // if (category.title.toLowerCase() == id.toLowerCase()) {
         category.SubCategory.length !== 0 &&
           category.SubCategory.map((subcategory) => {
             subcategory.Item.map((item, index) => {
-              if (item.slugitem.toLowerCase() == id.toLowerCase()) {
-                setItemTitle(item.title)
-                item.Product.length !== 0 &&
-                  item.Product.map((product, index) => {
-                    itemsData.push({
-                      ...product,
-                      parentCatName: item.title,
-                      subCatName: product.title,
-                    });
+              item.Product.map((product, index) => {
+                if (product.brand.toLowerCase() === keyword.toLowerCase()) {
+                  itemsData.push({
+                    ...product,
+                    parentCatName: item.title,
+                    subCatName: subcategory.title,
                   });
-              }
+                }
+              });
             });
           });
-        // }
-        // }
-        //page == double cat
-        // else {
-        //   category.Item.length !== 0 &&
-        //   category.Item.map((item_, index_) => {
-        //       // console.log(item_.title.replace(/[^A-Za-z]/g,"-").toLowerCase())
-        //       if (
-        //         item_.title.split(" ").join("-").toLowerCase() ==
-        //         id.split(" ").join("-").toLowerCase()
-        //       ) {
-        //         item_.Product.map((item__, index__) => {
-        //           itemsData.push({
-        //             ...item__,
-        //             parentCatName: category.title,
-        //             subCatName: item_.title,
-        //           });
-        //         });
-        //       }
-        //     });
-        // }
+
       });
 
     const list2 = itemsData.filter(
@@ -85,62 +81,8 @@ const Item = (props) => {
     );
 
     setData(list2);
-    console.log("siiii");
 
     window.scrollTo(0, 0);
-  }, [id]);
-
-  const filterByBrand = (keyword) => {
-    props.data[0]["categories"].length !== 0 &&
-      props.data[0]["categories"].map((category, index) => {
-        category.SubCategory.length !== 0 &&
-        category.SubCategory.map((subcategory) => {
-          subcategory.Item.map((item, index) => {
-            item.Product.map((product, index) => {
-              if (product.brand.toLowerCase() === keyword.toLowerCase()) {
-                 itemsData.push({
-                    ...product,
-                    parentCatName: item.title,
-                    subCatName: subcategory.title,
-                  });
-                }
-
-              });
-
-            });
-            });
-        // }
-        // //page == double cat
-        // else {
-        //   item.Item.length !== 0 &&
-        //     item.Item.map((item_, index_) => {
-        //       // console.log(item_.title.replace(/[^A-Za-z]/g,"-").toLowerCase())
-        //       if (
-        //         item_.title.split(" ").join("-").toLowerCase() ==
-        //         id.split(" ").join("-").toLowerCase()
-        //       ) {
-        //         item_.Product.map((item__, index__) => {
-        //           if (item__.brand.toLowerCase() === keyword.toLowerCase()) {
-        //             itemsData.push({
-        //               ...item__,
-        //               parentCatName: item.title,
-        //               subCatName: item_.title,
-        //             });
-        //           }
-        //         });
-        //       }
-        //     });
-        // }
-      });
-
-    // const list2 = itemsData.filter(
-    //   (item, index) => itemsData.indexOf(item) === index
-    // );
-    // //console.log(itemsData)
-
-    // setData(list2);
-
-    // window.scrollTo(0, 0);
   };
 
   const filterByRating = (keyword) => {};
@@ -199,8 +141,6 @@ const Item = (props) => {
     setData(list2);
   };
 
- 
-
   return (
     <>
       {context.windowWidth < 992 && (
@@ -223,7 +163,7 @@ const Item = (props) => {
               <h1 className="text-capitalize">{itemTitle}</h1>
               <ul className="list list-inline mb-0">
                 <li className="list-inline-item">
-                  <Link to="/">Home </Link>
+                  <Link to="/">Accueil </Link>
                 </li>
                 <li className="list-inline-item">
                   <Link
@@ -235,7 +175,7 @@ const Item = (props) => {
                 </li>
                 {props.single === false && (
                   <li className="list-inline-item">
-                    <Link to={""} className="text-capitalize">
+                    <Link to={"/"} className="text-capitalize">
                       {id.split("-").join(" ")}
                     </Link>
                   </li>
@@ -265,8 +205,9 @@ const Item = (props) => {
               <div className="col-md-9 rightContent homeProducts pt-0">
                 <div className="topStrip d-flex align-items-center">
                   <p className="mb-0">
-                    We found <span className="text-success">{data.length}</span>{" "}
-                    items for you!
+                    {/* Nous avons trouvé{" "} */}
+                    <span className="text-success">{data.length}</span> produits
+                    pour vous !
                   </p>
                   <div className="ml-auto d-flex align-items-center">
                     <div className="tab_ position-relative">

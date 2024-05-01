@@ -133,14 +133,16 @@ function App() {
                   />
                    <Route
                     exact={true}
-                    path="/item/:id"
-                    element={<Item data={homeData} single={true} />}
-                  />
-                  <Route
-                    exact={true}
                     path="/services/:id"
                     element={<Services data={homeData} single={true} />}
                   />
+                   <Route
+                    exact={true}
+                    path="/item/:id"
+                    element={<Item data={homeData} single={true} />}
+                  />
+                  
+                 
                   <Route
                     exact={true}
                     path="/item/:id"
