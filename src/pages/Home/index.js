@@ -50,11 +50,12 @@ const Home = (props) => {
       <section className="homeProducts homeProductWrapper">
         <div className="container-fluid">
           <div className="d-flex align-Item-center homeProductsTitleWrap">
-            <h4 className="hd mb-0 mt-0 res-full ctitle">Produits ajoutés récemment</h4>
+            <h4 className="hd mb-0 mt-0 res-full ctitle">
+              Produits ajoutés récemment
+            </h4>
           </div>
 
           <Carousel
-        
             additionalTransfrom={0}
             arrows
             autoPlaySpeed={3000}
@@ -368,8 +369,8 @@ const Home = (props) => {
                           slidesToSlide={1}
                           swipeable
                         >
-                          {section.TypeService.length !== 0 &&
-                            section.TypeService.map((item, prodIndex) => {
+                          {section.ItemService.length !== 0 &&
+                            section.ItemService.map((item, prodIndex) => {
                               return (
                                 <div className="item" key={prodIndex}>
                                   <Service brand={item.brand} item={item} />

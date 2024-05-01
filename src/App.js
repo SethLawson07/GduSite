@@ -29,6 +29,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import WishList from "./pages/wishlist";
 import Item from "./pages/Item";
+import Services from "./pages/services";
+import Categories from "./pages/Categories";
 
 const MyContext = createContext();
 
@@ -126,8 +128,18 @@ function App() {
                   />
                    <Route
                     exact={true}
+                    path="/categories/:id"
+                    element={<Categories data={homeData} single={true} />}
+                  />
+                   <Route
+                    exact={true}
                     path="/item/:id"
                     element={<Item data={homeData} single={true} />}
+                  />
+                  <Route
+                    exact={true}
+                    path="/services/:id"
+                    element={<Services data={homeData} single={true} />}
                   />
                   <Route
                     exact={true}
