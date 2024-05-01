@@ -279,21 +279,45 @@ margin-top: 10px;
     z-index: 500;
 
   }
+
+  .dropdown1 {
+    /* margin-top:  18px; */
+    width: 300px;
+    display: none; /* Masque le dropdown par défaut */
+    position: absolute; /* Position absolue par rapport à son parent .category */
+    top: 130%; /* Positionne le dropdown sous le div .category */
+    left: 0; /* Alignement à gauche */
+    background-color: #fff;
+    border-radius: 5px;
+    /* border: 0.5px solid black;  */
+    padding: 5px; /* Ajoute un peu d'espace autour du contenu */
+    height: 700px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 500;
+
+  }
   
-  .dropdown, .service-dropdown ul {
+  .dropdown,
+  .dropdown1,
+  .service-dropdown ul {
     list-style: none; /* Supprime les puces de liste */
     padding: 0; /* Supprime le remplissage par défaut */
     margin: 0; /* Supprime les marges par défaut */
   }
   
-  .dropdown li {
+  .dropdown li,
+  .dropdown1 li {
     padding: 10px; /* Ajoute un peu d'espace autour des éléments de liste */
   }
   
   /* Optionnel : pour styliser les options du dropdown */
-  .dropdown li:hover {
+  .dropdown li:hover,
+  .dropdown1 li:hover {
     background-color: #f0f0f0; /* Couleur de fond lorsque survolé */
   }
+  
+  
   
   
   /* .scrollable-list {
@@ -342,11 +366,28 @@ margin-top: 10px;
     height: 700px; /* Hauteur maximale pour le défilement */
     overflow: auto; 
     z-index: 500;
-
-    
   }
 
-  .second-dropdown ul {
+  .second-dropdown1 {
+    display: grid; /* Utilisez CSS Grid */
+    grid-template-columns: repeat(4, 1fr); /* Quatre colonnes égales */
+    grid-gap: 10px; /* Ajoute de l'espace entre les colonnes */
+    position: absolute;
+    top: 130%;
+    left: 186%;
+    background-color: #E6F1FC;
+    border-top-right-radius: 5px; /* Coin supérieur droit arrondi */
+    border-bottom-right-radius: 5px;   /* max-width: 800px; */
+    width: auto; /* La largeur s'ajustera en fonction du contenu */
+    min-width: 800px; /* Largeur minimale */
+    /* margin-top: 18px; */
+    padding: 10px; /* Ajoute un peu d'espace autour du contenu */
+    height: 700px; /* Hauteur maximale pour le défilement */
+    overflow: auto; 
+    z-index: 500;
+  }
+
+  .second-dropdown ul,.second-dropdown1 ul {
     list-style-type: none; /* supprimer les puces */
     padding: 0;
     margin: 0;
