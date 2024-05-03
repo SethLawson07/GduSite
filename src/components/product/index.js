@@ -126,35 +126,37 @@ const Product = (props) => {
               />
             </div>
           </div>
-          <Link to={`/product/${productData.slugproduct}`}>
             <div className="info">
+            <Link style={{ textDecoration: 'none' }} to={`/product/${productData.slugproduct}`}>
+
               <h4 className="title">
-                <Link to={`/product/${productData.slugproduct}`}>
+                {/* <Link to={`/product/${productData.slugproduct}`}> */}
                   {productData.name.substr(0, 50) + ""}
-                </Link>
+                {/* </Link> */}
               </h4>
               <div className="d-flex align-items-center mt-3">
                 <div className="d-flex align-items-center w-100">
-                  <span className="price text-g font-weight-bold">
+                  <p className="price text-g font-weight-bold">
                     {calculateDiscountPrice(
                       productData.price,
                       productData.discount
                     )}
-                  </span>{" "}
+                  </p>{" "}
                   {productData.discount !== "0" && (
-                    <span className="oldPrice ml-auto ">
+                    <p className="oldPrice ml-auto">
                       {productData.price} Fcfa
-                    </span>
+                    </p>
                   )}
                 </div>
               </div>
-              <h4 className="discount">
+              <h4 className="discount1">
                 {productData.discount !== "0" ? (
                   <span>{productData.discount} Fcfa de réduction</span>
                 ) : (
                   <span>&nbsp;</span>
                 )}
               </h4>
+              </Link>
 
               {isProductInCart() ? (
                 <QuantitySelector
@@ -172,7 +174,6 @@ const Product = (props) => {
                 </Button>
               )}
             </div>{" "}
-          </Link>
         </>
       )}
     </div>

@@ -139,7 +139,7 @@ margin-top: 10px;
     width: 35px;
     padding-right: 5px;
     padding-left: 5px;
-    color: #46474A;
+    color: #000;
   }
   
   .svgnav{
@@ -300,10 +300,11 @@ margin-top: 10px;
   
   .dropdown,
   .dropdown1,
-  .service-dropdown ul {
-    list-style: none; /* Supprime les puces de liste */
-    padding: 0; /* Supprime le remplissage par défaut */
-    margin: 0; /* Supprime les marges par défaut */
+  .service-dropdown ul,li {
+    list-style: none;
+    padding: 0;
+    margin: 0; 
+    text-decoration: none;
   }
   
   .dropdown li,
@@ -339,13 +340,18 @@ margin-top: 10px;
     margin-right: 10px; /* Ajouter un espacement entre le titre et les sous-options */
   }
 
+ 
+
   .submenu{
     margin-left: 10px;
   }
+  
+  
   .submenu p:hover {
     background-color: #2896D7;
     color: #2896D7; /* Optionnel : changer la couleur du texte en blanc pour une meilleure lisibilité */
-    font-weight: bold;
+    font-weight: bold;    
+
   }
   
   

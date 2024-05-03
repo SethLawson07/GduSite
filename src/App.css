@@ -276,8 +276,8 @@ ul.breadcrumb li a:hover {
   .zoomSliderBig{width: 100% !important;}
 
 
-  .zoomSlider{padding-top: 30px;}
-  .zoomSlider .slick-slide { padding-right: 20px !important;}
+  .zoomSlider{padding-top: 0px; margin: 0;}
+  .zoomSlider .slick-slide { padding-right: 0px !important;}
   .zoomSlider *{outline: none !important;}
   .zoomSlider .item{border: 2px solid transparent !important; overflow: hidden; border-radius: 15px; cursor: pointer;}
   .zoomSlider .slick-current .item{border: 2px solid #2D73E3 !important; }
@@ -313,7 +313,7 @@ ul.breadcrumb li a:hover {
   .addCartSection .counterSec .arrow.plus{top: -5px; right: 10px;}
   .addCartSection .counterSec .arrow.minus{bottom: -5px; right: 10px;}
 
-  .addtocartbtn svg{font-size: 28px !important;}
+  /* .addtocartbtn svg{font-size: 28px !important;} */
 
   .addCartSection button{height: 60px; min-width: inherit !important;}
   .addCartSection button svg{font-size: 30px !important;}

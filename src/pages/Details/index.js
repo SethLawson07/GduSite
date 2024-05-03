@@ -1,21 +1,15 @@
 import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import Rating from "@mui/material/Rating";
 import InnerImageZoom from "react-inner-image-zoom";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import Slider from "react-slick";
 import { useRef } from "react";
 import { useState } from "react";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useEffect } from "react";
 import { Button } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
-
 import Product from "../../components/product";
-import axios from "axios";
 import { MyContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, selectCartItems } from "../../state/cart/cartSlice";
@@ -24,7 +18,7 @@ import {
   addToWishList,
   selectWishListItems,
 } from "../../state/wishlist/wishListSlice";
-import "./style.css"
+import "./style.css";
 
 const DetailsPage = (props) => {
   const [bigImageSize, setBigImageSize] = useState([1500, 1500]);
@@ -79,6 +73,7 @@ const DetailsPage = (props) => {
     dots: false,
     infinite: false,
     speed: 500,
+    vertical:true,
     slidesToShow: 5,
     slidesToScroll: 1,
     fade: false,
@@ -131,38 +126,39 @@ const DetailsPage = (props) => {
               });
           });
       });
-
     //related products code
 
     const related_products = [];
 
     const currentItem = props.data[0]["categories"]
-    .flatMap(category => category.SubCategory.flatMap(subcategory => subcategory.Item))
-    .find(item => item.Product.some(product => product.slugproduct === id));
-  
-  if (currentItem) {
-    const currentItemID = currentItem.id;
-  
-    props.data[0]["categories"].forEach(category => {
-      category.SubCategory.forEach(subcategory => {
-        subcategory.Item.forEach(item => {
-          if (item.Product.length !== 0 && item.id === currentItemID) {
-            item.Product.forEach(product => {
-              if (product.slugproduct !== id) {
-                related_products.push(product);
-              }
-            });
-          }
+      .flatMap((category) =>
+        category.SubCategory.flatMap((subcategory) => subcategory.Item)
+      )
+      .find((item) =>
+        item.Product.some((product) => product.slugproduct === id)
+      );
+
+    if (currentItem) {
+      const currentItemID = currentItem.id;
+
+      props.data[0]["categories"].forEach((category) => {
+        category.SubCategory.forEach((subcategory) => {
+          subcategory.Item.forEach((item) => {
+            if (item.Product.length !== 0 && item.id === currentItemID) {
+              item.Product.forEach((product) => {
+                if (product.slugproduct !== id) {
+                  related_products.push(product);
+                }
+              });
+            }
+          });
         });
       });
-    });
-  }
-  
-  if (related_products.length !== 0) {
-    setRelatedProducts(related_products);
-  }
-  
-    
+    }
+
+    if (related_products.length !== 0) {
+      setRelatedProducts(related_products);
+    }
   }, [id]);
 
   const dispatch = useDispatch();
@@ -208,31 +204,11 @@ const DetailsPage = (props) => {
         <br />
 
         <div className="container detailsContainer pt-3 pb-3">
+          
           <div className="row">
             {/* productZoom code start here */}
-            <div className="col-md-5">
-              <div className="productZoom">
-                <Slider
-                  {...settings2}
-                  className="zoomSliderBig"
-                  ref={zoomSliderBig}
-                >
-                  {currentProduct.images !== undefined &&
-                    currentProduct.images.map((imgUrl, index) => {
-                      return (
-                        <div className="item">
-                          <InnerImageZoom
-                            zoomType="hover"
-                            zoomScale={1}
-                            src={`${imgUrl}?im=Resize=(${bigImageSize[0]},${bigImageSize[1]})`}
-                          />
-                        </div>
-                      );
-                    })}
-                </Slider>
-           
-              </div>
-              <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
+            <div className="col-md-1">
+            <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
                 {currentProduct.images !== undefined &&
                   currentProduct.images.map((imgUrl, index) => {
                     return (
@@ -246,12 +222,49 @@ const DetailsPage = (props) => {
                     );
                   })}
               </Slider>
-            
+            </div>
+
+            <div className="col-md-5">
+              <div className="productZoom">
+                <Slider
+                  {...settings2}
+                  className="zoomSliderBig"
+                  ref={zoomSliderBig}
+                >
+                  {currentProduct.images !== undefined &&
+                    currentProduct.images.map((imgUrl, index) => {
+                      return (
+                        <div className="item">
+                          <InnerImageZoom
+                          className="imgzoom"
+                            zoomType="hover"
+                            zoomScale={1}
+                            src={`${imgUrl}?im=Resize=(${bigImageSize[0]},${bigImageSize[1]})`}
+                          />
+                        </div>
+                      );
+                    })}
+                </Slider>
+              </div>
+              {/* <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
+                {currentProduct.images !== undefined &&
+                  currentProduct.images.map((imgUrl, index) => {
+                    return (
+                      <div className="item">
+                        <img
+                          src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
+                          className="w-100"
+                          onClick={() => goto(index)}
+                        />
+                      </div>
+                    );
+                  })}
+              </Slider> */}
             </div>
             {/* productZoom code ends here */}
 
             {/* product info code start here */}
-            <div className="col-md-7 productInfo">
+            <div className="col-md-6 productInfo">
               <h1>{currentProduct.name}</h1>
 
               <div className="priceSec d-flex align-items-center mb-3">
@@ -262,11 +275,7 @@ const DetailsPage = (props) => {
                   )}
                 </span>
                 <div className="ml-3 d-flex flex-column">
-                  {currentProduct.discount !== "0" && (
-                    <span className="text-org discount">
-                      {currentProduct.discount} gagné
-                    </span>
-                  )}
+                 
                   {currentProduct.discount !== "0" && (
                     <span className="text-light oldPrice">
                       {currentProduct.price} Fcfa
@@ -274,10 +283,15 @@ const DetailsPage = (props) => {
                   )}
                 </div>
               </div>
+                  {currentProduct.discount !== "0" && (
+                    <p className="discount">
+                      {currentProduct.discount} gagné
+                    </p>
+                  )}
+                
+              <p className="description">{currentProduct.description}</p>
 
-              <p>{currentProduct.description}</p>
-
-              {currentProduct.weight !== undefined &&
+              {/* {currentProduct.weight !== undefined &&
                 currentProduct.weight.length !== 0 && (
                   <div className="productSize d-flex align-items-center">
                     <span>Size / Weight:</span>
@@ -300,35 +314,12 @@ const DetailsPage = (props) => {
                   </div>
                 )}
 
-              {currentProduct.RAM !== undefined &&
-                currentProduct.RAM.length !== 0 && (
-                  <div className="productSize d-flex align-items-center">
-                    <span>RAM:</span>
-                    <ul className="list list-inline mb-0 pl-4">
-                      {currentProduct.RAM.map((RAM, index) => {
-                        return (
-                          <li className="list-inline-item">
-                            <Link
-                              className={`tag ${
-                                activeSize === index ? "active" : ""
-                              }`}
-                              onClick={() => isActive(index)}
-                            >
-                              {RAM} GB
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                )}
-
-              {currentProduct.SIZE !== undefined &&
-                currentProduct.SIZE.length !== 0 && (
+              {currentProduct.size !== undefined &&
+                currentProduct.size.length !== 0 && (
                   <div className="productSize d-flex align-items-center">
                     <span>SIZE:</span>
                     <ul className="list list-inline mb-0 pl-4">
-                      {currentProduct.SIZE.map((SIZE, index) => {
+                      {currentProduct.size.map((size, index) => {
                         return (
                           <li className="list-inline-item">
                             <Link
@@ -337,7 +328,7 @@ const DetailsPage = (props) => {
                               }`}
                               onClick={() => isActive(index)}
                             >
-                              {SIZE}
+                              {size}
                             </Link>
                           </li>
                         );
@@ -346,7 +337,29 @@ const DetailsPage = (props) => {
                   </div>
                 )}
 
-              <div className="d-flex align-items-center">
+              {currentProduct.color !== undefined && currentProduct.color.length !== 0 && (
+                  <div className="productSize d-flex align-items-center">
+                    <span>COLOR:</span>
+                    <ul className="list list-inline mb-0 pl-4">
+                      {currentProduct.color.map((COLOR, index) => {
+                        return (
+                          <li className="list-inline-item">
+                            <Link
+                              className={`tag ${
+                                activeSize === index ? "active" : ""
+                              }`}
+                              onClick={() => isActive(index)}
+                            >
+                              {COLOR}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )} */}
+
+              {/* <div className="d-flex align-items-center">
                 <div className="d-flex align-items-center">
                   {isProductInCart() ? (
                     <QuantitySelector
@@ -380,11 +393,47 @@ const DetailsPage = (props) => {
                     </Button>
                   )}
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* product info code ends here */}
           </div>
-
+          <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center">
+              {isProductInCart() ? (
+                <QuantitySelector
+                  itemId={currentProduct.id}
+                  quantity={getProductQuantityInCart()}
+                />
+              ) : (
+                <Button
+                  className="rounded-button"
+                  onClick={() => addToCartHandler(currentProduct)}
+                >
+                  <ShoppingCartOutlinedIcon />
+                  Ajouter au panier
+                </Button>
+              )}
+              &nbsp;
+              {isProductInWishList() ? (
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/wishlist"
+                  className="rounded-button1"
+                >
+                  Voir ma liste de souhaits
+                </Link>
+              ) : (
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/wishlist"
+                  className="rounded-button1"
+                  onClick={() => addToWishListHandler(currentProduct)}
+                >
+                  Ajouter à ma liste de souhaits
+                </Link>
+              )}
+            </div>
+          </div>
           <div className="card mt-5 p-5 detailsPageTabs">
             <div className="customTabs">
               <ul className="list list-inline">
@@ -398,16 +447,19 @@ const DetailsPage = (props) => {
                     Description
                   </Button>
                 </li>
-                <li className="list-inline-item">
-                  <Button
-                    className={`${activeTabs === 1 && "active"}`}
-                    onClick={() => {
-                      setActiveTabs(1);
-                    }}
-                  >
-                    Additional info
-                  </Button>
-                </li>
+                {currentProduct.ProductVariant &&
+                  currentProduct.ProductVariant.length !== 0 && (
+                    <li className="list-inline-item">
+                      <Button
+                        className={`${activeTabs === 1 && "active"}`}
+                        onClick={() => {
+                          setActiveTabs(1);
+                        }}
+                      >
+                        Spécifications
+                      </Button>
+                    </li>
+                  )}
               </ul>
 
               <br />
@@ -423,90 +475,28 @@ const DetailsPage = (props) => {
                   <div className="table-responsive">
                     <table className="table table-bordered">
                       <tbody>
-                        <tr className="stand-up">
-                          <th>Stand Up</th>
-                          <td>
-                            <p>35″L x 24″W x 37-45″H(front to back wheel)</p>
-                          </td>
-                        </tr>
-                        <tr className="folded-wo-wheels">
-                          <th>Folded (w/o wheels)</th>
-                          <td>
-                            <p>32.5″L x 18.5″W x 16.5″H</p>
-                          </td>
-                        </tr>
-                        <tr className="folded-w-wheels">
-                          <th>Folded (w/ wheels)</th>
-                          <td>
-                            <p>32.5″L x 24″W x 18.5″H</p>
-                          </td>
-                        </tr>
-                        <tr className="door-pass-through">
-                          <th>Door Pass Through</th>
-                          <td>
-                            <p>24</p>
-                          </td>
-                        </tr>
-                        <tr className="frame">
-                          <th>Frame</th>
-                          <td>
-                            <p>Aluminum</p>
-                          </td>
-                        </tr>
-                        <tr className="weight-wo-wheels">
-                          <th>Weight (w/o wheels)</th>
-                          <td>
-                            <p>20 LBS</p>
-                          </td>
-                        </tr>
-                        <tr className="weight-capacity">
-                          <th>Weight Capacity</th>
-                          <td>
-                            <p>60 LBS</p>
-                          </td>
-                        </tr>
-                        <tr className="width">
-                          <th>Width</th>
-                          <td>
-                            <p>24″</p>
-                          </td>
-                        </tr>
-                        <tr className="handle-height-ground-to-handle">
-                          <th>Handle height (ground to handle)</th>
-                          <td>
-                            <p>37-45″</p>
-                          </td>
-                        </tr>
-                        <tr className="wheels">
-                          <th>Wheels</th>
-                          <td>
-                            <p>12″ air / wide track slick tread</p>
-                          </td>
-                        </tr>
-                        <tr className="seat-back-height">
-                          <th>Seat back height</th>
-                          <td>
-                            <p>21.5″</p>
-                          </td>
-                        </tr>
-                        <tr className="head-room-inside-canopy">
-                          <th>Head room (inside canopy)</th>
-                          <td>
-                            <p>25″</p>
-                          </td>
-                        </tr>
-                        <tr className="pa_color">
-                          <th>Color</th>
-                          <td>
-                            <p>Black, Blue, Red, White</p>
-                          </td>
-                        </tr>
-                        <tr className="pa_size">
-                          <th>Size</th>
-                          <td>
-                            <p>M, S</p>
-                          </td>
-                        </tr>
+                        {currentProduct.ProductVariant.length !== 0 &&
+                          currentProduct.ProductVariant.map(
+                            (variant, index) => {
+                              return (
+                                <React.Fragment key={index}>
+                                  {variant.title.map(
+                                    (titleItem, titleIndex) => (
+                                      <tr
+                                        className="stand-up"
+                                        key={`${index}_${titleIndex}`}
+                                      >
+                                        <th>{titleItem}</th>
+                                        <td>
+                                          <p>{variant.value[titleIndex]}</p>
+                                        </td>
+                                      </tr>
+                                    )
+                                  )}
+                                </React.Fragment>
+                              );
+                            }
+                          )}
                       </tbody>
                     </table>
                   </div>
@@ -525,7 +515,7 @@ const DetailsPage = (props) => {
                 relatedProducts.map((product, index) => {
                   return (
                     <div className="item" key={index}>
-                      <Product tag={product.type} item={product} />
+                      <Product brand={product.brand} item={product} />
                     </div>
                   );
                 })}

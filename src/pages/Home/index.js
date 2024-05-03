@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import CatSlider from "../../components/catSlider";
-
 import "./style.css";
 import Product from "../../components/product";
-
-import Slider from "react-slick";
-import TopProducts from "./TopProducts";
-import axios from "axios";
 import { MyContext } from "../../App";
 import { Link } from "react-router-dom";
 import TopSlider from "../../components/topslider";

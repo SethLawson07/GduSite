@@ -15,3 +15,30 @@
 .cat_slider_Main .slick-arrow.slick-prev{top: -50px !important; right: 100px !important; left: inherit !important;}
 
 .cat_slider_Main .item:hover .info, .cat_slider_Main .slick-current .info{box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);  transform: scale(1.1);}
+
+.circle {
+    width: 150px; /* Diamètre du cercle */
+    height: 150px; /* Diamètre du cercle */
+    border-radius: 50%; /* Rend le conteneur circulaire */
+    overflow: visible; /* Permet à l'image de dépasser du cercle */
+    padding: 20px; /* Ajoute du padding à l'intérieur du cercle */
+    background-color: #B2DBFD;
+  }
+  
+  .circle img {
+    width: 90px; /* Ajuste la largeur de l'image en fonction de sa taille réelle */
+    height: 150px; /* Garde le ratio de l'image */
+    position: relative; /* Positionnement relatif pour permettre le débordement */
+    left: 8px; /* Décale l'image vers la gauche pour compenser le padding */
+    top: -18px;
+    border-radius: 5px;
+    object-fit: cover;
+      /* background-color: transparent;  */
+  
+  }
+  
+  .circle p {
+    margin-top: 20px;
+    color: #000;
+  }
+  

@@ -277,7 +277,7 @@ const Nav = () => {
               </div>{" "}
               {categories.map((category) => (
                 <>
-                  <Link to={`categories/${category.slugcategory}`} onClick={ () =>{setDropdownOpen(false)}} >
+                  <Link style={{ textDecoration: 'none' }} to={`categories/${category.slugcategory}`} onClick={ () =>{setDropdownOpen(false)}} >
 
                   <li
                     key={category.id}
@@ -420,7 +420,7 @@ const Nav = () => {
               </div>{" "}
               {services.map((service) => (
                 <>
-                  <Link to={`services/${service.slugservice}`} onClick={ () =>{setDropdownOpen1(false)}} >
+                  <Link style={{ textDecoration: 'none' }} to={`services/${service.slugservice}`} onClick={ () =>{setDropdownOpen1(false)}} >
 
                   <li
                     key={service.id}

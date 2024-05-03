@@ -332,7 +332,7 @@ const Item = (props) => {
                     data.map((item, index) => {
                       return (
                         <div className="item" key={index}>
-                          <Product tag={item.brand} item={item} />
+                          <Product brand={item.brand} item={item} />
                         </div>
                       );
                     })}

@@ -7,6 +7,7 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
 
 import { MyContext } from "../../App";
+import SidebarCategories from "../../components/SidebarCategories";
 
 const Categories = (props) => {
   const [isOpenDropDown, setisOpenDropDown] = useState(false);
@@ -20,14 +21,12 @@ const Categories = (props) => {
   const [currentId, setCurrentId] = useState();
   const [title, setTitle] = useState("");
 
-
   let { id } = useParams();
   var itemsData = [];
 
-
   useEffect(() => {
     let uniqueProducts = {}; // Utilisation d'un objet pour stocker temporairement les produits uniques
-  
+
     props.data[0]["categories"].forEach((category) => {
       // Vérifier si la catégorie correspond à l'ID
       if (category.slugcategory.toLowerCase() === id.toLowerCase()) {
@@ -48,16 +47,14 @@ const Categories = (props) => {
         });
       }
     });
-  
+
     // Convertir l'objet en tableau
     const uniqueProductsArray = Object.values(uniqueProducts);
     setData(uniqueProductsArray);
-    console.log("siiii");
-    console.log(uniqueProductsArray);
-  
+ 
+
     window.scrollTo(0, 0);
   }, [id]);
-  
 
   const filterByBrand = (keyword) => {
     props.data[0]["categories"].length !== 0 &&
@@ -280,7 +277,8 @@ const Categories = (props) => {
                 }`}
               >
                 {data.length !== 0 && (
-                  <Sidebar
+                  <SidebarCategories
+                    title={title}
                     data={props.data}
                     currentCatData={data}
                     filterByBrand={filterByBrand}

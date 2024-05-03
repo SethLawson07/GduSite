@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Button } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-
+import "./style.css"
 import Product from "../../components/product";
 import { MyContext } from "../../App";
 
@@ -67,6 +67,7 @@ const DetailsService = (props) => {
     dots: false,
     infinite: false,
     speed: 500,
+    vertical: true,
     slidesToShow: 5,
     slidesToScroll: 1,
     fade: false,
@@ -136,7 +137,7 @@ const DetailsService = (props) => {
       props.data[0]["services"].forEach((service) => {
         service.TypeService.forEach((typeservice) => {
           typeservice.ItemService.forEach((item) => {
-            if ( item.id === currentItemID) {
+            if (item.id === currentItemID) {
               if (item.slugserviceproduct !== id) {
                 related_products.push(item);
               }
@@ -182,6 +183,24 @@ const DetailsService = (props) => {
         <div className="container detailsContainer pt-3 pb-3">
           <div className="row">
             {/* productZoom code start here */}
+
+            <div className="col-md-1">
+              <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
+                {currentProduct.image !== undefined &&
+                  currentProduct.image.map((imgUrl, index) => {
+                    return (
+                      <div className="item">
+                        <img
+                          src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
+                          className="w-100"
+                          onClick={() => goto(index)}
+                        />
+                      </div>
+                    );
+                  })}
+              </Slider>
+            </div>
+
             <div className="col-md-5">
               <div className="productZoom">
                 <Slider
@@ -203,26 +222,11 @@ const DetailsService = (props) => {
                     })}
                 </Slider>
               </div>
-
-              <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
-                {currentProduct.image !== undefined &&
-                  currentProduct.image.map((imgUrl, index) => {
-                    return (
-                      <div className="item">
-                        <img
-                          src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
-                          className="w-100"
-                          onClick={() => goto(index)}
-                        />
-                      </div>
-                    );
-                  })}
-              </Slider>
             </div>
             {/* productZoom code ends here */}
 
             {/* product info code start here */}
-            <div className="col-md-7 productInfo">
+            <div className="col-md-6 productInfo">
               <h1>{currentProduct.title}</h1>
               {/* <div className="d-flex align-items-center mb-4 mt-3">
                 <Rating
@@ -319,13 +323,15 @@ const DetailsService = (props) => {
                   </div>
                 )}
 
-              <div className="d-flex align-items-center">
+             
+            </div>
+            {/* product info code ends here */}
+          </div>
+          <div className="d-flex align-items-center">
                 <div className="d-flex align-items-center">
                   {context.windowWidth > 992 && (
                     <Button
-                      className={`btn-g btn-lg addtocartbtn ${
-                        isAlreadyAddedInCart === true && "no-click"
-                      }`}
+                      className="rounded-button"
                       // onClick={() => addToCart(currentProduct)}
                     >
                       <ShoppingCartOutlinedIcon />
@@ -342,10 +348,6 @@ const DetailsService = (props) => {
                   </Button> */}
                 </div>
               </div>
-            </div>
-            {/* product info code ends here */}
-          </div>
-
           <div className="card mt-5 p-5 detailsPageTabs">
             <div className="customTabs">
               <ul className="list list-inline">
@@ -359,7 +361,7 @@ const DetailsService = (props) => {
                     Description
                   </Button>
                 </li>
-                <li className="list-inline-item">
+                {/* <li className="list-inline-item">
                   <Button
                     className={`${activeTabs === 1 && "active"}`}
                     onClick={() => {
@@ -368,7 +370,7 @@ const DetailsService = (props) => {
                   >
                     Additional info
                   </Button>
-                </li>
+                </li> */}
                 {/* <li className="list-inline-item">
                   <Button
                     className={`${activeTabs === 2 && "active"}`}

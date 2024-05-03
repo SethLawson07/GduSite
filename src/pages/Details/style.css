@@ -1,4 +1,33 @@
-.rounded-button {
-    border-radius: 50px;
-  }
-  
+.rounded-button{font-size: 20px !important; color: #fff !important; padding: 5px 25px !important; background: #FFA500 !important; border: 1px solid #FFA500;border-radius: 50px;margin-left: 5px;}
+ .rounded-button:hover,
+ .rounded-button:hover .iconAddCart {
+  background: #fff !important; /* Changement de couleur de fond du bouton au survol */
+  color: #FFA500 !important; /* Changement de couleur de texte du bouton au survol */
+}
+
+
+.rounded-button1{font-size: 20px !important; color: #FFA500 !important; padding: 5px 25px !important; background: #fff !important;border: 1px solid #FFA500;border-radius: 50px;}
+ .rounded-button1:hover,
+ .rounded-button1:hover .iconAddCart {
+  background: #FFA500 !important; /* Changement de couleur de fond du bouton au survol */
+  color: #fff !important; /* Changement de couleur de texte du bouton au survol */
+}
+
+
+.discount{
+  margin: 0;
+  color: #498F2C;
+  font-weight: 600;
+  font-size: 35px;
+}
+
+.description{
+  font-size: 25px;
+  color: #000;
+}
+
+.imgzoom{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
