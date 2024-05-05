@@ -73,7 +73,7 @@ const DetailsPage = (props) => {
     dots: false,
     infinite: false,
     speed: 500,
-    vertical:true,
+    vertical: true,
     slidesToShow: 5,
     slidesToScroll: 1,
     fade: false,
@@ -204,11 +204,10 @@ const DetailsPage = (props) => {
         <br />
 
         <div className="container detailsContainer pt-3 pb-3">
-          
           <div className="row">
             {/* productZoom code start here */}
             <div className="col-md-1">
-            <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
+              <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
                 {currentProduct.images !== undefined &&
                   currentProduct.images.map((imgUrl, index) => {
                     return (
@@ -236,7 +235,7 @@ const DetailsPage = (props) => {
                       return (
                         <div className="item">
                           <InnerImageZoom
-                          className="imgzoom"
+                            className="imgzoom"
                             zoomType="hover"
                             zoomScale={1}
                             src={`${imgUrl}?im=Resize=(${bigImageSize[0]},${bigImageSize[1]})`}
@@ -260,6 +259,43 @@ const DetailsPage = (props) => {
                     );
                   })}
               </Slider> */}
+              <div className="d-flex align-items-center btnSpace">
+                <div className="d-flex align-items-center">
+                  {isProductInCart() ? (
+                    <QuantitySelector
+                      itemId={currentProduct.id}
+                      quantity={getProductQuantityInCart()}
+                    />
+                  ) : (
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      className="rounded-button"
+                      onClick={() => addToCartHandler(currentProduct)}
+                    >
+                      <ShoppingCartOutlinedIcon />
+                      Ajouter au panier
+                    </Link>
+                  )}
+                  &nbsp;
+                  {isProductInWishList() ? (
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to="/wishlist"
+                      className="rounded-button1"
+                    >
+                      Voir ma liste de souhaits
+                    </Link>
+                  ) : (
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      className="rounded-button1"
+                      onClick={() => addToWishListHandler(currentProduct)}
+                    >
+                      Ajouter à ma liste de souhaits
+                    </Link>
+                  )}
+                </div>
+              </div>
             </div>
             {/* productZoom code ends here */}
 
@@ -275,7 +311,6 @@ const DetailsPage = (props) => {
                   )}
                 </span>
                 <div className="ml-3 d-flex flex-column">
-                 
                   {currentProduct.discount !== "0" && (
                     <span className="text-light oldPrice">
                       {currentProduct.price} Fcfa
@@ -283,12 +318,10 @@ const DetailsPage = (props) => {
                   )}
                 </div>
               </div>
-                  {currentProduct.discount !== "0" && (
-                    <p className="discount">
-                      {currentProduct.discount} gagné
-                    </p>
-                  )}
-                
+              {currentProduct.discount !== "0" && (
+                <p className="discount">{currentProduct.discount} gagné</p>
+              )}
+
               <p className="description">{currentProduct.description}</p>
 
               {/* {currentProduct.weight !== undefined &&
@@ -397,43 +430,7 @@ const DetailsPage = (props) => {
             </div>
             {/* product info code ends here */}
           </div>
-          <div className="d-flex align-items-center">
-            <div className="d-flex align-items-center">
-              {isProductInCart() ? (
-                <QuantitySelector
-                  itemId={currentProduct.id}
-                  quantity={getProductQuantityInCart()}
-                />
-              ) : (
-                <Button
-                  className="rounded-button"
-                  onClick={() => addToCartHandler(currentProduct)}
-                >
-                  <ShoppingCartOutlinedIcon />
-                  Ajouter au panier
-                </Button>
-              )}
-              &nbsp;
-              {isProductInWishList() ? (
-                <Link
-                  style={{ textDecoration: "none" }}
-                  to="/wishlist"
-                  className="rounded-button1"
-                >
-                  Voir ma liste de souhaits
-                </Link>
-              ) : (
-                <Link
-                  style={{ textDecoration: "none" }}
-                  to="/wishlist"
-                  className="rounded-button1"
-                  onClick={() => addToWishListHandler(currentProduct)}
-                >
-                  Ajouter à ma liste de souhaits
-                </Link>
-              )}
-            </div>
-          </div>
+
           <div className="card mt-5 p-5 detailsPageTabs">
             <div className="customTabs">
               <ul className="list list-inline">

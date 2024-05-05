@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Button } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import "./style.css"
+import "./style.css";
 import Product from "../../components/product";
 import { MyContext } from "../../App";
 
@@ -222,6 +222,27 @@ const DetailsService = (props) => {
                     })}
                 </Slider>
               </div>
+              <div className="d-flex align-items-center btnSpace">
+            <div className="d-flex align-items-center">
+              {context.windowWidth > 992 && (
+                <Button
+                  className="rounded-button"
+                  // onClick={() => addToCart(currentProduct)}
+                >
+                  <ShoppingCartOutlinedIcon />
+                  {isAdded === true || isAlreadyAddedInCart === true
+                    ? " Ajouté"
+                    : " Commander"}
+                </Button>
+              )}
+              {/* <Button className=" btn-lg addtocartbtn  ml-3  wishlist btn-border">
+                    <FavoriteBorderOutlinedIcon />{" "}
+                  </Button>
+                  <Button className=" btn-lg addtocartbtn ml-3 btn-border">
+                    <CompareArrowsIcon />
+                  </Button> */}
+            </div>
+          </div>
             </div>
             {/* productZoom code ends here */}
 
@@ -322,32 +343,10 @@ const DetailsService = (props) => {
                     </ul>
                   </div>
                 )}
-
-             
             </div>
             {/* product info code ends here */}
           </div>
-          <div className="d-flex align-items-center">
-                <div className="d-flex align-items-center">
-                  {context.windowWidth > 992 && (
-                    <Button
-                      className="rounded-button"
-                      // onClick={() => addToCart(currentProduct)}
-                    >
-                      <ShoppingCartOutlinedIcon />
-                      {isAdded === true || isAlreadyAddedInCart === true
-                        ? " Ajouté"
-                        : " Commander"}
-                    </Button>
-                  )}
-                  {/* <Button className=" btn-lg addtocartbtn  ml-3  wishlist btn-border">
-                    <FavoriteBorderOutlinedIcon />{" "}
-                  </Button>
-                  <Button className=" btn-lg addtocartbtn ml-3 btn-border">
-                    <CompareArrowsIcon />
-                  </Button> */}
-                </div>
-              </div>
+         
           <div className="card mt-5 p-5 detailsPageTabs">
             <div className="customTabs">
               <ul className="list list-inline">

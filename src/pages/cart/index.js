@@ -32,7 +32,8 @@ const Cart = () => {
   const calculateSubtotal = (item) => {
     const priceWithoutSpaces = parseFloat(item.price.replace(/\s/g, ""));
     const discountWithoutSpaces = parseFloat(item.discount.replace(/\s/g, ""));
-    const subtotal = (priceWithoutSpaces-discountWithoutSpaces) * item.quantity;
+    const subtotal =
+      (priceWithoutSpaces - discountWithoutSpaces) * item.quantity;
     return subtotal.toLocaleString("fr-FR") + " F CFA";
   };
 
@@ -48,7 +49,10 @@ const Cart = () => {
   const calculateTotalPrice = () => {
     const totalPrice = cartItems.reduce(
       (total, item) =>
-        total + (parseFloat(item.price.replace(/\s/g, ""))-parseFloat(item.discount.replace(/\s/g, ""))) * item.quantity,
+        total +
+        (parseFloat(item.price.replace(/\s/g, "")) -
+          parseFloat(item.discount.replace(/\s/g, ""))) *
+          item.quantity,
       0
     );
     return totalPrice.toLocaleString("fr-FR") + " F CFA";
@@ -56,7 +60,8 @@ const Cart = () => {
 
   const calculateTotalDiscount = () => {
     const totalPrice = cartItems.reduce(
-      (total, item) => total + parseFloat(item.discount.replace(/\s/g, ""))*item.quantity,
+      (total, item) =>
+        total + parseFloat(item.discount.replace(/\s/g, "")) * item.quantity,
       0
     );
     return totalPrice.toLocaleString("fr-FR") + " F CFA";
@@ -137,7 +142,7 @@ const Cart = () => {
                           </td>
 
                           <td width="20%">
-                            <span >
+                            <span>
                               {" "}
                               {calculateDiscountPrice(
                                 item.price,
@@ -153,7 +158,6 @@ const Cart = () => {
                           </td>
 
                           <td>
-                          
                             <QuantitySelector
                               itemId={item.id}
                               quantity={item.quantity}
@@ -206,9 +210,8 @@ const Cart = () => {
 
             <div className="col-md-4 cartRightBox">
               <div className="card p-4 ">
-              <div className="d-flex align-items-center mb-4">
+                <div className="d-flex align-items-center mb-4">
                   <h1 className="mb-0 textDark textBold">Résumé</h1>
-                
                 </div>
                 <div className="d-flex align-items-center mb-4">
                   <h4 className="mb-0 textDark">Coût total </h4>
@@ -225,13 +228,10 @@ const Cart = () => {
                   </h3>
                 </div>
                 <div className="d-flex align-items-center mb-4">
-                <h4 className="mb-0 textDark">Code promo</h4>
-                
+                  <h4 className="mb-0 textDark">Code promo</h4>
                 </div>
-              
 
                 <div className="d-flex align-items-center mb-4">
-       
                   <TextField
                     id="outlined-basic"
                     label="Code Promo"
@@ -244,12 +244,18 @@ const Cart = () => {
 
                 <br />
                 <div className="d-flex align-items-center mb-4">
-                  <h3 className="mb-0 textDark textSemiBold">Total à payer :</h3>
+                  <h3 className="mb-0 textDark textSemiBold">
+                    Total à payer :
+                  </h3>
                   <h3 className="ml-auto mb-0 font-weight-bold">
-                    <span className="text-g textSemiBold">{calculateTotalPrice()}</span>
+                    <span className="text-g textSemiBold">
+                      {calculateTotalPrice()}
+                    </span>
                   </h3>
                 </div>
-                <Link to={"/checkout"}>
+                <Link
+                //  to={"/checkout"}
+                 >
                   <Button className="btn-g btn-lg">Commander</Button>
                 </Link>
               </div>
