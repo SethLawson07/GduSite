@@ -272,7 +272,7 @@ const DetailsPage = (props) => {
                       className="rounded-button"
                       onClick={() => addToCartHandler(currentProduct)}
                     >
-                      <ShoppingCartOutlinedIcon />
+                      <ShoppingCartOutlinedIcon className="iconAddCart"  fontSize="large"/>
                       Ajouter au panier
                     </Link>
                   )}
@@ -312,7 +312,7 @@ const DetailsPage = (props) => {
                 </span>
                 <div className="ml-3 d-flex flex-column">
                   {currentProduct.discount !== "0" && (
-                    <span className="text-light oldPrice">
+                    <span className=" oldPrice">
                       {currentProduct.price} Fcfa
                     </span>
                   )}

@@ -136,7 +136,7 @@ const CatSlider = (props) => {
                       <Link
                         to={`/categories/${item.slugcategory.toLowerCase()}`}
                       >
-                        <div className="circle">
+                        <div className="Catcircle">
                           <img src={item.image} alt="Votre image" />
                           <p>{item.title}</p>
                           {/* <p>{totalLength[index]} Item</p> */}

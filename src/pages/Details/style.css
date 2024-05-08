@@ -1,4 +1,6 @@
-.rounded-button{font-size: 20px !important; color: #fff !important; padding: 5px 25px !important; background: #FFA500 !important; border: 1px solid #FFA500;border-radius: 50px;margin-left: 5px;}
+.rounded-button{font-size: 30px;height: 70px; color: #fff !important; background: #FFA500 !important; border: 1px solid #FFA500;border-radius: 50px; display: flex; 
+  justify-content: center; 
+  align-items: center}
  .rounded-button:hover,
  .rounded-button:hover .iconAddCart {
   background: #fff !important; /* Changement de couleur de fond du bouton au survol */
@@ -6,12 +8,15 @@
 }
 
 
-.rounded-button1{font-size: 20px !important; color: #FFA500 !important; padding: 5px 25px !important; background: #fff !important;border: 1px solid #FFA500;border-radius: 50px;}
+.rounded-button1{font-size: 20px !important;height: 70px; color: #FFA500 !important; padding: 5px 25px !important; background: #fff !important;border: 1px solid #FFA500;border-radius: 50px;display: flex; 
+  justify-content: center; 
+  align-items: center}
  .rounded-button1:hover,
  .rounded-button1:hover .iconAddCart {
   background: #FFA500 !important; /* Changement de couleur de fond du bouton au survol */
   color: #fff !important; /* Changement de couleur de texte du bouton au survol */
 }
+
 
 
 .discount{
@@ -35,3 +40,14 @@
 .btnSpace{
   margin-top: 50px;
 }
+
+
+ .rounded-button:hover .iconAddCart {
+  background: #FFA500 !important; /* Changement de couleur de fond du bouton au survol */
+  color: #fff !important; /* Changement de couleur de texte du bouton au survol */
+}
+
+ .rounded-button .iconAddCart {
+     color: #fff !important;
+ 
+   }

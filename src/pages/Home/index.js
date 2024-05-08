@@ -381,6 +381,7 @@ const Home = (props) => {
           })}
       </section>
 
+
       <MidSlider />
 
       <CatSlider data={prodData[0]["categories"]} />

@@ -184,14 +184,14 @@ p{color: #7E7E7E;}
   }
   
 
-.price{font-size: 25px; margin-right: 20px;}
-.oldPrice{font-size: 20px; opacity: 0.6; color: #000; text-decoration: line-through;}
+.price{font-size: 23px; margin-right: 20px;}
+.oldPrice{font-size: 23px; color: #000; text-decoration: line-through;}
 
 
 .listingPage{width: 100%; height: auto; padding: 45px 0px;}
 
 .breadcrumb{width: 100%; height: auto; padding: 45px 45px; background: #d8f1e5; border-radius: 20px; margin-bottom: 30px;}
-.breadcrumb h1{color: #000; opacity: 0.8; font-size: 50px; font-weight: bold;}
+.breadcrumb h1{color: #000;  font-size: 30px; font-weight: bold;}
 .breadcrumb ul li{margin-right: 20px !important;}
 .breadcrumb ul li a{color: #000; text-decoration: none; font-size: 22px;}
 
@@ -267,10 +267,10 @@ ul.breadcrumb li a:hover {
 .detailsContainer{max-width: 85%; margin: auto; padding: 30px 0px;}
 
 .detailsPage .productInfo{padding-left: 80px;}
-.detailsPage .productInfo h1{font-size: 55px; font-weight: bold; opacity: 0.8;}
-  .detailsPage .productInfo .priceSec .priceLarge{font-size: 70px; font-weight: bold;}
+.detailsPage .productInfo h1{font-size: 45px; font-weight: bold; color: #000;}
+  .detailsPage .productInfo .priceSec .priceLarge{font-size: 35px; font-weight: bold;}
   .detailsPage .productInfo .priceSec .text-org{font-size: 20px; font-weight: 600;}
-  .detailsPage .productInfo .priceSec .text-light.oldPrice{font-size: 30px; font-weight: 600;}
+  .detailsPage .productInfo .priceSec .text-light.oldPrice{font-size: 30px; font-weight: 600;color: #000;}
 
   .productZoom{ width: 100%; height: auto; border: 1px solid rgba(0,0,0,0.1); padding: 0px; overflow: hidden; border-radius: 15px;}
   .zoomSliderBig{width: 100% !important;}

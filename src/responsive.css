@@ -8,7 +8,7 @@
   .rightContent .topStrip p{width: 100%; margin-bottom: 10px !important;}
   .rightContent .topStrip div.ml-auto{width: 100%;}
 
-  .detailsPage .productInfo h1{font-size: 40px !important;}
+  .detailsPage .productInfo h1{font-size: 30px !important;}
   .detailsPage .productInfo .priceSec .priceLarge{font-size: 50px !important;}
   .detailsPageTabs{padding: 25px !important;}
   .customTabs ul{white-space: nowrap !important; overflow: scroll; overflow-y: hidden; display: block !important; margin-bottom: 0px !important;}

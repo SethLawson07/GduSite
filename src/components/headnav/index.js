@@ -146,7 +146,9 @@ const Nav = () => {
   const [categories, setCategories] = useState([]);
   const [services, setServices] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false); // État pour contrôler la visibilité du dropdown
+  const [secondDropdownOpen, setSecondDropdownOpen] = useState(false); // État pour contrôler la visibilité du second dropdown
   const [dropdownOpen1, setDropdownOpen1] = useState(false); // État pour contrôler la visibilité du service dropdown
+  const [secondDropdownOpen1, setSecondDropdownOpen1] = useState(false); // État pour contrôler la visibilité du second service dropdown
 
   const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [activeServiceId, setActiveServiceId] = useState(null);
@@ -178,7 +180,7 @@ const Nav = () => {
         !category.contains(event.target) // Vérifier si le clic est sur la catégorie
       ) {
         setDropdownOpen(false); // Fermer le dropdown
-        setActiveCategoryId(null);
+        setSecondDropdownOpen(false);
       }
     };
 
@@ -192,7 +194,8 @@ const Nav = () => {
         !dropdown1.contains(event.target) && // Vérifier si le clic est en dehors du dropdown
         !service.contains(event.target) // Vérifier si le clic est sur la catégorie
       ) {
-        setDropdownOpen1(false); // Fermer le dropdown
+        setDropdownOpen1(false);
+        setSecondDropdownOpen1(false);
       }
     };
 
@@ -210,14 +213,14 @@ const Nav = () => {
     };
   }, []);
 
-  const handleLabelClick = () => {
-    // Vérifier s'il y a des catégories disponibles
-    if (categories.length > 0 || services.length > 0) {
-      // Extraire l'ID de la première catégorie et le définir comme activeCategoryId
-      setActiveCategoryId(categories[0].id);
-      setActiveServiceId(services[0].id);
-    }
-  };
+  // const handleLabelClick = () => {
+  //   // Vérifier s'il y a des catégories disponibles
+  //   if (categories.length > 0 || services.length > 0) {
+  //     // Extraire l'ID de la première catégorie et le définir comme activeCategoryId
+  //     setActiveCategoryId(categories[0].id);
+  //     setActiveServiceId(services[0].id);
+  //   }
+  // };
 
   return (
     <nav className="nav1">
@@ -228,12 +231,13 @@ const Nav = () => {
           className="toggle-dropdown"
           onChange={() => {
             setDropdownOpen(!dropdownOpen);
+            setSecondDropdownOpen(false);
           }} // Inverser l'état de visibilité du dropdown lorsqu'on clique sur l'input
         />
         <label
           htmlFor="toggle-dropdown"
           className="category test1"
-          onClick={handleLabelClick}
+          // onClick={handleLabelClick}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -277,45 +281,40 @@ const Nav = () => {
               </div>{" "}
               {categories.map((category) => (
                 <>
-                  <Link style={{ textDecoration: 'none' }} to={`categories/${category.slugcategory}`} onClick={ () =>{setDropdownOpen(false)}} >
-
-                  <li
-                    key={category.id}
-                    className="submenu"
-                    onMouseOver={() => {
-                      setActiveCategoryId(category.id);
-                      // console.log("Active category ID:", category.id);
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={`categories/${category.slugcategory}`}
+                    onClick={() => {
+                      setDropdownOpen(false);
                     }}
-                    // onMouseOut={() => {
-                    //   setActiveCategoryId(null);
-                    //   console.log("Active category ID:", null);
-                    // }}
                   >
-                    {category.title}
-                  </li>
+                    <li
+                      key={category.id}
+                      className="submenu"
+                      onMouseOver={() => {
+                        setActiveCategoryId(category.id);
+                        setSecondDropdownOpen(true);
+
+                        // console.log("Active category ID:", category.id);
+                      }}
+                      // onMouseOut={() => {
+                      //   setActiveCategoryId(null);
+                      //   console.log("Active category ID:", null);
+                      // }}
+                    >
+                      {category.title}
+                    </li>
                   </Link>
                 </>
               ))}
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
             </ul>
           </div>
           <div
             // className="second-dropdown"
             style={{
-              display: activeCategoryId ? "block" : "none",
-              display: dropdownOpen ? "block" : "none", // Afficher le second dropdown si la catégorie est survolée
+              // display: activeCategoryId ? "block" : "none",
+              display: secondDropdownOpen ? "block" : "none",
+              // Afficher le second dropdown si la catégorie est survolée
             }}
             className={`second-dropdown ${dropdownOpen ? "open" : ""}`}
             // style={{ }}
@@ -353,7 +352,7 @@ const Nav = () => {
                             <li key={item.id} className="subDropTitle">
                               {item.title}
                             </li>
-                           </Link>
+                          </Link>
                         ))}
                       </ul>
                     ))}
@@ -371,12 +370,12 @@ const Nav = () => {
           className="toggle-servicedropdown"
           onChange={() => {
             setDropdownOpen1(!dropdownOpen1);
+            setSecondDropdownOpen1(false);
           }} // Inverser l'état de visibilité du dropdown lorsqu'on clique sur l'input
         />
         <label
           htmlFor="toggle-servicedropdown"
           className="service test1"
-          onClick={handleLabelClick}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -420,48 +419,39 @@ const Nav = () => {
               </div>{" "}
               {services.map((service) => (
                 <>
-                  <Link style={{ textDecoration: 'none' }} to={`services/${service.slugservice}`} onClick={ () =>{setDropdownOpen1(false)}} >
-
-                  <li
-                    key={service.id}
-                    className="submenu"
-                    onMouseOver={() => {
-                      setActiveServiceId(service.id);
-                      // console.log("Active category ID:", category.id);
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={`services/${service.slugservice}`}
+                    onClick={() => {
+                      setDropdownOpen1(false);
+                      setSecondDropdownOpen1(false);
                     }}
-                    // onMouseOut={() => {
-                    //   setActiveCategoryId(null);
-                    //   console.log("Active category ID:", null);
-                    // }}
                   >
-                    {service.title}
-                  </li>
+                    <li
+                      key={service.id}
+                      className="submenu"
+                      onMouseOver={() => {
+                        setActiveServiceId(service.id);
+                        setSecondDropdownOpen1(true);
+                        // console.log("Active category ID:", category.id);
+                      }}
+                      // onMouseOut={() => {
+                      //   setActiveCategoryId(null);
+                      //   console.log("Active category ID:", null);
+                      // }}
+                    >
+                      {service.title}
+                    </li>
                   </Link>
                 </>
               ))}
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
-              <li className="submenu">test</li>
             </ul>
           </div>
           <div
             // className="second-dropdown"
             style={{
               display: activeCategoryId ? "block" : "none",
-              display: dropdownOpen1 ? "block" : "none", // Afficher le second dropdown si la catégorie est survolée
+              display: secondDropdownOpen1 ? "block" : "none",
             }}
             className={`second-dropdown1 ${dropdownOpen1 ? "open" : ""}`}
             // style={{ }}

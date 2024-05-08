@@ -63,7 +63,7 @@ const ServiceSlider = (props) => {
                 return (
                   <div className="item" key={index}>
                     <Link to={`/services/${item.slugservice}`}>
-                      <div className="circle">
+                      <div className="Sercircle">
                         <img src={item.image} alt="Votre image" />
                         <p>{item.title}</p>
                         {/* <p>{totalLength[index]} Item</p> */}

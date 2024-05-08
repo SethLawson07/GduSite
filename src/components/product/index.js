@@ -70,6 +70,7 @@ const Product = (props) => {
       {productData !== undefined && (
         <>
           {/* <Link to={`/product/${productData.slugproduct}`}> */}
+
           <div className="imgWrapper">
             <div className="heartIcon">
               {isProductInWishList() ? (
@@ -108,72 +109,68 @@ const Product = (props) => {
                 </div>
               )}
             </div>
-            <div className="p-0 wrapperm mb-4">
-              {/* <img
-                  src={productData.images[0] + "?im=Resize=(500,500)"}
-                  // src={productData.images[0]}
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/product/${productData.slugproduct}`}
+            >
+              <div className="p-0 wrapperm mb-4">
+                <img
+                  src={productData.images[0]}
                   className="w-100"
-                /> */}
-              <img
-                src={productData.images[0]}
-                className="w-100"
-                style={{
-                  objectFit: "cover",
-                  width: "200px",
-                  height: "250px",
-                  cursor: "auto",
-                }}
-              />
-            </div>
-          </div>
-            <div className="info">
-            <Link style={{ textDecoration: 'none' }} to={`/product/${productData.slugproduct}`}>
-
-              <h4 className="title">
-                {/* <Link to={`/product/${productData.slugproduct}`}> */}
-                  {productData.name.substr(0, 50) + ""}
-                {/* </Link> */}
-              </h4>
-              <div className="d-flex align-items-center mt-3">
-                <div className="d-flex align-items-center w-100">
-                  <p className="price text-g font-weight-bold">
-                    {calculateDiscountPrice(
-                      productData.price,
-                      productData.discount
-                    )}
-                  </p>{" "}
-                  {productData.discount !== "0" && (
-                    <p className="oldPrice ml-auto">
-                      {productData.price} Fcfa
-                    </p>
-                  )}
-                </div>
-              </div>
-              <h4 className="discount1">
-                {productData.discount !== "0" ? (
-                  <span>{productData.discount} Fcfa de réduction</span>
-                ) : (
-                  <span>&nbsp;</span>
-                )}
-              </h4>
-              </Link>
-
-              {isProductInCart() ? (
-                <QuantitySelector
-                  itemId={productData.id}
-                  quantity={getProductQuantityInCart()}
-                  className="text-center" // Ajout de la classe pour centrer le composant
+                  style={{
+                    objectFit: "cover",
+                    width: "200px",
+                    height: "250px",
+                    // cursor: "auto",
+                  }}
                 />
-              ) : (
-                <Button
-                  className="w-100 transition mt-3 rounded-button"
-                  onClick={() => addToCartHandler(productData)}
-                >
-                  <ShoppingCartOutlinedIcon className="iconAddCart" />
-                  Ajouter au panier
-                </Button>
-              )}
-            </div>{" "}
+              </div>
+              <div className="info">
+                <h4 className="title">
+                  {/* <Link to={`/product/${productData.slugproduct}`}> */}
+                  {productData.name.substr(0, 50) + ""}
+                  {/* </Link> */}
+                </h4>
+                <div className="d-flex align-items-center mt-3">
+                  <div className="d-flex align-items-center w-100">
+                    <p className="price text-g font-weight-bold">
+                      {calculateDiscountPrice(
+                        productData.price,
+                        productData.discount
+                      )}
+                    </p>{" "}
+                    {productData.discount !== "0" && (
+                      <p className="oldPrice ml-auto">
+                        {productData.price} Fcfa
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <h4 className="discount1">
+                  {productData.discount !== "0" ? (
+                    <span>{productData.discount} Fcfa de réduction</span>
+                  ) : (
+                    <span>&nbsp;</span>
+                  )}
+                </h4>
+              </div>{" "}
+            </Link>
+            {isProductInCart() ? (
+              <QuantitySelector
+                itemId={productData.id}
+                quantity={getProductQuantityInCart()}
+                className="text-center" // Ajout de la classe pour centrer le composant
+              />
+            ) : (
+              <Button
+                className="w-100 transition mt-3 rounded-button"
+                onClick={() => addToCartHandler(productData)}
+              >
+                <ShoppingCartOutlinedIcon className="iconAddCart" fontSize="large" />
+                Ajouter au panier
+              </Button>
+            )}
+          </div>
         </>
       )}
     </div>
