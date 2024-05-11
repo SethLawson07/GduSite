@@ -68,7 +68,7 @@ const DetailsService = (props) => {
     infinite: false,
     speed: 500,
     vertical: true,
-    slidesToShow: 5,
+    slidesToShow: 3,
     slidesToScroll: 1,
     fade: false,
     arrows: context.windowWidth > 992 ? true : false,
@@ -189,13 +189,13 @@ const DetailsService = (props) => {
                 {currentProduct.image !== undefined &&
                   currentProduct.image.map((imgUrl, index) => {
                     return (
-                      <div className="item">
+                      // <div className="item">
                         <img
                           src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
                           className="w-100"
                           onClick={() => goto(index)}
                         />
-                      </div>
+                      // </div>
                     );
                   })}
               </Slider>

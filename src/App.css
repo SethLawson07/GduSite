@@ -279,7 +279,7 @@ ul.breadcrumb li a:hover {
   .zoomSlider{padding-top: 0px; margin: 0;}
   .zoomSlider .slick-slide { padding-right: 0px !important;}
   .zoomSlider *{outline: none !important;}
-  .zoomSlider .item{border: 2px solid transparent !important; overflow: hidden; border-radius: 15px; cursor: pointer;}
+  .zoomSlider .item{margin: 0px ;border: 2px solid transparent !important; overflow: hidden; border-radius: 15px; cursor: pointer;}
   .zoomSlider .slick-current .item{border: 2px solid #2D73E3 !important; }
   .zoomSlider .slick-arrow{top: 55% !important; zoom: 80% !important;}
   .zoomSlider .slick-arrow.slick-next{right: -2% !important;}

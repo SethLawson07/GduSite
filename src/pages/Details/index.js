@@ -74,10 +74,11 @@ const DetailsPage = (props) => {
     infinite: false,
     speed: 500,
     vertical: true,
-    slidesToShow: 5,
+    slidesToShow: 3,
     slidesToScroll: 1,
     fade: false,
     arrows: context.windowWidth > 992 ? true : false,
+   
   };
 
   var related = {
@@ -208,16 +209,18 @@ const DetailsPage = (props) => {
             {/* productZoom code start here */}
             <div className="col-md-1">
               <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
+                {/* <h1>{currentProduct.name}</h1> */}
+
                 {currentProduct.images !== undefined &&
                   currentProduct.images.map((imgUrl, index) => {
                     return (
-                      <div className="item">
+                      // <div className="item">
                         <img
                           src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
                           className="w-100"
                           onClick={() => goto(index)}
                         />
-                      </div>
+                      //  </div>
                     );
                   })}
               </Slider>
@@ -272,7 +275,10 @@ const DetailsPage = (props) => {
                       className="rounded-button"
                       onClick={() => addToCartHandler(currentProduct)}
                     >
-                      <ShoppingCartOutlinedIcon className="iconAddCart"  fontSize="large"/>
+                      <ShoppingCartOutlinedIcon
+                        className="iconAddCart"
+                        fontSize="large"
+                      />
                       Ajouter au panier
                     </Link>
                   )}

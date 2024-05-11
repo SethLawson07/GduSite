@@ -346,6 +346,8 @@ const Nav = () => {
                             to={`item/${item.slugitem}`}
                             onClick={() => {
                               setDropdownOpen(false);
+                              setSecondDropdownOpen(false);
+
                             }}
                             style={{ textDecoration: "none" }}
                           >
@@ -483,6 +485,8 @@ const Nav = () => {
                             to={`typeservice/${item.slugitemservice}`}
                             onClick={() => {
                               setDropdownOpen1(false);
+                              setSecondDropdownOpen1(false);
+
                             }}
                             style={{ textDecoration: "none" }}
                           >
