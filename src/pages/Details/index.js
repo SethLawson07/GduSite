@@ -78,7 +78,6 @@ const DetailsPage = (props) => {
     slidesToScroll: 1,
     fade: false,
     arrows: context.windowWidth > 992 ? true : false,
-   
   };
 
   var related = {
@@ -215,11 +214,11 @@ const DetailsPage = (props) => {
                   currentProduct.images.map((imgUrl, index) => {
                     return (
                       // <div className="item">
-                        <img
-                          src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
-                          className="w-100"
-                          onClick={() => goto(index)}
-                        />
+                      <img
+                        src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
+                        className="w-100"
+                        onClick={() => goto(index)}
+                      />
                       //  </div>
                     );
                   })}
@@ -248,20 +247,7 @@ const DetailsPage = (props) => {
                     })}
                 </Slider>
               </div>
-              {/* <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
-                {currentProduct.images !== undefined &&
-                  currentProduct.images.map((imgUrl, index) => {
-                    return (
-                      <div className="item">
-                        <img
-                          src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
-                          className="w-100"
-                          onClick={() => goto(index)}
-                        />
-                      </div>
-                    );
-                  })}
-              </Slider> */}
+
               <div className="d-flex align-items-center btnSpace">
                 <div className="d-flex align-items-center">
                   {isProductInCart() ? (
@@ -306,10 +292,32 @@ const DetailsPage = (props) => {
             {/* productZoom code ends here */}
 
             {/* product info code start here */}
-            <div className="col-md-6 productInfo">
-              <h1>{currentProduct.name}</h1>
-
-              <div className="priceSec d-flex align-items-center mb-3">
+            <div
+              className="col-md-6 productInfo"
+              // style={{ border: "1px solid #353b48" }}
+            >
+              <div
+                className=""
+                style={{
+                  border: "1px solid #b2bec3",
+                  padding: "10px",
+                  margin: "20px",
+                }}
+              >
+                <h1>{currentProduct.name}</h1>
+                <div
+                  style={{
+                    backgroundColor: "#54B10A",
+                    borderRadius: "15px",
+                    padding: "10px",
+                    display: "inline-block",
+                    color: "#fff",
+                    fontSize: "17px",
+                  }}
+                >
+                  #1 Meilleure vente
+                </div>{" "}
+                <div className="priceSec d-flex align-items-center mb-3">
                 <span className="text-g priceLarge">
                   {calculateDiscountPrice(
                     currentProduct.price,
@@ -327,8 +335,43 @@ const DetailsPage = (props) => {
               {currentProduct.discount !== "0" && (
                 <p className="discount">{currentProduct.discount} gagné</p>
               )}
+              <div
+                style={{
+                  color: "#54B10A",
+                  fontSize: "22px",
+                }}
+              >
+                Disponible
+              </div>
+              {/* <p className="description">{currentProduct.description}</p> */}
+              </div>
 
-              <p className="description">{currentProduct.description}</p>
+             
+
+              <div
+                className=""
+                style={{
+                  border: "1px solid #b2bec3",
+                  padding: "10px",
+                  margin: "20px",
+                  background:"#f2f2f2"
+                }}
+              >
+                Paiement par Goodpay disponible bientôt
+              </div>
+
+              <div
+                className=""
+                style={{
+                  border: "1px solid #b2bec3",
+                  padding: "10px",
+                  margin: "20px",
+                  background:"#f2f2f2"
+
+                }}
+              >
+                Abonement GoodDeliver+
+              </div>
 
               {/* {currentProduct.weight !== undefined &&
                 currentProduct.weight.length !== 0 && (

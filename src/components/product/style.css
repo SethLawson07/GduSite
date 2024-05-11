@@ -34,7 +34,7 @@ border-bottom-right-radius: 50px; border-top-left-radius: 5px; text-transform: c
 .productThumb .brand{color: rgba(0,0,0,0.6);}
 .productThumb .brand a{text-decoration: none;}
 
-.productThumb .rounded-button{font-size: 20px !important; color: #FFA500 !important; padding: 5px 25px !important; background: #fff !important; text-transform: capitalize !important;border: 1px solid #FFA500;border-radius: 50px;}
+.productThumb .rounded-button{font-size: 20px !important; color: #FFA500 !important; padding: 5px 20px !important; background: #fff !important; text-transform: capitalize !important;border: 1px solid #FFA500;border-radius: 50px;}
 .productThumb .rounded-button:hover,
 .productThumb .rounded-button:hover .iconAddCart {
   background: #FFA500 !important; /* Changement de couleur de fond du bouton au survol */
