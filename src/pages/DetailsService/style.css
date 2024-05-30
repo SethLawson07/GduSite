@@ -4,3 +4,12 @@
   background: #fff !important; /* Changement de couleur de fond du bouton au survol */
   color: #FFA500 !important; /* Changement de couleur de texte du bouton au survol */
 }
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+
+}
+
+/* tr:hover {background-color: #FFA500;} */

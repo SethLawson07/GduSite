@@ -7,9 +7,11 @@ import React, { useContext, useState } from 'react';
 import { MyContext } from '../../App';
 
 import { useNavigate } from 'react-router-dom';
+import { selectCartItems } from '../../state/cart/cartSlice';
+import { useSelector, useDispatch } from "react-redux";
 
 
-const Checkout = () => {
+const CheckoutProduct = () => {
 
     const [formFields, setformFields] = useState({
         name: '',
@@ -114,12 +116,45 @@ const Checkout = () => {
 
 
 
+
+    const cartItems = useSelector(selectCartItems);
+
+    
+    const calculateTotalOldPrice = () => {
+      const totalPrice = cartItems.reduce(
+        (total, item) =>
+          total + parseFloat(item.price.replace(/\s/g, "")) * item.quantity,
+        0
+      );
+      return totalPrice.toLocaleString("fr-FR") + " F CFA";
+    };
+  
+    const calculateTotalPrice = () => {
+      const totalPrice = cartItems.reduce(
+        (total, item) =>
+          total +
+          (parseFloat(item.price.replace(/\s/g, "")) -
+            parseFloat(item.discount.replace(/\s/g, ""))) *
+            item.quantity,
+        0
+      );
+      return totalPrice.toLocaleString("fr-FR") + " F CFA";
+    };
+  
+    const calculateTotalDiscount = () => {
+      const totalPrice = cartItems.reduce(
+        (total, item) =>
+          total + parseFloat(item.discount.replace(/\s/g, "")) * item.quantity,
+        0
+      );
+      return totalPrice.toLocaleString("fr-FR") + " F CFA";
+    };
     return (
         <section className='cartSection mb-5 checkoutPage'>
             <div className='container'>
                 <form>
                     <div className='row'>
-                        <div className='col-md-8'>
+                        <div className='col-md-7'>
                             <div className='form w-75 mt-4 shadow'>
                                 <h3>Shopping Address</h3>
                                 <div className='form-group mb-3 mt-4'>
@@ -142,8 +177,59 @@ const Checkout = () => {
 
 
 
+                        <div className="col-md-5 cartRightBox">
+              <div className="card p-4 ">
+                <div className="d-flex align-items-center mb-4">
+                  <h1 className="mb-0 textDark textBold">Résumé</h1>
+                </div>
+                <div className="d-flex align-items-center mb-4">
+                  <h4 className="mb-0 textDark">Coût total </h4>
+                  <h3 className="ml-auto mb-0 font-weight-bold">
+                    <span className="text-g">{calculateTotalOldPrice()}</span>
+                  </h3>
+                </div>
+                <div className="d-flex align-items-center mb-4">
+                  <h4 className="mb-0 textDark">Gagné</h4>
+                  <h3 className="ml-auto mb-0 font-weight-bold">
+                    <span className="text-success">
+                      - {calculateTotalDiscount()}
+                    </span>
+                  </h3>
+                </div>
+                <div className="d-flex align-items-center mb-4">
+                  <h4 className="mb-0 textDark">Code promo</h4>
+                </div>
 
-                        <div className='col-md-4 cartRightBox pt-4'>
+                <div className="d-flex align-items-center mb-4">
+                  <TextField
+                    id="outlined-basic"
+                    label="Code Promo"
+                    variant="outlined"
+                  />
+                  <Button variant="outlined" size="large">
+                    Appliquer
+                  </Button>
+                </div>
+
+                <br />
+                <div className="d-flex align-items-center mb-4">
+                  <h3 className="mb-0 textDark textSemiBold">
+                    Total à payer :
+                  </h3>
+                  <h3 className="ml-auto mb-0 font-weight-bold">
+                    <span className="text-g textSemiBold">
+                      {calculateTotalPrice()}
+                    </span>
+                  </h3>
+                </div>
+                {/* <Link
+                //  to={"/checkout"}
+                >
+                  <Button className="btn-g btn-lg">Commander</Button>
+                </Link> */}
+              </div>
+            </div>
+                        {/* <div className='col-md-4 cartRightBox pt-4'>
                             <div className='card p-4 '>
                                 <div className='d-flex align-items-center mb-4'>
                                     <h5 className='mb-0 text-light'>Subtotal</h5>
@@ -173,7 +259,7 @@ const Checkout = () => {
 
 
                             </div>
-                        </div>
+                        </div> */}
 
 
 
@@ -184,4 +270,4 @@ const Checkout = () => {
     )
 }
 
-export default Checkout;
+export default CheckoutProduct;

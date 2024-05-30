@@ -252,7 +252,8 @@ const DetailsPage = (props) => {
                 <div className="d-flex align-items-center">
                   {isProductInCart() ? (
                     <QuantitySelector
-                      itemId={currentProduct.id}
+                      type="product"
+                      id={currentProduct.id}
                       quantity={getProductQuantityInCart()}
                     />
                   ) : (
@@ -301,7 +302,7 @@ const DetailsPage = (props) => {
                 style={{
                   border: "1px solid #b2bec3",
                   padding: "10px",
-                  margin: "20px",
+                  margin: "10px",
                 }}
               >
                 <h1>{currentProduct.name}</h1>
@@ -318,35 +319,33 @@ const DetailsPage = (props) => {
                   #1 Meilleure vente
                 </div>{" "}
                 <div className="priceSec d-flex align-items-center mb-3">
-                <span className="text-g priceLarge">
-                  {calculateDiscountPrice(
-                    currentProduct.price,
-                    currentProduct.discount
-                  )}
-                </span>
-                <div className="ml-3 d-flex flex-column">
-                  {currentProduct.discount !== "0" && (
-                    <span className=" oldPrice">
-                      {currentProduct.price} Fcfa
-                    </span>
-                  )}
+                  <span className="text-g priceLarge">
+                    {calculateDiscountPrice(
+                      currentProduct.price,
+                      currentProduct.discount
+                    )}
+                  </span>
+                  <div className="ml-3 d-flex flex-column">
+                    {currentProduct.discount !== "0" && (
+                      <span className=" oldPrice">
+                        {currentProduct.price} Fcfa
+                      </span>
+                    )}
+                  </div>
                 </div>
+                {currentProduct.discount !== "0" && (
+                  <p className="discount">{currentProduct.discount} gagné</p>
+                )}
+                <div
+                  style={{
+                    color: "#54B10A",
+                    fontSize: "22px",
+                  }}
+                >
+                  Disponible
+                </div>
+                {/* <p className="description">{currentProduct.description}</p> */}
               </div>
-              {currentProduct.discount !== "0" && (
-                <p className="discount">{currentProduct.discount} gagné</p>
-              )}
-              <div
-                style={{
-                  color: "#54B10A",
-                  fontSize: "22px",
-                }}
-              >
-                Disponible
-              </div>
-              {/* <p className="description">{currentProduct.description}</p> */}
-              </div>
-
-             
 
               <div
                 className=""
@@ -354,7 +353,7 @@ const DetailsPage = (props) => {
                   border: "1px solid #b2bec3",
                   padding: "10px",
                   margin: "20px",
-                  background:"#f2f2f2"
+                  background: "#f2f2f2",
                 }}
               >
                 Paiement par Goodpay disponible bientôt
@@ -366,8 +365,7 @@ const DetailsPage = (props) => {
                   border: "1px solid #b2bec3",
                   padding: "10px",
                   margin: "20px",
-                  background:"#f2f2f2"
-
+                  background: "#f2f2f2",
                 }}
               >
                 Abonement GoodDeliver+
@@ -445,7 +443,8 @@ const DetailsPage = (props) => {
                 <div className="d-flex align-items-center">
                   {isProductInCart() ? (
                     <QuantitySelector
-                      itemId={currentProduct.id}
+                                    type="product"
+                      id={currentProduct.id}
                       quantity={getProductQuantityInCart()}
                     />
                   ) : (

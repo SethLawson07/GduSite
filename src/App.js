@@ -12,7 +12,7 @@ import About from "./pages/About/index";
 import Listing from "./pages/Listing";
 import NotFound from "./pages/NotFound";
 import DetailsPage from "./pages/Details";
-import Checkout from "./pages/checkout";
+import Checkout from "./pages/checkout/checkoutProduct";
 
 import axios from "axios";
 import Cart from "./pages/cart";
@@ -31,6 +31,8 @@ import WishList from "./pages/wishlist";
 import Item from "./pages/Item";
 import Services from "./pages/services";
 import Categories from "./pages/Categories";
+import CheckoutProduct from "./pages/checkout/checkoutProduct";
+import CheckoutService from "./pages/checkout/checkoutService";
 
 const MyContext = createContext();
 
@@ -172,7 +174,8 @@ function App() {
                   />
                   <Route exact={true} path="/signin" element={<SignIn />} />
                   <Route exact={true} path="/signup" element={<SignUp />} />
-                  <Route exact={true} path="/checkout" element={<Checkout />} />
+                  <Route exact={true} path="/checkoutproduct" element={<CheckoutProduct />} />
+                  <Route exact={true} path="/checkoutservice" element={<CheckoutService />} />
                   <Route exact={true} path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />

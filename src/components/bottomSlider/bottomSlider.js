@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
 
-export default function MidSlider(props) {
+export default function BottomSlider(props) {
   const [slider, setSlider] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function MidSlider(props) {
   }
   return (
     <div className="angry-grid-mid">
-    {["b1", "b2", "b3", "b4", "b5"].map((position, index) => (
+    {["c1", "c2", "c3", "c4", "c5"].map((position, index) => (
       <div id={`item-mid-${index}`} key={position}>
         <Link
           state={{ isUpdate: false, type: "slider", position }}
@@ -46,6 +46,5 @@ export default function MidSlider(props) {
       </div>
     ))}
   </div>
-
   );
 }

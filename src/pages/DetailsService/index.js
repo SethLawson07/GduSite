@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { Button } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import "./style.css";
-import Product from "../../components/product";
+import Service from "../../components/product";
 import { MyContext } from "../../App";
 
 const DetailsService = (props) => {
@@ -22,7 +22,7 @@ const DetailsService = (props) => {
 
   const [activeTabs, setActiveTabs] = useState(0);
 
-  const [currentProduct, setCurrentProduct] = useState({});
+  const [currentService, setCurrentService] = useState({});
   const [isAdded, setIsadded] = useState(false);
 
   const context = useContext(MyContext);
@@ -32,7 +32,7 @@ const DetailsService = (props) => {
     subCatName: sessionStorage.getItem("subCatName"),
   });
 
-  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [relatedServices, setRelatedServices] = useState([]);
 
   const [rating, setRating] = useState(0.0);
 
@@ -114,7 +114,7 @@ const DetailsService = (props) => {
             // subcategory.Item.map((item) => {
             typeservice.ItemService.map((item) => {
               if (item.slugitemservice === id) {
-                setCurrentProduct(item);
+                setCurrentService(item);
               }
             });
             // });
@@ -148,7 +148,7 @@ const DetailsService = (props) => {
     }
 
     if (related_products.length !== 0) {
-      setRelatedProducts(related_products);
+      setRelatedServices(related_products);
     }
   }, [id]);
 
@@ -169,7 +169,7 @@ const DetailsService = (props) => {
       {context.windowWidth < 992 && (
         <Button
           className={`btn-g btn-lg w-100 filterBtn {isAlreadyAddedInCart===true && 'no-click'}`}
-          // onClick={() => addToCart(currentProduct)}
+          // onClick={() => addToCart(currentService)}
         >
           <ShoppingCartOutlinedIcon />
           {isAdded === true || isAlreadyAddedInCart === true
@@ -186,15 +186,15 @@ const DetailsService = (props) => {
 
             <div className="col-md-1">
               <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
-                {currentProduct.image !== undefined &&
-                  currentProduct.image.map((imgUrl, index) => {
+                {currentService.image !== undefined &&
+                  currentService.image.map((imgUrl, index) => {
                     return (
                       // <div className="item">
-                        <img
-                          src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
-                          className="w-100"
-                          onClick={() => goto(index)}
-                        />
+                      <img
+                        src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
+                        className="w-100"
+                        onClick={() => goto(index)}
+                      />
                       // </div>
                     );
                   })}
@@ -208,8 +208,8 @@ const DetailsService = (props) => {
                   className="zoomSliderBig"
                   ref={zoomSliderBig}
                 >
-                  {currentProduct.image !== undefined &&
-                    currentProduct.image.map((imgUrl, index) => {
+                  {currentService.image !== undefined &&
+                    currentService.image.map((imgUrl, index) => {
                       return (
                         <div className="item">
                           <InnerImageZoom
@@ -223,130 +223,105 @@ const DetailsService = (props) => {
                 </Slider>
               </div>
               <div className="d-flex align-items-center btnSpace">
-            <div className="d-flex align-items-center">
-              {context.windowWidth > 992 && (
-                <Button
-                  className="rounded-button"
-                  // onClick={() => addToCart(currentProduct)}
-                >
-                  <ShoppingCartOutlinedIcon />
-                  {isAdded === true || isAlreadyAddedInCart === true
-                    ? " Ajouté"
-                    : " Commander"}
-                </Button>
-              )}
-              {/* <Button className=" btn-lg addtocartbtn  ml-3  wishlist btn-border">
+                <div className="d-flex align-items-center">
+                  {context.windowWidth > 992 && (
+                    <Button
+                      className="rounded-button"
+                      // onClick={() => addToCart(currentService)}
+                    >
+                      <ShoppingCartOutlinedIcon />
+                      {isAdded === true || isAlreadyAddedInCart === true
+                        ? " Ajouté"
+                        : " Commander"}
+                    </Button>
+                  )}
+                  {/* <Button className=" btn-lg addtocartbtn  ml-3  wishlist btn-border">
                     <FavoriteBorderOutlinedIcon />{" "}
                   </Button>
                   <Button className=" btn-lg addtocartbtn ml-3 btn-border">
                     <CompareArrowsIcon />
                   </Button> */}
-            </div>
-          </div>
+                </div>
+              </div>
             </div>
             {/* productZoom code ends here */}
 
             {/* product info code start here */}
             <div className="col-md-6 productInfo">
-              <h1>{currentProduct.title}</h1>
-              {/* <div className="d-flex align-items-center mb-4 mt-3">
+              {" "}
+              <div
+                style={{
+                  border: "1px solid #b2bec3",
+                  padding: "10px",
+                  height: "200px",
+                  marginBottom: "20px",
+                }}
+              >
+                <h1>{currentService.title}</h1>
+                {/* <div className="d-flex align-items-center mb-4 mt-3">
                 <Rating
                   name="half-rating-read"
-                  value={parseFloat(currentProduct.rating)}
+                  value={parseFloat(currentService.rating)}
                   precision={0.5}
                   readOnly
                 />
                 <span className="text-light ml-2">(32 reviews)</span>
               </div> */}
 
-              <div className="priceSec d-flex align-items-center mb-3">
-                <span className="text-g priceLarge">
-                  {currentProduct.price} Fcfa
-                </span>
-                {/* <div className="ml-3 d-flex flex-column">
+                <div className="priceSec d-flex align-items-center mb-3">
+                  <span className="text-g priceLarge">
+                    {currentService.price} Fcfa
+                  </span>
+                  {/* <div className="ml-3 d-flex flex-column">
                   <span className="text-org discount">
-                    {currentProduct.discount} de reduction
+                    {currentService.discount} de reduction
                   </span>
                   <span className="text-light oldPrice">
-                    {currentProduct.oldPrice} Fcfa
+                    {currentService.oldPrice} Fcfa
                   </span>
                 </div> */}
+                </div>
+
+                {/* <p>{currentService.description}</p> */}
               </div>
-
-              <p>{currentProduct.description}</p>
-
-              {currentProduct.weight !== undefined &&
-                currentProduct.weight.length !== 0 && (
-                  <div className="productSize d-flex align-items-center">
-                    <span>Size / Weight:</span>
-                    <ul className="list list-inline mb-0 pl-4">
-                      {currentProduct.weight.map((item, index) => {
-                        return (
-                          <li className="list-inline-item">
-                            <Link
-                              className={`tag ${
-                                activeSize === index ? "active" : ""
-                              }`}
-                              onClick={() => isActive(index)}
-                            >
-                              {item}g
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
+              <div
+              // style={{
+              //   border: "1px solid #b2bec3",
+              //   padding: "10px",
+              //   height: "200px",
+              //   marginTop: "20px",
+              //   overflowY: "scroll", // pour permettre le défilement si le contenu dépasse la hauteur définie
+              // }}
+              >
+                {currentService &&
+                currentService.timeslots &&
+                currentService.timeslots.length > 0 ? (
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Jour</th>
+                        <th>Heure de début</th>
+                        <th>Heure de fin</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentService.timeslots.map((timeslot, index) => (
+                        <tr key={index}>
+                          <td>{timeslot.day}</td>
+                          <td>{timeslot.starttime}</td>
+                          <td>{timeslot.endtime}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p>Aucun créneau horaire disponible</p>
                 )}
-
-              {currentProduct.RAM !== undefined &&
-                currentProduct.RAM.length !== 0 && (
-                  <div className="productSize d-flex align-items-center">
-                    <span>RAM:</span>
-                    <ul className="list list-inline mb-0 pl-4">
-                      {currentProduct.RAM.map((RAM, index) => {
-                        return (
-                          <li className="list-inline-item">
-                            <Link
-                              className={`tag ${
-                                activeSize === index ? "active" : ""
-                              }`}
-                              onClick={() => isActive(index)}
-                            >
-                              {RAM} GB
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                )}
-
-              {currentProduct.SIZE !== undefined &&
-                currentProduct.SIZE.length !== 0 && (
-                  <div className="productSize d-flex align-items-center">
-                    <span>SIZE:</span>
-                    <ul className="list list-inline mb-0 pl-4">
-                      {currentProduct.SIZE.map((SIZE, index) => {
-                        return (
-                          <li className="list-inline-item">
-                            <Link
-                              className={`tag ${
-                                activeSize === index ? "active" : ""
-                              }`}
-                              onClick={() => isActive(index)}
-                            >
-                              {SIZE}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                )}
+              </div>
             </div>
             {/* product info code ends here */}
           </div>
-         
+
           <div className="card mt-5 p-5 detailsPageTabs">
             <div className="customTabs">
               <ul className="list list-inline">
@@ -386,7 +361,7 @@ const DetailsService = (props) => {
 
               {activeTabs === 0 && (
                 <div className="tabContent">
-                  <p>{currentProduct.description}</p>
+                  <p>{currentService.description}</p>
                 </div>
               )}
 
@@ -489,15 +464,15 @@ const DetailsService = (props) => {
 
           <br />
 
-          <div className="relatedProducts homeProductsRow2  pt-5 pb-4">
+          <div className="relatedServices homeServicesRow2  pt-5 pb-4">
             <h2 className="hd mb-0 mt-0">Services apparentés</h2>
             <br className="res-hide" />
             <Slider {...related} className="prodSlider">
-              {relatedProducts.length !== 0 &&
-                relatedProducts.map((product, index) => {
+              {relatedServices.length !== 0 &&
+                relatedServices.map((product, index) => {
                   return (
                     <div className="item" key={index}>
-                      <Product tag={product.type} item={product} />
+                      <Service tag={product.type} item={product} />
                     </div>
                   );
                 })}

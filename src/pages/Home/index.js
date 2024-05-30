@@ -10,9 +10,11 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ServiceSlider from "../../components/serviceSlider";
 import Service from "../../components/service";
+import BottomSlider from "../../components/bottomSlider/bottomSlider";
 
 const Home = (props) => {
   const [prodData, setprodData] = useState(props.data);
+  // console.log(prodData)
 
   const [catArray, setcatArray] = useState([]);
   const [activeTab, setactiveTab] = useState();
@@ -39,7 +41,7 @@ const Home = (props) => {
     <div style={{ display: "block" }}>
       {/* <SliderBanner /> */}
 
-      <TopSlider />
+      <TopSlider data={prodData[0]["slider"]}/>
 
       {/* Produits populaires */}
       <section className="homeProducts homeProductWrapper">
@@ -204,7 +206,7 @@ const Home = (props) => {
       </section>
 
       {/* <Banners /> */}
-      <MidSlider />
+      <MidSlider data={prodData[0]["slider"]} />
 
       {/* Area Two */}
 
@@ -382,7 +384,7 @@ const Home = (props) => {
       </section>
 
 
-      <MidSlider />
+      <BottomSlider data={prodData[0]["slider"]}/>
 
       <CatSlider data={prodData[0]["categories"]} />
 

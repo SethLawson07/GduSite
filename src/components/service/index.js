@@ -9,43 +9,69 @@ import CompareArrowsOutlinedIcon from "@mui/icons-material/CompareArrowsOutlined
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import { MyContext } from "../../App";
+import {
+  addserviceToCart,
+  selectCartServices,
+} from "../../state/cart/cartserviceSlice";
+import { useDispatch, useSelector } from "react-redux";
+import QuantitySelector from "../../pages/cart/qteselector";
 
 const Service = (props) => {
-  const [tsData, setTsData] = useState();
+  const [isData, setIsData] = useState();
   const [isAdded, setIsAdded] = useState(false);
   const context = useContext(MyContext);
+  const dispatch = useDispatch();
+  const cartServices = useSelector(selectCartServices);
 
   useEffect(() => {
-    setTsData(props.item);
+    setIsData(props.item);
   }, [props.item]);
 
-  const setProductCat = () => {
-    sessionStorage.setItem("parentCat", tsData.parentCatName);
-    sessionStorage.setItem("subCatName", tsData.subCatName);
+  const setServiceCat = () => {
+    sessionStorage.setService("parentCat", isData.parentCatName);
+    sessionStorage.setService("subCatName", isData.subCatName);
   };
 
-  const addToCart = (item) => {
-    context.addToCart(item);
-    // Ajoutez le produit au localStorage
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    cartItems.push(item);
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-    setIsAdded(true);
+  const isServiceInCart = () => {
+    return cartServices.some((service) => service.id === isData.id);
+  };
+
+  // const isServiceInWishList = () => {
+  //   return wishList.some((service) => service.id === productData.id);
+  // };
+
+  const addToCartHandler = (service) => {
+    dispatch(addserviceToCart(service));
+  };
+
+  // const addToWishListHandler = (service) => {
+  //   dispatch(addToWishList(service));
+  // };
+
+  // const handleRemoveService = (itemId) => {
+  //   dispatch(removeFromWishList(itemId));
+  // };
+
+  const getServiceQuantityInCart = () => {
+    const cartService = cartServices.find(
+      (service) => service.id === isData.id
+    );
+    return cartService ? cartService.quantity : 0;
   };
 
   return (
-    <div className="productThumb" onClick={setProductCat}>
+    <div className="productThumb" >
       {props.brand !== null && props.brand !== undefined && (
         <span className={`badge ${props.brand}`}>{props.brand}</span>
       )}
 
-      {tsData !== undefined && (
+      {isData !== undefined && (
         <>
-          <Link to={`/typeservice/${tsData.slugitemservice}`}>
+          <Link to={`/typeservice/${isData.slugitemservice}`}>
             <div className="imgWrapper">
               <div className="p-0 wrapperm mb-0">
                 <img
-                  src={tsData.image[0]}
+                  src={isData.image[0]}
                   className="w-100"
                   style={{
                     objectFit: "cover",
@@ -58,22 +84,40 @@ const Service = (props) => {
           </Link>
 
           <div className="info">
-            {/* <span className='d-block catName'>{tsData.brand}</span> */}
+            {/* <span className='d-block catName'>{isData.brand}</span> */}
             <h4 className="title">
-              <Link>{tsData.title.substr(0, 50) + ""}</Link>
+              <Link>{isData.title.substr(0, 50) + ""}</Link>
             </h4>
-            {/* <Rating name='half-rating-read' value={parseFloat(tsData.rating)} precision={0.5} readOnly /> */}
-            {/* <span className='brand d-block text-g'>By <Link className='text-g'>{tsData.brand}</Link></span> */}
+            {/* <Rating name='half-rating-read' value={parseFloat(isData.rating)} precision={0.5} readOnly /> */}
+            {/* <span className='brand d-block text-g'>By <Link className='text-g'>{isData.brand}</Link></span> */}
 
             <div className="d-flex align-items-center mt-3">
               <div className="d-flex align-items-center w-100">
                 <span className="price text-g font-weight-bold">
-                  {tsData.price} Fcfa 
+                  {isData.price} Fcfa
                 </span>{" "}
-                {/* <span className='oldPrice ml-auto'>{tsData.oldPrice} Fcfa</span> */}
+                {/* <span className='oldPrice ml-auto'>{isData.oldPrice} Fcfa</span> */}
               </div>
             </div>
-
+            {isServiceInCart() ? (
+              <QuantitySelector
+                type="service"
+                id={isData.id}
+                quantity={getServiceQuantityInCart()}
+                className="text-center" // Ajout de la classe pour centrer le composant
+              />
+            ) : (
+              <Button
+                className="w-100 transition mt-3 rounded-button"
+                onClick={() => addToCartHandler(isData)}
+              >
+                <ShoppingCartOutlinedIcon
+                  className="iconAddCart"
+                  fontSize="large"
+                />
+                Ajouter au panier
+              </Button>
+            )}
             {/* <Button className="w-100 transition mt-3 rounded-button">
               Voir plus
             </Button> */}

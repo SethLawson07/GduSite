@@ -62,7 +62,7 @@ const Product = (props) => {
   };
 
   return (
-    <div className="productThumb" onClick={setProductCat}>
+    <div className="productThumb">
       {props.brand !== null && props.brand !== "" && (
         <span className={`badge ${props.brand}`}>{props.brand}</span>
       )}
@@ -157,7 +157,8 @@ const Product = (props) => {
             </Link>
             {isProductInCart() ? (
               <QuantitySelector
-                itemId={productData.id}
+                type="product"
+                id={productData.id}
                 quantity={getProductQuantityInCart()}
                 className="text-center" // Ajout de la classe pour centrer le composant
               />
@@ -166,7 +167,10 @@ const Product = (props) => {
                 className="w-100 transition mt-3 rounded-button"
                 onClick={() => addToCartHandler(productData)}
               >
-                <ShoppingCartOutlinedIcon className="iconAddCart" fontSize="large" />
+                <ShoppingCartOutlinedIcon
+                  className="iconAddCart"
+                  fontSize="large"
+                />
                 Ajouter au panier
               </Button>
             )}

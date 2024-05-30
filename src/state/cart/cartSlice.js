@@ -17,9 +17,9 @@ export const cartSlice = createSlice({
       state.items = state.items.filter(item => item.id !== action.payload);
     },
     updateQuantity: (state, action) => {
-      const { itemId, newQuantity } = action.payload;
+      const { id, newQuantity } = action.payload;
       state.items = state.items.map(item =>
-        item.id === itemId ? { ...item, quantity: Number(newQuantity) } : item
+        item.id === id ? { ...item, quantity: Number(newQuantity) } : item
       );
     },
     emptyCart: (state) => {
