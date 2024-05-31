@@ -27,7 +27,7 @@ body{font-family: 'Lato', sans-serif; font-size: 22px;}
 /* .text-org{color: #FDC040 !important;} */
 .text-org{color: #2ecc71 !important;}
 .text-light{color: #8b8b8b !important;}
-p{color: #7E7E7E;}
+p{color: #000;}
 
 .hd{font-size: 38px; font-weight: 600; margin-bottom: 25px;}
 
@@ -353,10 +353,13 @@ ul.breadcrumb li a:hover {
 
 
 
-.checkoutPage{padding: 55px 0px;}
-.checkoutPage .container{max-width: 75%;}
-.checkoutPage .form{zoom: 135%; background: #f1f1f1; padding: 40px;}
+/* .checkoutPage{padding: 55px 0px;} */
+.checkoutPage .container{max-width: 90%;}
+.checkoutPage .form{zoom: 135%; background: #fff; padding: 40px;}
 .checkoutPage .form button{zoom: 80%;}
-.checkoutPage .card{background: #f1f1f1 !important;}
+.checkoutPage .card{background: #fff !important;}
 
 
+FormLabel{
+  color: #000;
+}

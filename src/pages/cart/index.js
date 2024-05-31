@@ -1,9 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import Rating from "@mui/material/Rating";
-import { Button, ButtonGroup, TextField } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Divider,
+  IconButton,
+  InputBase,
+  Paper,
+  TextField,
+} from "@mui/material";
 import QuantitySelector from "./qteselector";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { MyContext } from "../../App";
@@ -26,6 +34,17 @@ const Cart = () => {
   const cartItems = useSelector(selectCartItems);
   const cartServices = useSelector(selectCartServices);
   const dispatch = useDispatch();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const isLogin = localStorage.getItem("islogin");
+    if (isLogin) {
+      setLoggedIn(true);
+      const user = JSON.parse(localStorage.getItem("customer"));
+      setUsername(user.user_name);
+    }
+  }, []);
 
   const handleRemoveItem = (itemId) => {
     dispatch(removeFromCart(itemId));
@@ -134,10 +153,10 @@ const Cart = () => {
                     variant="outlined"
                     aria-label="Loading button group"
                   >
-                    <Button onClick={handleClearCart}>
-                      Vider
-                    </Button>
-                    <Link to="/checkoutproduct">   <Button>Valider</Button></Link>
+                    <Button onClick={handleClearCart}>Vider</Button>
+                    <Link to={loggedIn ? "/checkoutproduct" : "/signin/checkoutproduct"}>
+                      <Button>Valider</Button>
+                    </Link>
                   </ButtonGroup>{" "}
                 </div>
               </div>
@@ -262,17 +281,25 @@ const Cart = () => {
                   <h4 className="mb-0 textDark">Code promo</h4>
                 </div>
 
-                <div className="d-flex align-items-center mb-4">
-                  <TextField
-                    id="outlined-basic"
-                    label="Code Promo"
-                    variant="outlined"
+                <Paper
+                  component="form"
+                  sx={{
+                    p: "2px 4px",
+                    display: "flex",
+                    alignItems: "center",
+                    width: 400,
+                  }}
+                >
+                  <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Entrez le code promo"
+                    inputProps={{ "aria-label": "Entrez le code promo" }}
                   />
+
                   <Button variant="outlined" size="large">
                     Appliquer
                   </Button>
-                </div>
-
+                </Paper>
                 <br />
                 <div className="d-flex align-items-center mb-4">
                   <h3 className="mb-0 textDark textSemiBold">
@@ -314,10 +341,11 @@ const Cart = () => {
                     variant="outlined"
                     aria-label="Loading button group"
                   >
-                    <Button onClick={handleClearCart}>
-                      Vider
-                    </Button>
-                    <Link to="/checkoutservice">   <Button>Valider</Button></Link>
+                    <Button onClick={handleClearCart}>Vider</Button>
+                    <Link to="/checkoutservice">
+                      {" "}
+                      <Button>Valider</Button>
+                    </Link>
                   </ButtonGroup>{" "}
                 </div>
               </div>

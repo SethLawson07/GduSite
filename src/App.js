@@ -172,7 +172,7 @@ function App() {
                     path="/wishlist"
                     element={<WishList />}
                   />
-                  <Route exact={true} path="/signin" element={<SignIn />} />
+                  <Route exact={true} path="/signin/:type" element={<SignIn />} />
                   <Route exact={true} path="/signup" element={<SignUp />} />
                   <Route exact={true} path="/checkoutproduct" element={<CheckoutProduct />} />
                   <Route exact={true} path="/checkoutservice" element={<CheckoutService />} />

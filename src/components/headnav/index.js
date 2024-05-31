@@ -1,33 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./style.css"; // Assurez-vous d'importer votre fichier de styles
 import { allCategories, allServices } from "../../services/product";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems } from "../../state/cart/cartSlice";
 import { selectWishListItems } from "../../state/wishlist/wishListSlice";
 import { Button } from "@mui/material";
 
 const Header = () => {
-  const [loggedIn, setLoggedIn] = useState(false); // State to store login status
-  const [username, setUsername] = useState(""); // State to store username
+  const [loggedIn, setLoggedIn] = useState(false); 
+  const [username, setUsername] = useState(""); 
   const cartItems = useSelector(selectCartItems);
   const wishList = useSelector(selectWishListItems);
+  let navigate = useNavigate();
+
 
   useEffect(() => {
-    // Fetch login status from localStorage on component mount
     const isLogin = localStorage.getItem("islogin");
     if (isLogin) {
-      setLoggedIn(true); // Update login status
+      setLoggedIn(true); 
       const user = JSON.parse(localStorage.getItem("customer"));
-      setUsername(user.user_name); // Update username
+      setUsername(user.user_name); 
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("islogin"); // Remove login status
-    localStorage.removeItem("customer"); // Remove user data
-    setLoggedIn(false); // Update login status
-    setUsername(""); // Clear username
+    localStorage.removeItem("islogin");
+    localStorage.removeItem("customer"); 
+    setLoggedIn(false); 
+    setUsername(""); 
+    navigate("/")
   };
 
   return (
@@ -131,7 +133,7 @@ const Header = () => {
               </Button>
             ) : (
               <>
-                <Link to="signin">Connexion</Link>
+                <Link to="/signin/customer">Connexion</Link>
                 <Link to="signup">S'inscrire</Link>
               </>
             )}

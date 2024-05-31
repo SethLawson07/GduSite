@@ -80,7 +80,7 @@ const SignUp = () => {
       if(!response.error){
         toast.success(response.message, {
           onClose: () => {
-            navigate("/signin")
+            navigate("/signin/customer")
             setShowLoader(false);
 
           },

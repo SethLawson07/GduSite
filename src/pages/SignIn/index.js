@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import "./style.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -18,8 +18,10 @@ import { MyContext } from "../../App";
 import { login } from "../../services/auth";
 import { ToastContainer, toast } from "react-toastify";
 
-const SignIn = () => {
-  let navigate = useNavigate();
+const SignIn = (props) => {
+  const navigate = useNavigate();
+  let { type } = useParams();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const [showLoader, setShowLoader] = useState(false);
@@ -54,7 +56,13 @@ const SignIn = () => {
       if (!response.error) {
         toast.success(response.message, {
           onClose: () => {
-            navigate("/");
+            const paths = {
+              checkoutproduct: "/checkoutproduct",
+              checkoutservice: "/checkoutservice",
+            };
+            
+            navigate(paths[type] || "/");
+            
             localStorage.setItem("islogin", true);
             localStorage.setItem("customer", JSON.stringify(response.data));
             window.location.reload();
