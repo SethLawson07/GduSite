@@ -4,15 +4,14 @@ import "./App.css";
 import "./responsive.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import CircularProgress from '@mui/material/CircularProgress';
 
 // import Header from './components/header/header';
 import Footer from "./components/footer/footer";
 import Home from "./pages/Home/index";
-import About from "./pages/About/index";
 import Listing from "./pages/Listing";
 import NotFound from "./pages/NotFound";
 import DetailsPage from "./pages/Details";
-import Checkout from "./pages/checkout/checkoutProduct";
 
 import axios from "axios";
 import Cart from "./pages/cart";
@@ -21,7 +20,6 @@ import SignUp from "./pages/SignUp";
 import Loader from "./assets/images/loading.gif";
 
 import data from "./data";
-// import Navbar1 from './components/header/nav/navbar';
 import HeadNav from "./components/headnav";
 import DetailsService from "./pages/DetailsService";
 import { persistor, store } from "./state/store";
@@ -36,25 +34,7 @@ import CheckoutService from "./pages/checkout/checkoutService";
 
 const MyContext = createContext();
 
-// Moved the function declarations here
-const addToCart = async (item) => {
-  // setCartItems([...cartItems, item]);
-};
-const removeItemsFromCart = (id) => {
-  /* Function implementation */
-};
-const emptyCart = () => {
-  /* Function implementation */
-};
-const signOut = () => {
-  /* Function implementation */
-};
-const signIn = () => {
-  /* Function implementation */
-};
-const openFilters = () => {
-  /* Function implementation */
-};
+
 
 function App() {
   const [homeData, setHomeData] = useState([]);
@@ -93,12 +73,6 @@ function App() {
     isLogin,
     windowWidth,
     isOpenFilters,
-    addToCart,
-    removeItemsFromCart,
-    emptyCart,
-    signOut,
-    signIn,
-    openFilters,
     isopenNavigation,
     setIsopenNavigation,
     setCartTotalAmount,
@@ -113,7 +87,8 @@ function App() {
           <MyContext.Provider value={value}>
             {isLoading ? (
               <div className="loader">
-                <img src={Loader} alt="loading" />
+                {/* <img src={Loader} alt="loading" /> */}
+                <CircularProgress size={100} /> 
               </div>
             ) : (
               <>

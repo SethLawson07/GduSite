@@ -96,21 +96,50 @@ const CheckoutProduct = () => {
     pay.open();
   };
 
+  // const changeInput = (e) => {
+  //   const { name, value } = e.target;
+
+  //   setformFields(() => ({
+  //     ...formFields,
+  //     [name]: value,
+  //   }));
+
+  //   console.log(showPositionDetails)
+  //   if (
+  //     formFields.withdrawMethod != "delivery" &&
+  //     formFields.withdrawMethod != "shipping"
+  //   ) {
+  //     setShowPositionDetails(false);
+  //   } else {
+  //     setShowPositionDetails(true);
+  //   }
+  // };
   const changeInput = (e) => {
     const { name, value } = e.target;
 
-    setformFields(() => ({
-      ...formFields,
-      [name]: value,
-    }));
+    setformFields((prevFields) => {
+      const updatedFields = { ...prevFields, [name]: value };
+
+      // Check the withdrawMethod and update showPositionDetails accordingly
+      if (
+        updatedFields.withdrawMethod === "delivery" ||
+        updatedFields.withdrawMethod === "shipping"
+      ) {
+        setShowPositionDetails(true);
+      } else {
+        setShowPositionDetails(false);
+      }
+
+      return updatedFields;
+    });
+
+    console.log(showPositionDetails);
   };
 
   const addCheckoutProduct = () => {
     formFields.address = address;
     formFields.lng = clickedLocation?.lng;
     formFields.lat = clickedLocation?.lat;
-
-    console.log(formFields);
   };
 
   const calculateTotalOldPrice = () => {
@@ -279,27 +308,30 @@ const CheckoutProduct = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
           setClickedLocation({ lat: latitude, lng: longitude });
-  
+
           map?.setCenter({ lat: latitude, lng: longitude });
           map?.setZoom(14);
-  
+
           const geocoder = new window.google.maps.Geocoder();
-          geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-            if (status === "OK" && results[0]) {
-              const locationDetails = results[0];
-              // console.log(locationDetails);
-              const formattedAddress = locationDetails.formatted_address;
-              const placeName = locationDetails.name;
-  
-              setAddress(formattedAddress);
-              formFields.address = placeName;
-  
-              // Update state with location details if necessary
-            } else {
-              console.error("Geocode failed:", status);
+          geocoder.geocode(
+            { location: { lat: latitude, lng: longitude } },
+            (results, status) => {
+              if (status === "OK" && results[0]) {
+                const locationDetails = results[0];
+                // console.log(locationDetails);
+                const formattedAddress = locationDetails.formatted_address;
+                const placeName = locationDetails.name;
+
+                setAddress(formattedAddress);
+                formFields.address = placeName;
+
+                // Update state with location details if necessary
+              } else {
+                console.error("Geocode failed:", status);
+              }
             }
-          });
-  
+          );
+
           // Add a marker for the current position
           new window.google.maps.Marker({
             position: { lat: latitude, lng: longitude },
@@ -308,14 +340,18 @@ const CheckoutProduct = () => {
           });
         },
         (error) => {
-          console.error("Erreur lors de la récupération de la position actuelle :", error);
+          console.error(
+            "Erreur lors de la récupération de la position actuelle :",
+            error
+          );
         }
       );
     } else {
-      console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
+      console.error(
+        "La géolocalisation n'est pas prise en charge par ce navigateur."
+      );
     }
   };
-  
 
   useEffect(() => {
     const initMaps = async () => {
@@ -335,6 +371,7 @@ const CheckoutProduct = () => {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [showPositionDetails, setShowPositionDetails] = useState(false);
 
   useEffect(() => {
     const isLogin = localStorage.getItem("islogin");
@@ -353,8 +390,40 @@ const CheckoutProduct = () => {
         <form>
           <div className="row">
             <div className="col-md-7">
-              <div className="form w-75 mt-4 shadow">
+              <div className="form w-100 mt-4 shadow">
                 <h3>Information</h3>
+                <FormLabel name="demo-radio-buttons-group-label">
+                  Vous optez pour quel moyen de retrait ?
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="magasin"
+                  name="withdrawMethod"
+                  row
+                  onChange={changeInput}
+                >
+                  <FormControlLabel
+                    value="magasin"
+                    control={<Radio />}
+                    label="Retirer au magasin"
+                  />
+                  <FormControlLabel
+                    value="delivery"
+                    control={<Radio />}
+                    label="Livraison"
+                  />
+                  <FormControlLabel
+                    value="shipping"
+                    control={<Radio />}
+                    label="Expédition"
+                  />
+
+                  <FormControlLabel
+                    value="collection"
+                    control={<Radio />}
+                    label="Ramassage"
+                  />
+                </RadioGroup>
                 <div className="form-group mb-3 mt-4">
                   <TextField
                     name="name"
@@ -386,67 +455,73 @@ const CheckoutProduct = () => {
                     name="phoneNumber"
                   />
                 </div>
-                <div className="form-group mb-3">
-                  <TextField
-                    id="autocomplete"
-                    placeholder="Rechercher lieu"
-                    variant="outlined"
-                    className="w-100"
-                    // value={formFields.place}
-                    type="text"
-                    onChange={changeInput}
-                    // name="place"
-                  />
-                </div>
-                <div className="form-group mb-3">
-                  <TextField
-                    disabled
-                    placeholder="Adresse"
-                    variant="outlined"
-                    className="w-100"
-                    value={address}
-                    onChange={changeInput}
-                    name="place"
-                  />
-                </div>
-                <div
-                  className="form-group mb-3"
-                  style={{ display: "flex", gap: "16px" }}
-                >
-                  <TextField
-                    disabled
-                    placeholder="Longitude"
-                    variant="outlined"
-                    className="w-100"
-                    value={clickedLocation?.lng}
-                    onChange={changeInput}
-                    name="place"
-                  />
-                  <TextField
-                    disabled
-                    placeholder="Latitude"
-                    variant="outlined"
-                    className="w-100"
-                    value={clickedLocation?.lat}
-                    onChange={changeInput}
-                    name="place"
-                  />
-                </div>{" "}
-                <div
-                  id="map"
-                  ref={mapCurrent}
-                  style={{ height: "400px", width: "100%" }}
-                ></div>{" "}
-                <br />
-                <div className="form-group">
-                  <Button
-                    size="large"
-                    variant="outlined"
-                    onClick={getCurrentLocation}
-                  >
-                    Ma position actuelle
-                  </Button>
-                </div>
+                {showPositionDetails ? (
+                  <>
+                    <div className="form-group mb-3">
+                      <TextField
+                        id="autocomplete"
+                        placeholder="Rechercher lieu"
+                        variant="outlined"
+                        className="w-100"
+                        // value={formFields.place}
+                        type="text"
+                        onChange={changeInput}
+                      />
+                    </div>
+                    <div className="form-group mb-3">
+                      <TextField
+                        disabled
+                        placeholder="Adresse"
+                        variant="outlined"
+                        className="w-100"
+                        value={address}
+                        onChange={changeInput}
+                        name="place"
+                      />
+                    </div>
+                    <div
+                      className="form-group mb-3"
+                      style={{ display: "flex", gap: "16px" }}
+                    >
+                      <TextField
+                        disabled
+                        placeholder="Longitude"
+                        variant="outlined"
+                        className="w-100"
+                        value={clickedLocation?.lng}
+                        onChange={changeInput}
+                        name="place"
+                      />
+                      <TextField
+                        disabled
+                        placeholder="Latitude"
+                        variant="outlined"
+                        className="w-100"
+                        value={clickedLocation?.lat}
+                        onChange={changeInput}
+                        name="place"
+                      />
+                    </div>{" "}
+                    <div
+                      id="map"
+                      ref={mapCurrent}
+                      style={{ height: "400px", width: "100%" }}
+                    ></div>{" "}
+                    <br />
+                    <div className="form-group">
+                      <Button
+                        size="large"
+                        variant="outlined"
+                        onClick={getCurrentLocation}
+                      >
+                        Ma position actuelle
+                      </Button>
+                    </div>
+                  </>
+                ) : (
+                  <div></div>
+                )}
+
                 <div className="form-group">
                   <TextField
                     label="Vous avez des spécifications ?"
@@ -460,56 +535,63 @@ const CheckoutProduct = () => {
                   />
                 </div>
                 <FormLabel name="demo-radio-buttons-group-label">
-                  Vous optez pour quel moyen de retrait ?
-                </FormLabel>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="delivery"
-                  name="withdrawMethod"
-                  row
-                  onChange={changeInput}
-                >
-                  <FormControlLabel
-                    value="delivery"
-                    control={<Radio />}
-                    label="Livraison/Expédition"
-                  />
-                  <FormControlLabel
-                    value="magasin"
-                    control={<Radio />}
-                    label="Retirer au magasin"
-                  />
-                  <FormControlLabel
-                    value="collection"
-                    control={<Radio />}
-                    label="Ramassage"
-                  />
-                </RadioGroup>
-                <FormLabel name="demo-radio-buttons-group-label">
                   Methode de paiement
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="mobilemoney"
+                  row
                   // name="radio-buttons-group"
                   name="paymentMethod"
                   onChange={changeInput}
                 >
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "8px",
+                    }}
+                  >
                     <FormControlLabel
-                      value="mobilemoney"
+                      value="tmoney"
                       control={<Radio />}
-                      label="Moov money / Tmoney"
+                      label="Tmoney"
                       style={{ marginRight: "8px", marginTop: "10px" }}
                     />
                     <img
                       style={{ height: "20px" }}
-                      src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717071470/Goodness/deznn4ep79bufmdbvy8d.png"
-                      alt="Moov money / Tmoney"
+                      src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691058/Goodness/giag1qmfue6n8o1pvi5y.png"
+                      alt="Tmoney"
                     />
                   </div>
 
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "8px",
+                    }}
+                  >
+                    <FormControlLabel
+                      value="moovmoney"
+                      control={<Radio />}
+                      label="Moov money"
+                      style={{ marginRight: "8px", marginTop: "10px" }}
+                    />
+                    <img
+                      style={{ height: "20px" }}
+                      src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691346/Goodness/yy1dfadvubire9whqsf2.png"
+                      alt="Moov money"
+                    />
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "8px",
+                    }}
+                  >
                     <FormControlLabel
                       value="goodpay"
                       control={<Radio />}

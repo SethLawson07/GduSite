@@ -9,8 +9,12 @@ import { useEffect } from "react";
 import { Button } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import "./style.css";
-import Service from "../../components/product";
+import Service from "../../components/service";
 import { MyContext } from "../../App";
+import { addserviceToCart, selectCartServices } from "../../state/cart/cartserviceSlice";
+import { useDispatch, useSelector } from "react-redux";
+import QuantitySelector from "../cart/qteselector";
+
 
 const DetailsService = (props) => {
   const [bigImageSize, setBigImageSize] = useState([1500, 1500]);
@@ -24,6 +28,9 @@ const DetailsService = (props) => {
 
   const [currentService, setCurrentService] = useState({});
   const [isAdded, setIsadded] = useState(false);
+  const dispatch = useDispatch();
+  const cartServices = useSelector(selectCartServices);
+
 
   const context = useContext(MyContext);
 
@@ -123,32 +130,34 @@ const DetailsService = (props) => {
 
     //related products code
 
-    const related_products = [];
+    const related_services = [];
 
-    const currentItem = props.data[0]["services"]
+    const currentTypeService = props.data[0]["services"]
       .flatMap((service) => service.TypeService)
       .find((typeservice) =>
         typeservice.ItemService.some((item) => item.slugitemservice === id)
       );
-
-    if (currentItem) {
-      const currentItemID = currentItem.id;
+    if (currentTypeService) {
+      const currentTypeServiceID = currentTypeService.id;
 
       props.data[0]["services"].forEach((service) => {
         service.TypeService.forEach((typeservice) => {
-          typeservice.ItemService.forEach((item) => {
-            if (item.id === currentItemID) {
-              if (item.slugserviceproduct !== id) {
-                related_products.push(item);
+          if (
+            typeservice.ItemService.length !== 0 &&
+            typeservice.id === currentTypeServiceID
+          ) {
+            typeservice.ItemService.forEach((item) => {
+              if (item.slugitemservice !== id) {
+                related_services.push(item);
               }
-            }
-          });
+            });
+          }
         });
       });
     }
 
-    if (related_products.length !== 0) {
-      setRelatedServices(related_products);
+    if (related_services.length !== 0) {
+      setRelatedServices(related_services);
     }
   }, [id]);
 
@@ -163,6 +172,22 @@ const DetailsService = (props) => {
       date: new Date().toLocaleString(),
     }));
   };
+
+  const addToCartHandler = (service) => {
+    dispatch(addserviceToCart(service));
+  };
+
+  const isServiceInCart = () => {
+    return cartServices.some((service) => service.id === currentService.id);
+  };
+
+  const getServiceQuantityInCart = () => {
+    const cartService = cartServices.find(
+      (service) => service.id === currentService.id
+    );
+    return cartService ? cartService.quantity : 0;
+  };
+
 
   return (
     <>
@@ -191,8 +216,8 @@ const DetailsService = (props) => {
                     return (
                       // <div className="item">
                       <img
-                        src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
-                        className="w-100"
+                        src={imgUrl}
+                        className="imgList"
                         onClick={() => goto(index)}
                       />
                       // </div>
@@ -212,11 +237,15 @@ const DetailsService = (props) => {
                     currentService.image.map((imgUrl, index) => {
                       return (
                         <div className="item">
-                          <InnerImageZoom
+                          <img
+                            className="imgzoom"
+                            src={imgUrl}
+                          />
+                          {/* <InnerImageZoom
                             zoomType="hover"
                             zoomScale={1}
                             src={`${imgUrl}?im=Resize=(${bigImageSize[0]},${bigImageSize[1]})`}
-                          />
+                          /> */}
                         </div>
                       );
                     })}
@@ -224,17 +253,26 @@ const DetailsService = (props) => {
               </div>
               <div className="d-flex align-items-center btnSpace">
                 <div className="d-flex align-items-center">
-                  {context.windowWidth > 992 && (
-                    <Button
-                      className="rounded-button"
-                      // onClick={() => addToCart(currentService)}
-                    >
-                      <ShoppingCartOutlinedIcon />
-                      {isAdded === true || isAlreadyAddedInCart === true
-                        ? " Ajouté"
-                        : " Commander"}
-                    </Button>
-                  )}
+                  {context.windowWidth > 992 &&
+                    (isServiceInCart() ? (
+                      <QuantitySelector
+                        type="service"
+                        id={currentService.id}
+                        quantity={getServiceQuantityInCart()}
+                        className="qservice"
+                      />
+                    ) : (
+                      <Link
+                        className="rounded-button"
+                        style={{ textDecoration: "none" }}
+                        onClick={() => addToCartHandler(currentService)}
+                      >
+                        <ShoppingCartOutlinedIcon />
+                        {isAdded === true || isAlreadyAddedInCart === true
+                          ? " Ajouté"
+                          : " Commander"}
+                      </Link>
+                    ))}
                   {/* <Button className=" btn-lg addtocartbtn  ml-3  wishlist btn-border">
                     <FavoriteBorderOutlinedIcon />{" "}
                   </Button>
@@ -255,6 +293,7 @@ const DetailsService = (props) => {
                   padding: "10px",
                   height: "200px",
                   marginBottom: "20px",
+                  borderRadius: "15px",
                 }}
               >
                 <h1>{currentService.title}</h1>
@@ -469,10 +508,10 @@ const DetailsService = (props) => {
             <br className="res-hide" />
             <Slider {...related} className="prodSlider">
               {relatedServices.length !== 0 &&
-                relatedServices.map((product, index) => {
+                relatedServices.map((service, index) => {
                   return (
                     <div className="item" key={index}>
-                      <Service tag={product.type} item={product} />
+                      <Service tag={service.type} item={service} />
                     </div>
                   );
                 })}

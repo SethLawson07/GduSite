@@ -44,7 +44,7 @@ const WishList = () => {
               <li>
                 <Link to={"/"}>Accueil</Link>
               </li>
-              <li>Magasin</li>
+              {/* <li>Magasin</li> */}
               <li>Liste de souhaits</li>
             </ul>
           </div>
@@ -66,9 +66,9 @@ const WishList = () => {
 
                 <span
                   className="ml-auto clearCart d-flex align-items-center cursor"
-                  onClick={handleClearCart}
+                
                 >
-                  <DeleteOutlineOutlinedIcon /> Vider votre liste de souhaits
+                <Button   onClick={handleClearCart}>Vider</Button>
                 </span>
               </div>
 
@@ -123,9 +123,8 @@ const WishList = () => {
                             )}
                           </td>
 
-                          <td></td>
 
-                          <td align="center">
+                          <td align="center" width="20%">
                             <span
                               className="cursor"
                               onClick={() => handleRemoveItem(item.id)}

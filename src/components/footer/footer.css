@@ -1,4 +1,4 @@
-.footerWrapper{padding: 45px 0px; width: 100%;}
+.footerWrapper{padding-top: 45px 0px; width: 100%;}
 .footerWrapper .footerBoxes .box{background: #F4F6FA; padding: 25px 25px; border-radius: 15px; } 
 .footerWrapper .footerBoxes .box .info{padding-left: 25px;}
 .footerWrapper .footerBoxes .box  img{position: relative; transition: all 0.2s ease-in-out;}
@@ -8,7 +8,7 @@
 
 footer p, footer a{font-size: 18px;}
 
-footer{padding: 60px 0px; padding-bottom: 0px;}
+footer{padding: 60px 0px; padding-bottom: 0px;background-color: #f1f1f1;}
 
 footer .part1 svg{color: #2D73E3  !important;}
 
@@ -28,3 +28,36 @@ footer .lastStrip .part3 ul{margin-bottom: 0px; padding-left: 25px;}
 footer .lastStrip .part3 ul li a{display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #2D73E3; border-radius: 50%; transition: all 0.2s ease-in-out !important;}
 footer .lastStrip .part3 ul li a svg{color: #fff !important;}
 footer .lastStrip .part3 ul li a:hover{background:rgb(51, 51, 51);}
+
+.imgPay{
+    height: 50px;
+    width: 70px;
+    margin: 5px;  
+    border-radius: 10px;
+
+}
+
+.imglogo{
+    height: 70px;
+    width: 100px;
+    border: 2px solid black; 
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.footertitle{
+    margin-top: 10px;
+    color: #2D73E3;
+}
+
+.footerinfos {
+    /* display: flex;
+    align-items: center;  */
+    /* border: 2px solid #000; */
+
+  }
+
+  .part2, .part3a{
+    margin-top: 80px;
+  }
+

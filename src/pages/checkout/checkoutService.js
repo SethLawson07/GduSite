@@ -359,7 +359,7 @@ const CheckoutService = () => {
         <form>
           <div className="row">
             <div className="col-md-7">
-              <div className="form w-75 mt-4 shadow">
+              <div className="form w-100 mt-4 shadow">
                 <h3>Information</h3>
                 <div className="form-group mb-3 mt-4">
                   <TextField
@@ -460,25 +460,58 @@ const CheckoutService = () => {
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="mobilemoney"
+                  row
                   // name="radio-buttons-group"
                   name="paymentMethod"
                   onChange={changeInput}
                 >
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "8px",
+                    }}
+                  >
                     <FormControlLabel
-                      value="mobilemoney"
+                      value="tmoney"
                       control={<Radio />}
-                      label="Moov money / Tmoney"
+                      label="Tmoney"
                       style={{ marginRight: "8px", marginTop: "10px" }}
                     />
                     <img
                       style={{ height: "20px" }}
-                      src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717071470/Goodness/deznn4ep79bufmdbvy8d.png"
-                      alt="Moov money / Tmoney"
+                      src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691058/Goodness/giag1qmfue6n8o1pvi5y.png"
+                      alt="Tmoney"
                     />
                   </div>
 
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "8px",
+                    }}
+                  >
+                    <FormControlLabel
+                      value="moovmoney"
+                      control={<Radio />}
+                      label="Moov money"
+                      style={{ marginRight: "8px", marginTop: "10px" }}
+                    />
+                    <img
+                      style={{ height: "20px" }}
+                      src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691346/Goodness/yy1dfadvubire9whqsf2.png"
+                      alt="Moov money"
+                    />
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "8px",
+                    }}
+                  >
                     <FormControlLabel
                       value="goodpay"
                       control={<Radio />}
@@ -491,7 +524,7 @@ const CheckoutService = () => {
                       alt="Moov money / Tmoney"
                     />
                   </div>
-                </RadioGroup>{" "}
+                </RadioGroup>
                 <Button className="btn-g btn-lg">Payer</Button>
               </div>
             </div>

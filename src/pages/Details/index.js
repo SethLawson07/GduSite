@@ -32,6 +32,8 @@ const DetailsPage = (props) => {
 
   const [currentProduct, setCurrentProduct] = useState({});
   const [isAdded, setIsadded] = useState(false);
+  const [zoomSlider, setZoomSlider] = useState();
+  // const [zoomSliderBig, setZoomSliderBig] = useState();
 
   const context = useContext(MyContext);
 
@@ -55,7 +57,7 @@ const DetailsPage = (props) => {
   });
 
   const zoomSliderBig = useRef();
-  const zoomSlider = useRef();
+  // const zoomSlider = useRef();
 
   let { id } = useParams();
 
@@ -91,7 +93,8 @@ const DetailsPage = (props) => {
   };
 
   const goto = (index) => {
-    zoomSlider.current.slickGoTo(index);
+    setZoomSlider(index);
+    // zoomSlider.current.slickGoTo(index);
     zoomSliderBig.current.slickGoTo(index);
   };
 
@@ -207,22 +210,24 @@ const DetailsPage = (props) => {
           <div className="row">
             {/* productZoom code start here */}
             <div className="col-md-1">
-              <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
+              {/* <Slider {...settings} className="zoomSlider" ref={zoomSlider}> */}
+              <div>
+                {" "}
                 {/* <h1>{currentProduct.name}</h1> */}
-
                 {currentProduct.images !== undefined &&
                   currentProduct.images.map((imgUrl, index) => {
                     return (
                       // <div className="item">
                       <img
-                        src={`${imgUrl}?im=Resize=(${smlImageSize[0]},${smlImageSize[1]})`}
-                        className="w-100"
+                        src={imgUrl}
+                        className="imgList"
                         onClick={() => goto(index)}
                       />
                       //  </div>
                     );
-                  })}
-              </Slider>
+                  })}{" "}
+              </div>
+              {/* </Slider> */}
             </div>
 
             <div className="col-md-5">
@@ -236,12 +241,19 @@ const DetailsPage = (props) => {
                     currentProduct.images.map((imgUrl, index) => {
                       return (
                         <div className="item">
-                          <InnerImageZoom
+                          <img
+                            className="imgzoom"
+                            src={imgUrl}
+                          />
+                          {/* <InnerImageZoom
                             className="imgzoom"
                             zoomType="hover"
                             zoomScale={1}
+                            hasSpacer={true}
+                            // width={100}
+                            // height={100}
                             src={`${imgUrl}?im=Resize=(${bigImageSize[0]},${bigImageSize[1]})`}
-                          />
+                          />  */}
                         </div>
                       );
                     })}
@@ -251,11 +263,14 @@ const DetailsPage = (props) => {
               <div className="d-flex align-items-center btnSpace">
                 <div className="d-flex align-items-center">
                   {isProductInCart() ? (
-                    <QuantitySelector
-                      type="product"
-                      id={currentProduct.id}
-                      quantity={getProductQuantityInCart()}
-                    />
+                    <div className="mt-3 mr-3">
+                      {" "}
+                      <QuantitySelector
+                        type="product"
+                        id={currentProduct.id}
+                        quantity={getProductQuantityInCart()}
+                      />{" "}
+                    </div>
                   ) : (
                     <Link
                       style={{ textDecoration: "none" }}
@@ -302,7 +317,7 @@ const DetailsPage = (props) => {
                 style={{
                   border: "1px solid #b2bec3",
                   padding: "10px",
-                  margin: "10px",
+                  borderRadius: "15px",
                 }}
               >
                 <h1>{currentProduct.name}</h1>
@@ -352,8 +367,9 @@ const DetailsPage = (props) => {
                 style={{
                   border: "1px solid #b2bec3",
                   padding: "10px",
-                  margin: "20px",
+                  marginTop: "20px",
                   background: "#f2f2f2",
+                  borderRadius: "15px",
                 }}
               >
                 Paiement par Goodpay disponible bientôt
@@ -364,8 +380,9 @@ const DetailsPage = (props) => {
                 style={{
                   border: "1px solid #b2bec3",
                   padding: "10px",
-                  margin: "20px",
+                  marginTop: "20px",
                   background: "#f2f2f2",
+                  borderRadius: "15px",
                 }}
               >
                 Abonement GoodDeliver+
@@ -478,7 +495,6 @@ const DetailsPage = (props) => {
             </div>
             {/* product info code ends here */}
           </div>
-
           <div className="card mt-5 p-5 detailsPageTabs">
             <div className="customTabs">
               <ul className="list list-inline">

@@ -8,6 +8,8 @@ import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
 
 import { MyContext } from "../../App";
 import SidebarCategories from "../../components/SidebarCategories";
+import CatSlider from "../../components/catSlider";
+import SidebarItem from "../../components/SidebarItem";
 
 const Categories = (props) => {
   const [isOpenDropDown, setisOpenDropDown] = useState(false);
@@ -15,6 +17,8 @@ const Categories = (props) => {
   const [showPerPage, setHhowPerPage] = useState(3);
 
   const [data, setData] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [items, setItems] = useState([]);
 
   const context = useContext(MyContext);
 
@@ -26,6 +30,8 @@ const Categories = (props) => {
 
   useEffect(() => {
     let uniqueProducts = {}; // Utilisation d'un objet pour stocker temporairement les produits uniques
+    let allBrands = [];
+    let allItems = [];
 
     props.data[0]["categories"].forEach((category) => {
       // Vérifier si la catégorie correspond à l'ID
@@ -48,186 +54,96 @@ const Categories = (props) => {
       }
     });
 
-    // Convertir l'objet en tableau
-    const uniqueProductsArray = Object.values(uniqueProducts);
-    setData(uniqueProductsArray);
- 
+    
+      props.data[0]["categories"].forEach((category) => {
+        category.SubCategory.forEach((subcategory) => {
+          subcategory.Item.forEach((item) => {
+            item.Product.forEach((product) => {
+              if (!allBrands.includes(product.brand) && product.brand !== "") {
+                allBrands.push(product.brand);
+              }
+            });
+          });
+        });
+      });
 
-    window.scrollTo(0, 0);
-  }, [id]);
+      props.data[0]["categories"].forEach((category) => {
+        category.SubCategory.forEach((subcategory) => {
+          subcategory.Item.forEach((item) => {
+            allItems.push(item);
+          });
+        });
+      });
+
+      const uniqueProductsArray = Object.values(uniqueProducts);
+      setData(uniqueProductsArray);
+      setBrands(allBrands);
+      setItems(allItems);
+    // window.scrollTo(0, 0);
+    window.scrollTo(0, document.body.scrollHeight / 5);
+
+  }, [id,props.data]);
 
   const filterByBrand = (keyword) => {
-    props.data[0]["categories"].length !== 0 &&
-      props.data[0]["categories"].map((item, index) => {
-        //page == single cat
-        if (props.single === true) {
-          item.Item.length !== 0 &&
-            item.Item.map((item_) => {
-              item_.Product.map((item__, index__) => {
-                if (item__.brand.toLowerCase() === keyword.toLowerCase()) {
-                  //console.log(item__)
-                  itemsData.push({
-                    ...item__,
-                    parentCatName: item.title,
-                    subCatName: item_.title,
-                  });
-                }
+    let itemsData = [];
+    props.data[0]["categories"].forEach((category) => {
+      category.SubCategory.forEach((subcategory) => {
+        subcategory.Item.forEach((item) => {
+          item.Product.forEach((product) => {
+            if (product.brand.toLowerCase() === keyword.toLowerCase()) {
+              itemsData.push({
+                ...product,
+                parentCatName: item.title,
+                subCatName: subcategory.title,
               });
-            });
-        }
-        //page == double cat
-        else {
-          item.Item.length !== 0 &&
-            item.Item.map((item_, index_) => {
-              // console.log(item_.title.replace(/[^A-Za-z]/g,"-").toLowerCase())
-              if (
-                item_.title.split(" ").join("-").toLowerCase() ==
-                id.split(" ").join("-").toLowerCase()
-              ) {
-                item_.Product.map((item__, index__) => {
-                  if (item__.brand.toLowerCase() === keyword.toLowerCase()) {
-                    itemsData.push({
-                      ...item__,
-                      parentCatName: item.title,
-                      subCatName: item_.title,
-                    });
-                  }
+            }
+          });
+        });
+      });
+    });
+
+    const list2 = itemsData.filter(
+      (item, index) => itemsData.indexOf(item) === index
+    );
+
+    setData(list2);
+    // window.scrollTo(0, 0);
+  };
+
+  const filterByRating = (keyword) => {};
+  const filterByPrice = (minValue, maxValue) => {
+    let itemsData = [];
+    props.data[0]["categories"].forEach((category) => {
+      category.SubCategory.forEach((subcategory) => {
+        subcategory.Item.forEach((item) => {
+          if (item.slugitem === id) {
+            item.Product.forEach((product) => {
+              let price =
+                parseFloat(product.price.replace(/\s/g, "")) -
+                parseFloat(product.discount.replace(/\s/g, ""));
+              if (minValue <= price && maxValue >= price) {
+                itemsData.push({
+                  ...product,
+                  parentCatName: item.title,
+                  subCatName: subcategory.title,
                 });
               }
             });
-        }
+          }
+        });
       });
+    });
 
-    // const list2 = itemsData.filter(
-    //   (item, index) => itemsData.indexOf(item) === index
-    // );
-    // //console.log(itemsData)
-
-    // setData(list2);
-
-    // window.scrollTo(0, 0);
+    const list2 = itemsData.filter(
+      (item, index) => itemsData.indexOf(item) === index
+    );
+    setData(list2);
   };
-  const filterByPrice = (minValue, maxValue) => {};
-  const filterByRating = (keyword) => {};
-  // const filterByPrice = (minValue, maxValue) => {
-  //   props.data[0]["categories"].length !== 0 &&
-  //     props.data[0]["categories"].map((item, index) => {
-  //       //page == single cat
-  //       if (props.single === true) {
-  //         if (id === item.title.toLowerCase()) {
-  //           item.Item.length !== 0 &&
-  //             item.Item.map((item_) => {
-  //               item_.Product.length !== 0 &&
-  //                 item_.Product.map((product, prodIndex) => {
-  //                   let price = parseInt(
-  //                     product.price.toString().replace(/,/g, "")
-  //                   );
-  //                   if (minValue <= price && maxValue >= price) {
-  //                     itemsData.push({
-  //                       ...product,
-  //                       parentCatName: item.title,
-  //                       subCatName: item_.title,
-  //                     });
-  //                   }
-  //                 });
-  //             });
-  //         }
-  //       } else {
-  //         item.Item.length !== 0 &&
-  //           item.Item.map((item_, index_) => {
-  //             if (
-  //               item_.title.split(" ").join("-").toLowerCase() ==
-  //               id.split(" ").join("-").toLowerCase()
-  //             ) {
-  //               item_.Product.map((product) => {
-  //                 let price = parseInt(
-  //                   product.price.toString().replace(/,/g, "")
-  //                 );
-  //                 if (minValue <= price && maxValue >= price) {
-  //                   itemsData.push({
-  //                     ...product,
-  //                     parentCatName: item.title,
-  //                     subCatName: item_.title,
-  //                   });
-  //                 }
-  //               });
-  //             }
-  //           });
-  //       }
-  //     });
-
-  //   const list2 = itemsData.filter(
-  //     (item, index) => itemsData.indexOf(item) === index
-  //   );
-  //   setData(list2);
-  // };
-
-  // const filterByRating = (keyword) => {
-  //   props.data[0]["categories"].length !== 0 &&
-  //     props.data[0]["categories"].map((item, index) => {
-  //       //page == single cat
-  //       if (props.single === true) {
-  //         if (item.title.toLowerCase() == id.toLowerCase()) {
-  //           item.Item.length !== 0 &&
-  //             item.Item.map((item_) => {
-  //               item_.Product.map((item__, index__) => {
-  //                 itemsData.push({
-  //                   ...item__,
-  //                   parentCatName: item.title,
-  //                   subCatName: item_.title,
-  //                 });
-  //               });
-  //             });
-  //         }
-  //       }
-  //       //page == double cat
-  //       else {
-  //         item.Item.length !== 0 &&
-  //           item.Item.map((item_, index_) => {
-  //             // console.log(item_.title.replace(/[^A-Za-z]/g,"-").toLowerCase())
-  //             if (
-  //               item_.title.split(" ").join("-").toLowerCase() ==
-  //               id.split(" ").join("-").toLowerCase()
-  //             ) {
-  //               item_.Product.map((item__, index__) => {
-  //                 itemsData.push({
-  //                   ...item__,
-  //                   parentCatName: item.title,
-  //                   subCatName: item_.title,
-  //                 });
-  //               });
-  //             }
-  //           });
-  //       }
-  //     });
-
-  //   const list2 = itemsData.filter(
-  //     (item, index) => itemsData.indexOf(item) === index
-  //   );
-
-  //   setData(list2);
-
-  //   data?.map((item) => {
-  //     if (item.rating === keyword) {
-  //       itemsData.push({
-  //         ...item,
-  //         parentCatName: item.title,
-  //         subCatName: item.title,
-  //       });
-  //     }
-  //   });
-
-  //   const list3 = itemsData.filter(
-  //     (item, index) => itemsData.indexOf(item) === index
-  //   );
-
-  //   setData(list2);
-
-  //   window.scrollTo(0, 0);
-  // };
+ 
 
   return (
     <>
+
       {context.windowWidth < 992 && (
         <>
           {context.isopenNavigation === false && (
@@ -242,10 +158,12 @@ const Categories = (props) => {
       )}
 
       <section className="listingPage">
+      <CatSlider data={props.data[0]["categories"]} />
+
         <div className="container-fluid">
-          {
-            <div className="breadcrumb flex-column">
-              <h1 className="text-capitalize">{title}</h1>
+              {/* <div className="breadcrumb flex-column">
+
+            <h1 className="text-capitalize">{title}</h1>
               <ul className="list list-inline mb-0">
                 <li className="list-inline-item">
                   <Link to={"/"}>Accueil </Link>
@@ -258,16 +176,17 @@ const Categories = (props) => {
                     {sessionStorage.getItem("cat")}{" "}
                   </Link>
                 </li>
+
                 {props.single === false && (
                   <li className="list-inline-item">
                     <Link to={""} className="text-capitalize">
                       {id.split("-").join(" ")}
                     </Link>
                   </li>
-                )}
+                )} 
               </ul>
-            </div>
-          }
+            </div>*/}
+          
 
           <div className="listingData">
             <div className="row">
@@ -276,7 +195,7 @@ const Categories = (props) => {
                   context.isOpenFilters === true && "click"
                 }`}
               >
-                {data.length !== 0 && (
+                {/* {data.length !== 0 && (
                   <SidebarCategories
                     title={title}
                     data={props.data}
@@ -285,7 +204,15 @@ const Categories = (props) => {
                     filterByPrice={filterByPrice}
                     filterByRating={filterByRating}
                   />
-                )}
+                )} */}
+                <SidebarItem
+                  data={props.data}
+                  currentCatData={data}
+                  brands={brands}
+                  filterByBrand={filterByBrand}
+                  filterByPrice={filterByPrice}
+                  filterByRating={filterByRating}
+                />
               </div>
 
               <div className="col-md-9 rightContent homeProducts pt-0">
@@ -295,7 +222,7 @@ const Categories = (props) => {
                     <span className="text-success">{data.length}</span> produits
                     pour vous !
                   </p>
-                  <div className="ml-auto d-flex align-items-center">
+                  {/* <div className="ml-auto d-flex align-items-center">
                     <div className="tab_ position-relative">
                       <Button
                         className="btn_"
@@ -410,7 +337,7 @@ const Categories = (props) => {
                         </ul>
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="productRow pl-4 pr-3">

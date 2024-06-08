@@ -31,9 +31,9 @@ const QuantitySelector = ({ id, quantity, type }) => {
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center" }} className="mb-3">
+    <div style={{ display: "flex", alignItems: "center",marginBottom:"23px" }} >
       <Button
-        className="m-2 btn-lg"
+        className="mr-3  btn-lg"
         variant="outlined"
         onClick={handleDecrease}
         // disabled={quantity <= 0}
@@ -42,11 +42,11 @@ const QuantitySelector = ({ id, quantity, type }) => {
         <RemoveIcon />
       </Button>
 
-      <Typography variant="body1" className="m-2">
+      <Typography variant="body1" className="m-0">
         {quantity}
       </Typography>
       <Button
-        className="m-2 btn-lg"
+        className="ml-3 btn-lg"
         variant="outlined"
         onClick={handleIncrease}
       >

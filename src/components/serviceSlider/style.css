@@ -24,6 +24,9 @@
     overflow: visible; /* Permet à l'image de dépasser du cercle */
     padding: 20px; /* Ajoute du padding à l'intérieur du cercle */
     background-color: #B2DBFD;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
   
   .Sercircle img {
@@ -42,3 +45,5 @@
     margin-top: 20px;
     color: #000;
   }
+
+  

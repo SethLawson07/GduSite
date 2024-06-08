@@ -128,7 +128,7 @@ const Cart = () => {
               <li>
                 <Link to={"/"}>Accueil</Link>
               </li>
-              <li>Magasin</li>
+              {/* <li>Magasin</li> */}
               <li>Panier</li>
             </ul>
           </div>
@@ -341,7 +341,7 @@ const Cart = () => {
                     variant="outlined"
                     aria-label="Loading button group"
                   >
-                    <Button onClick={handleClearCart}>Vider</Button>
+                    <Button onClick={handleClearCartService}>Vider</Button>
                     <Link to="/checkoutservice">
                       {" "}
                       <Button>Valider</Button>

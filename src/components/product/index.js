@@ -155,7 +155,7 @@ const Product = (props) => {
                 </h4>
               </div>{" "}
             </Link>
-            {isProductInCart() ? (
+            {/* {isProductInCart() ? (
               <QuantitySelector
                 type="product"
                 id={productData.id}
@@ -173,7 +173,27 @@ const Product = (props) => {
                 />
                 Ajouter au panier
               </Button>
-            )}
+            )} */}
+            <div className="quantity-container">
+              {isProductInCart() ? (
+                <QuantitySelector
+                  type="product"
+                  id={productData.id}
+                  quantity={getProductQuantityInCart()}
+                />
+              ) : (
+                <Button
+                  className="w-100 transition  rounded-button"
+                  onClick={() => addToCartHandler(productData)}
+                >
+                  <ShoppingCartOutlinedIcon
+                    className="iconAddCart"
+                    fontSize="large"
+                  />
+                  Ajouter au panier
+                </Button>
+              )}
+            </div>
           </div>
         </>
       )}

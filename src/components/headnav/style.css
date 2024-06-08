@@ -8,6 +8,7 @@ body, html {
   
   .header1 {
     /* background-color: #2896D7; */
+    position: relative;
     background-color: #3B71DC;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -21,7 +22,7 @@ body, html {
   
   .logo{
     width: 70px;
-    height: 70px;
+    height: 50px;
   }
   
   .brand {
@@ -56,14 +57,14 @@ margin-top: 10px;
   .search-input {
     width: 800px;
     height: 60px;
-    padding-right: 30px; /* Ajouter de l'espace à droite pour l'icône */
+    padding-right: 50px; 
     border: 2px solid #ccc;
     border-radius: 30px;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 8px center; /* Positionner l'icône à droite */
-    background-size: 20px 20px; /* Taille de l'icône */
-    padding-left: 10px;
+    background-position: right 20px center; /* Positionner l'icône à droite */
+    background-size: 30px 30px; /* Taille de l'icône */
+    padding-left: 30px;
   
   }
   

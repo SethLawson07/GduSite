@@ -27,7 +27,7 @@ function valuetext(value) {
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const SidebarCategories = (props) => {
-  const [value, setValue] = useState([100, 60000]);
+  const [value, setValue] = useState([0, 1000000]);
   const [value2, setValue2] = useState(0);
   const [brandFilters, setBrandFilters] = React.useState([]);
   const [ratingsArr, setRatings] = React.useState([]);
@@ -49,10 +49,24 @@ const SidebarCategories = (props) => {
           category.SubCategory.map((subcategory) => {
             subcategory.Item.length !== 0 &&
               subcategory.Item.map((item) => {
-                // item.Product.length !== 0 &&
-                // item.Product.map((item_) => {
                 catLength += item.Product.length;
+                var minPrice = Math.min(
+                  ...item.Product.map((product) =>
+                    parseFloat(product.price.replace(/ /g, ""))
+                  )
+                );
+                var maxPrice = Math.max(
+                  ...item.Product.map((product) =>
+                    parseFloat(product.price.replace(/ /g, ""))
+                  )
+                );
+                // setValue([minPrice, maxPrice]);
+                // item.Product.length !== 0 &&
+                // item.Product.map((product) => {
+                //   console.log(product);
+
                 // })
+                // setValue([minPrice, maxPrice]);
               });
           });
         lengthArr.push(catLength);
@@ -114,37 +128,36 @@ const SidebarCategories = (props) => {
   }, [value]);
 
   const filterByPrice = (minValue, maxValue) => {
-    props.filterByPrice(minValue, maxValue);
-  };
+    props.filterByPrice(minValue, maxValue)
+}
 
   return (
     <>
       <div className={`sidebar ${context.isOpenFilters === true && "open"}`}>
         <div className="card border-0 shadow res-hide">
-          <h3>Categoryd</h3>
-          <div className="catList">
+          <h3>{props.title}</h3>
+          {/* <div className="catList">
             {props.data[0]["categories"].length !== 0 &&
               props.data[0]["categories"].map((item, index) => {
                 return (
-                  <Link to={`/cat/${item.title.toLowerCase()}`}>
-                    <div className="catItem d-flex align-items-center">
-                      <span className="img">
-                        <img
-                          src="https://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/category-1.svg"
-                          width={30}
-                        />
-                      </span>
-                      <h4 className="mb-0 ml-3 mr-3 text-capitalize">
-                        {item.title}
-                      </h4>
-                      <span className="d-flex align-items-center justify-content-center rounded-circle ml-auto">
-                        {totalLength[index]}
-                      </span>
-                    </div>
-                  </Link>
+                  totalLength[index] > 0 && (
+                    <Link to={`/categories/${item.slugcategory.toLowerCase()}`}>
+                      <div className="catItem d-flex align-items-center">
+                        <span className="img">
+                          <img src={item.image} width={30} />
+                        </span>
+                        <h4 className="mb-0 ml-3 mr-3 text-capitalize">
+                          {item.title}
+                        </h4>
+                        <span className="d-flex align-items-center justify-content-center rounded-circle ml-auto">
+                          {totalLength[index]}
+                        </span>
+                      </div>
+                    </Link>
+                  )
                 );
               })}
-          </div>
+          </div> */}
         </div>
 
         <div style={{ marginBottom: "20px" }}>
@@ -167,7 +180,7 @@ const SidebarCategories = (props) => {
                   if (category.title === props.title) {
                     category.SubCategory.length !== 0 &&
                       category.SubCategory.map((subcategory, index) => {
-                        console.log(subcategory.title)
+                        // console.log(subcategory.title);
 
                         return (
                           <div key={index}>
@@ -189,9 +202,8 @@ const SidebarCategories = (props) => {
                           // </li>
                         );
                       });
-                  }else{
-
-                    console.log("nop")
+                  } else {
+                    // console.log("nop");
                   }
                 })}
               {/* </RadioGroup> */}
@@ -199,27 +211,27 @@ const SidebarCategories = (props) => {
           </Accordion>
         </div>
         <div className="card border-0 shadow">
-          <h3>Fill by price</h3>
+          <h3>Prix</h3>
 
           <RangeSlider
             value={value}
             onInput={setValue}
-            min={100}
-            max={60000}
+            min={0}
+            max={1000000}
             step={5}
           />
 
           <div className="d-flex pt-2 pb-2 priceRange">
             <span>
-              From: <strong className="text-success">Rs: {value[0]}</strong>
+              From: <strong className="text-success"> {value[0]} Fcfa</strong>
             </span>
             <span className="ml-auto">
-              From: <strong className="text-success">Rs: {value[1]}</strong>
+              From: <strong className="text-success"> {value[1]} Fcfa</strong>
             </span>
           </div>
 
           <div className="filters pt-5">
-            <h5>Filter By Brand</h5>
+            <h5>Marques</h5>
 
             <ul className="mb-0">
               <RadioGroup

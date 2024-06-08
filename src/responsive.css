@@ -10,7 +10,7 @@
 
   .detailsPage .productInfo h1{font-size: 30px !important;}
   .detailsPage .productInfo .priceSec .priceLarge{font-size: 50px !important;}
-  .detailsPageTabs{padding: 25px !important;}
+  .detailsPageTabs{padding: 0px !important;}
   .customTabs ul{white-space: nowrap !important; overflow: scroll; overflow-y: hidden; display: block !important; margin-bottom: 0px !important;}
   .customTabs ul::-webkit-scrollbar{display: none !important;}
   .customTabs ul li{display: inline-block !important; width: max-content !important;}

@@ -12,4 +12,22 @@ th, td {
 
 }
 
+.imgList{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 10px;
+
+}
+
+.imgzoom{
+  width: 694px;
+  height: 510px;
+  object-fit: cover;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 15px;
+}
+
 /* tr:hover {background-color: #FFA500;} */

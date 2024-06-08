@@ -24,12 +24,19 @@ import Newsletter from "../../components/newsletter/index";
 import NewsletterImg from "../../assets/images/newsletter.png";
 
 const Footer = () => {
+
+
+  function getCurrentYear() {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    return currentYear;
+  }
   return (
     <>
-      <section className="newsLetterSection">
+      {/* <section className="newsLetterSection">
         <div className="container-fluid">
           <div className="box d-flex align-items-center">
-            {/* <div className="info">
+            <div className="info">
               <h2>
                 Restez chez vous et faites vos achats quotidiens dans notre boutique
               </h2>
@@ -37,14 +44,15 @@ const Footer = () => {
               <br />
               <br className="res-hide" />
               <Newsletter />
-            </div> */}
+            </div>
 
             <div className="img">
               <img src={NewsletterImg} className="w-100" alt="Newsletter" />
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+      {/* <hr /> */}
 
       <div className="footerWrapper">
         {/* <div className="footerBoxes">
@@ -114,13 +122,13 @@ const Footer = () => {
         </div> */}
 
         <footer>
-          <div className="container-fluid">
+        <div className="container-fluid">
             <div className="row">
-              <div className="col-md-3 part1">
-                <Link to="/">
+              <div className="col-md-4 part1">
+                {/* <Link to="/">
                   <img
-                    src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1712795376/Goodness/pmhamtkrlx1xio8vjc76.png"
-                    width={100}
+                    src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691553/Goodness/jcavqiz60wyuxheyvofd.png"
+                    width={200}
                     height={100}
                     alt="Logo"
                   />
@@ -128,50 +136,49 @@ const Footer = () => {
                 <br />
                 <br />
                 <p>Plateforme de vente en ligne</p>
-                <br />
-
+                <br /> */}{" "}
+                <div class="footerinfos">
+                  <img
+                    className="imglogo"
+                    src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691553/Goodness/jcavqiz60wyuxheyvofd.png"
+                    alt="logo"
+                  />{" "}
+                </div>
+                <h3 className="footertitle">Goodness Unit</h3>
                 <p>
                   <LocationOnOutlinedIcon /> <strong>Adresse</strong>: Lomé-Togo
                 </p>
                 <p>
-                  <HeadphonesOutlinedIcon /> <strong>Appelez-nous:</strong>{" "}
-                  (+228) - 92 20 46 71{" "}
+                  <HeadphonesOutlinedIcon /> <strong>Contact :</strong>{" "}
+                  (+228) 92 20 46 71 | goodnessunit@gmail.com{" "}
                 </p>
-                <p>
+                {/* <p>
                   <EmailOutlinedIcon /> <strong>Email:</strong>{" "}
                   goodnessunit@gmail.com
-                </p>
+                </p> */}
                 <p>
                   <WatchLaterOutlinedIcon /> <strong>Horaires:</strong> 8:00 -
                   20:00, Lundi - Dimanche
                 </p>
               </div>
 
-              <div className="col-md-6 part2">
+              <div className="col-md-5 part2">
                 <div className="row">
-                  <div className="col">
+                  {/* <div className="col">
                     <h3>Entreprise</h3>
                     <ul className="footer-list mb-sm-5 mb-md-0">
-                      <li>
-                        <Link to="#">À propos de nous</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Informations de livraison</Link>
-                      </li>
                       <li>
                         <Link to="#">Politique de confidentialité</Link>
                       </li>
                       <li>
                         <Link to="#">Conditions générales</Link>
                       </li>
-                      <li>
-                        <Link to="#">Nous contacter</Link>
-                      </li>
+                     
                       <li>
                         <Link to="#">Centre d'assistance 24/7</Link>
                       </li>
                     </ul>
-                  </div>
+                  </div> */}
 
                   <div className="col">
                     <h3>Entreprise</h3>
@@ -179,15 +186,7 @@ const Footer = () => {
                       <li>
                         <Link to="#">Compte</Link>
                       </li>
-                      <li>
-                        <Link to="#">Informations de livraison</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Politique de confidentialité</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Conditions générales</Link>
-                      </li>
+                    
                       <li>
                         <Link to="#">Nous contacter</Link>
                       </li>
@@ -206,27 +205,19 @@ const Footer = () => {
                       <li>
                         <Link to="#">Informations de livraison</Link>
                       </li>
-                      <li>
-                        <Link to="#">Politique de confidentialité</Link>
-                      </li>
+                     
                       <li>
                         <Link to="#">Conditions générales</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Nous contacter</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Centre d'assistance 24/7</Link>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
 
-              <div className="col-md-3 part3">
-                <h3>Installer l'application</h3>
-                <br className="res-hide" />
-                <p>Sur l'App Store ou Google Play</p>
+              <div className="col-md-3 part3a part3">
+                {/* <h3>Installer l'application</h3> */}
+                {/* <br className="res-hide" />
+                <p>Sur l'App Store ou Google Play</p> */}
 
                 <div className="d-flex">
                   <Link to={""}>
@@ -244,8 +235,28 @@ const Footer = () => {
 
                 <br />
 
-                <p>Passerelles de paiement sécurisées</p>
-                <img src={paymentImage} alt="Méthodes de paiement" />
+                <p>Moyens de paiement</p>
+                <img
+                  className="imgPay"
+                  src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691058/Goodness/giag1qmfue6n8o1pvi5y.png"
+                  alt="Tmoney"
+                />
+                <img
+                  className="imgPay"
+                  src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691346/Goodness/yy1dfadvubire9whqsf2.png"
+                  alt="Moov money"
+                />
+                <img
+                  className="imgPay"
+                  src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691452/Goodness/rigpxbzlvlv6stopyltu.png"
+                  alt="card Visa"
+                />
+
+                <img
+                  className="imgPay"
+                  src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691553/Goodness/jcavqiz60wyuxheyvofd.png"
+                  alt="GoodPay"
+                />
               </div>
             </div>
 
@@ -253,21 +264,21 @@ const Footer = () => {
 
             <div className="row lastStrip">
               <div className="col-md-3 part_1">
-                <p>© 2024, Goodness Unit</p>
+                <p>© {getCurrentYear()} Goodness Unit. Tous droits réservés.</p>
               </div>
 
               <div className="col-md-6 d-flex part_2">
                 <div className="m-auto d-flex align-items-center phWrap">
-                  <div className="phNo d-flex align-items-center mx-5">
+                  {/* <div className="phNo d-flex align-items-center mx-5">
                     <span>
                       <HeadphonesOutlinedIcon />
                     </span>
                     <div className="info ml-3">
-                      <h3 className="text-g mb-0">92 20 46 71</h3>
+                      <h3 className="text-g mb-0">Centre d'assistance 24/7</h3>
                       <p className="mb-0">Centre d'assistance 24/7</p>
                     </div>
-                  </div>
-
+                  </div> */}
+                  {/* 
                   <div className="phNo d-flex align-items-center  mx-5">
                     <span>
                       <HeadphonesOutlinedIcon />
@@ -276,7 +287,7 @@ const Footer = () => {
                       <h3 className="text-g mb-0">92 20 46 71</h3>
                       <p className="mb-0">Centre d'assistance 24/7</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 

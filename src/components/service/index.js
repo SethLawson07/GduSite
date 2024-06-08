@@ -60,7 +60,7 @@ const Service = (props) => {
   };
 
   return (
-    <div className="productThumb" >
+    <div className="productThumb mr-5">
       {props.brand !== null && props.brand !== undefined && (
         <span className={`badge ${props.brand}`}>{props.brand}</span>
       )}
@@ -85,39 +85,45 @@ const Service = (props) => {
 
           <div className="info">
             {/* <span className='d-block catName'>{isData.brand}</span> */}
-            <h4 className="title">
-              <Link>{isData.title.substr(0, 50) + ""}</Link>
-            </h4>
-            {/* <Rating name='half-rating-read' value={parseFloat(isData.rating)} precision={0.5} readOnly /> */}
-            {/* <span className='brand d-block text-g'>By <Link className='text-g'>{isData.brand}</Link></span> */}
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/typeservice/${isData.slugitemservice}`}
+            >
+              <h4 className="title">{isData.title.substr(0, 50) + ""}</h4>
+              {/* <Rating name='half-rating-read' value={parseFloat(isData.rating)} precision={0.5} readOnly /> */}
+              {/* <span className='brand d-block text-g'>By <Link className='text-g'>{isData.brand}</Link></span> */}
 
-            <div className="d-flex align-items-center mt-3">
-              <div className="d-flex align-items-center w-100">
-                <span className="price text-g font-weight-bold">
-                  {isData.price} Fcfa
-                </span>{" "}
-                {/* <span className='oldPrice ml-auto'>{isData.oldPrice} Fcfa</span> */}
+              <div className="d-flex align-items-center mt-3">
+                <div className="d-flex align-items-center w-100">
+                  <span className="price text-g font-weight-bold">
+                    {isData.price} Fcfa
+                  </span>{" "}
+                  {/* <span className='oldPrice ml-auto'>{isData.oldPrice} Fcfa</span> */}
+                </div>
               </div>
-            </div>
-            {isServiceInCart() ? (
-              <QuantitySelector
-                type="service"
-                id={isData.id}
-                quantity={getServiceQuantityInCart()}
-                className="text-center" // Ajout de la classe pour centrer le composant
-              />
-            ) : (
-              <Button
-                className="w-100 transition mt-3 rounded-button"
-                onClick={() => addToCartHandler(isData)}
-              >
-                <ShoppingCartOutlinedIcon
-                  className="iconAddCart"
-                  fontSize="large"
+            </Link>
+            <div className="quantity-container">
+              {isServiceInCart() ? (
+                <QuantitySelector
+                  type="service"
+                  id={isData.id}
+                  quantity={getServiceQuantityInCart()}
+                  className="qservice"
                 />
-                Ajouter au panier
-              </Button>
-            )}
+              ) : (
+                <Button
+                  className="w-100 transition  rounded-button"
+                  onClick={() => addToCartHandler(isData)}
+                >
+                  <ShoppingCartOutlinedIcon
+                    className="iconAddCart"
+                    fontSize="large"
+                  />
+                  Ajouter au panier
+                </Button>
+              )}{" "}
+            </div>
+
             {/* <Button className="w-100 transition mt-3 rounded-button">
               Voir plus
             </Button> */}
