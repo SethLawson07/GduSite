@@ -162,6 +162,8 @@ const DetailsPage = (props) => {
     if (related_products.length !== 0) {
       setRelatedProducts(related_products);
     }
+
+    // console.log(currentProduct.dynamicVariant);
   }, [id]);
 
   const dispatch = useDispatch();
@@ -241,10 +243,7 @@ const DetailsPage = (props) => {
                     currentProduct.images.map((imgUrl, index) => {
                       return (
                         <div className="item">
-                          <img
-                            className="imgzoom"
-                            src={imgUrl}
-                          />
+                          <img className="imgzoom" src={imgUrl} />
                           {/* <InnerImageZoom
                             className="imgzoom"
                             zoomType="hover"
@@ -508,8 +507,8 @@ const DetailsPage = (props) => {
                     Description
                   </Button>
                 </li>
-                {currentProduct.ProductVariant &&
-                  currentProduct.ProductVariant.length !== 0 && (
+                {currentProduct.dynamicVariant &&
+                  Object.keys(currentProduct.dynamicVariant).length > 0 && (
                     <li className="list-inline-item">
                       <Button
                         className={`${activeTabs === 1 && "active"}`}
@@ -536,24 +535,36 @@ const DetailsPage = (props) => {
                   <div className="table-responsive">
                     <table className="table table-bordered">
                       <tbody>
-                        {currentProduct.ProductVariant.length !== 0 &&
-                          currentProduct.ProductVariant.map(
-                            (variant, index) => {
+                        {Object.keys(currentProduct.dynamicVariant).length >
+                          0 &&
+                          Object.entries(currentProduct.dynamicVariant).map(
+                            ([key, value], index) => {
                               return (
                                 <React.Fragment key={index}>
-                                  {variant.title.map(
-                                    (titleItem, titleIndex) => (
-                                      <tr
-                                        className="stand-up"
-                                        key={`${index}_${titleIndex}`}
-                                      >
-                                        <th>{titleItem}</th>
-                                        <td>
-                                          <p>{variant.value[titleIndex]}</p>
-                                        </td>
-                                      </tr>
-                                    )
-                                  )}
+                                  <tr className="stand-up">
+                                    <th>{key}</th>
+                                    <td>
+                                      <p>
+                                        {typeof value === "object"
+                                          ? JSON.stringify(value)
+                                          : value}
+                                      </p>
+                                    </td>
+                                  </tr>
+                                  {typeof value === "object" &&
+                                    Object.entries(value).map(
+                                      ([subKey, subValue], subIndex) => (
+                                        <tr
+                                          className="stand-up"
+                                          key={`${index}_${subIndex}`}
+                                        >
+                                          <th>{subKey}</th>
+                                          <td>
+                                            <p>{subValue}</p>
+                                          </td>
+                                        </tr>
+                                      )
+                                    )}
                                 </React.Fragment>
                               );
                             }

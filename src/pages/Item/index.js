@@ -16,6 +16,7 @@ const Item = (props) => {
   const [data, setData] = useState([]);
   const [brands, setBrands] = useState([]);
   const [items, setItems] = useState([]);
+  const [variants, setVariants] = useState([]);
 
   const context = useContext(MyContext);
   const [itemTitle, setItemTitle] = useState("");
@@ -73,9 +74,46 @@ const Item = (props) => {
       setItems(allItems);
       // window.scrollTo(0, 0);
       window.scrollTo(0, document.body.scrollHeight / 4);
-
     }
   }, [id, props.data]);
+
+  useEffect(() => {
+    if (props.data && props.data.length > 0) {
+      let allVariants = [];
+      props.data[0]["categories"].forEach((category) => {
+        category.SubCategory.forEach((subcategory) => {
+          subcategory.Item.forEach((item) => {
+            item.Product.forEach((product) => {
+              if (product.dynamicVariant) {
+                Object.keys(product.dynamicVariant).forEach((key) => {
+                  let variant = allVariants.find((v) => v.key === key);
+                  if (!variant) {
+                    variant = { key: key, values: [] };
+                    allVariants.push(variant);
+                  }
+                  let variantValues = product.dynamicVariant[key];
+                  if (Array.isArray(variantValues)) {
+                    variantValues.forEach((value) => {
+                      if (!variant.values.includes(value)) {
+                        variant.values.push(value);
+                      }
+                    });
+                  } else {
+                    if (!variant.values.includes(variantValues)) {
+                      variant.values.push(variantValues);
+                    }
+                  }
+                });
+              }
+            });
+          });
+        });
+      });
+
+      // console.log(allVariants)
+      setVariants(allVariants);
+    }
+  }, [props.data]);
 
   const filterByBrand = (keyword) => {
     let itemsData = [];
@@ -133,6 +171,39 @@ const Item = (props) => {
     setData(list2);
   };
 
+  const filterByVariant = (key, value) => {
+    let itemsData = [];
+
+    props.data[0]["categories"].forEach((category) => {
+      category.SubCategory.forEach((subcategory) => {
+        subcategory.Item.forEach((item) => {
+          item.Product.forEach((product) => {
+            if (
+              product.dynamicVariant &&
+              product.dynamicVariant[key] &&
+              (Array.isArray(product.dynamicVariant[key])
+                ? product.dynamicVariant[key].includes(value)
+                : product.dynamicVariant[key] === value)
+            ) {
+              itemsData.push({
+                ...product,
+                parentCatName: item.title,
+                subCatName: subcategory.title,
+              });
+            }
+          });
+        });
+      });
+    });
+
+    const list2 = itemsData.filter(
+      (item, index) => itemsData.indexOf(item) === index
+    );
+
+    setData(list2);
+    // window.scrollTo(0, 0);
+  };
+
   return (
     <>
       <ItemSlider data={items} />
@@ -187,9 +258,11 @@ const Item = (props) => {
                   data={props.data}
                   currentCatData={data}
                   brands={brands}
+                  variants={variants} 
                   filterByBrand={filterByBrand}
                   filterByPrice={filterByPrice}
                   filterByRating={filterByRating}
+                  filterByVariant={filterByVariant}
                 />
               </div>
 

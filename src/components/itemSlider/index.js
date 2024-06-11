@@ -54,7 +54,7 @@ const ItemSlider = (props) => {
     <>
       <div className="catSliderSection">
         <div className="container-fluid" ref={slider}>
-          <h2 className="hd ctitle">Catégories</h2>
+          <h2 className="hd ctitle">Items</h2>
           <Slider
             {...settings}
             className="cat_slider_Main"
