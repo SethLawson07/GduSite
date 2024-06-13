@@ -1,13 +1,12 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Lora', sans-serif; /* Utilisez le nom de votre police défini dans @font-face */
+    font-family: 'Lora', sans-serif; 
   
   }
   
   
   .header1 {
-    /* background-color: #2896D7; */
     position: relative;
     background-color: #3B71DC;
     padding-top: 20px;
@@ -15,8 +14,22 @@ body, html {
     padding-left: 60px;
     padding-right: 60px;
     display: flex;
-    justify-content: space-between; /* Les éléments seront espacés uniformément sur la ligne */
-    align-items: center; /* Les éléments seront alignés au centre verticalement */
+    justify-content: space-between; 
+    align-items: center; 
+    /* position: fixed; 
+  top: 0;
+  width: 100%;
+  height: 40px; */
+  }
+
+  .nav1{
+    background-color: #F2F8FD;
+    padding-left: 50px;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    display: flex;
+    /* position: fixed;
+    width: 100%; */
   }
   
   
@@ -62,20 +75,20 @@ margin-top: 10px;
     border-radius: 30px;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 20px center; /* Positionner l'icône à droite */
-    background-size: 30px 30px; /* Taille de l'icône */
+    background-position: right 20px center; 
+    background-size: 30px 30px;
     padding-left: 30px;
   
   }
   
   .search-input:focus {
-    border-radius: 10px; /* Changer le border-radius lorsqu'il est en focus */
+    border-radius: 10px; 
     
   }
   
   .right {
     display: flex;
-    flex-direction: row; /* Affiche les éléments horizontalement */
+    flex-direction: row; 
   }
   
   .right .subright {
@@ -83,11 +96,11 @@ margin-top: 10px;
     display: flex;
     align-items: center;
     margin: 0;
-    padding-right: 20px; /* Ajouter un espace entre les éléments */
+    padding-right: 20px; 
   }
   
   .right .subright:last-child {
-    margin-right: 0; /* Retirer la marge à droite pour le dernier élément */
+    margin-right: 0;
   }
 
   .cart-icon-container {
@@ -127,13 +140,15 @@ margin-top: 10px;
   
   
   /* NAVBAR */
-  .nav1{
+  /* .nav1{
     background-color: #F2F8FD;
     padding-left: 50px;
     padding-top: 25px;
     padding-bottom: 10px;
     display: flex;
-  }
+    position: fixed;
+    width: 100%;
+  } */
   
 
   svg {

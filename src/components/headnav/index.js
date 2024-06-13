@@ -598,13 +598,33 @@ const Nav = () => {
   );
 };
 
+// const HeadNav = () => {
+//   return (
+//     <>
+    
+//       <Header />
+//       <Nav />
+//     </>
+//   );
+// };
 const HeadNav = () => {
+  const fixedStyles = {
+    position: 'fixed',
+    top: 0,
+    width: '100%',
+    // overflow: 'hidden',
+    zIndex: 1000,
+    };
+
   return (
     <>
-      <Header />
-      <Nav />
+      <div style={fixedStyles}>
+        <Header />
+        <Nav />
+      </div>
     </>
   );
 };
+
 
 export default HeadNav;
