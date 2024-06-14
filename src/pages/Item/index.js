@@ -206,7 +206,7 @@ const Item = (props) => {
 
   return (
     <>
-      <ItemSlider data={items} />
+      <ItemSlider data={items}  />
 
       {context.windowWidth < 992 && (
         <>

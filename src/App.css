@@ -188,7 +188,7 @@ p{color: #000;}
 .oldPrice{font-size: 23px; color: #000; text-decoration: line-through;}
 
 
-.listingPage{width: 100%; height: auto; padding: 45px 0px;}
+.listingPage{width: 100%; height: auto; padding: 45px 0px; }
 
 .breadcrumb{width: 100%; height: auto; padding: 45px 45px; background: #d8f1e5; border-radius: 20px; margin-bottom: 30px;}
 .breadcrumb h1{color: #000;  font-size: 30px; font-weight: bold;}

@@ -229,7 +229,7 @@ const Categories = (props) => {
         </>
       )}
 
-      <section className="listingPage">
+      <section className="listingPage" style={{marginTop:"150px"}}>
       <CatSlider data={props.data[0]["categories"]} />
 
         <div className="container-fluid">

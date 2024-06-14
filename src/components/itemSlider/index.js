@@ -52,7 +52,7 @@ const ItemSlider = (props) => {
 
   return (
     <>
-      <div className="catSliderSection">
+      <div className="catSliderSection" style={{marginTop:"170px"}}>
         <div className="container-fluid" ref={slider}>
           <h2 className="hd ctitle">Items</h2>
           <Slider

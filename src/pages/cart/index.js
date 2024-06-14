@@ -135,7 +135,9 @@ const Cart = () => {
         </div>
       )}
       {/* Product */}
-      <section className="cartSection mb-5">
+
+      {cartItems.length >= 0}
+      <section className="cartSection mb-5" style={{ marginTop: "160px" }}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8">
@@ -148,17 +150,25 @@ const Cart = () => {
                   </p>
                 </div>
 
-                <div className="ml-auto clearCart d-flex align-items-center cursor">
-                  <ButtonGroup
-                    variant="outlined"
-                    aria-label="Loading button group"
-                  >
-                    <Button onClick={handleClearCart}>Vider</Button>
-                    <Link to={loggedIn ? "/checkoutproduct" : "/signin/checkoutproduct"}>
-                      <Button>Valider</Button>
-                    </Link>
-                  </ButtonGroup>{" "}
-                </div>
+                {cartItems.lenght > 0 && (
+                  <div className="ml-auto clearCart d-flex align-items-center cursor">
+                    <ButtonGroup
+                      variant="outlined"
+                      aria-label="Loading button group"
+                    >
+                      <Button onClick={handleClearCart}>Vider</Button>
+                      <Link
+                        to={
+                          loggedIn
+                            ? "/checkoutproduct"
+                            : "/signin/checkoutproduct"
+                        }
+                      >
+                        <Button>Valider</Button>
+                      </Link>
+                    </ButtonGroup>{" "}
+                  </div>
+                )}
               </div>
 
               <div className="cartWrapper mt-4">

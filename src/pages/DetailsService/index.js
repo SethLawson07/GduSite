@@ -203,7 +203,7 @@ const DetailsService = (props) => {
         </Button>
       )}
 
-      <section className="detailsPage mb-5">
+      <section className="detailsPage mb-5" style={{marginTop:"160px"}}>
         <br />
         <div className="container detailsContainer pt-3 pb-3">
           <div className="row">

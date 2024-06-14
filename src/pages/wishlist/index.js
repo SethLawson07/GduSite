@@ -51,7 +51,7 @@ const WishList = () => {
         </div>
       )}
 
-      <section className="cartSection mb-5">
+      <section className="cartSection mb-5" style={{marginTop:"160px"}}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-12">
