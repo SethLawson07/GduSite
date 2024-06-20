@@ -8,7 +8,7 @@
 
 footer p, footer a{font-size: 18px;}
 
-footer{padding: 60px 0px; padding-bottom: 0px;background-color: #f1f1f1;}
+footer{padding: 60px 5px; padding-bottom: 0px;background-color: #f1f1f1;overflow-x: hidden;}
 
 footer .part1 svg{color: #2D73E3  !important;}
 
@@ -17,7 +17,7 @@ footer .part2 ul li{list-style: none; margin-bottom: 13px;}
 footer .part2 ul li a{color:#000; opacity: 0.8; font-size: 500; transition: all 0.2s ease-in-out;}
 footer .part2 ul li a:hover{text-decoration: none;color: #2D73E3  !important; opacity: 1; padding-left: 5px;}
 
-footer .lastStrip{padding: 15px 0px;}
+footer .lastStrip{padding: 10px 0px;background-color:#bdc3c7;margin-top: 10px;}
 
 .phNo svg{ font-size: 45px !important; opacity: 0.8;}
 .phNo h3{ font-size:32px !important; line-height: 35px !important;}

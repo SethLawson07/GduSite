@@ -385,7 +385,7 @@ const CheckoutProduct = () => {
   }, []);
 
   return (
-    <section className="cartSection mb-5 checkoutPage">
+    <section className="cartSection mb-5 checkoutPage " style={{marginTop:"190px"}}>
       <div className="container">
         <form>
           <div className="row">
@@ -605,7 +605,7 @@ const CheckoutProduct = () => {
                     />
                   </div>
                 </RadioGroup>
-                <Button className="btn-g btn-lg" onClick={addCheckoutProduct}>
+                <Button className="btn-g btn-lg" style={{ width: '100%', height: '30%' }} onClick={addCheckoutProduct}>
                   Payer
                 </Button>
               </div>

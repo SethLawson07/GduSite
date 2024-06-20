@@ -1,27 +1,15 @@
 import React from "react";
 import "./footer.css";
-
-import Icon1 from "../../assets/images/icon-1.svg";
-import Icon2 from "../../assets/images/icon-2.svg";
-import Icon3 from "../../assets/images/icon-3.svg";
-import Icon4 from "../../assets/images/icon-4.svg";
-import Icon5 from "../../assets/images/icon-5.svg";
-import Logo from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import HeadphonesOutlinedIcon from "@mui/icons-material/HeadphonesOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
-import paymentImage from "../../assets/images/payment-method.png";
-
 import appStore from "../../assets/images/app-store.jpg";
 import googlePlay from "../../assets/images/google-play.jpg";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import Newsletter from "../../components/newsletter/index";
-import NewsletterImg from "../../assets/images/newsletter.png";
 
 const Footer = () => {
 
@@ -122,9 +110,9 @@ const Footer = () => {
         </div> */}
 
         <footer>
-        <div className="container-fluid">
+        <div className="">
             <div className="row">
-              <div className="col-md-4 part1">
+              <div className="col-md-4 part1 pl-5">
                 {/* <Link to="/">
                   <img
                     src="https://res.cloudinary.com/do7y1l2dd/image/upload/v1717691553/Goodness/jcavqiz60wyuxheyvofd.png"
@@ -260,10 +248,8 @@ const Footer = () => {
               </div>
             </div>
 
-            <hr />
-
             <div className="row lastStrip">
-              <div className="col-md-3 part_1">
+              <div className="col-md-3 part_1 pl-5">
                 <p>© {getCurrentYear()} Goodness Unit. Tous droits réservés.</p>
               </div>
 

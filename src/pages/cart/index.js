@@ -150,13 +150,13 @@ const Cart = () => {
                   </p>
                 </div>
 
-                {cartItems.lenght > 0 && (
+                {/* {cartItems.lenght > 0 && ( */}
                   <div className="ml-auto clearCart d-flex align-items-center cursor">
                     <ButtonGroup
                       variant="outlined"
                       aria-label="Loading button group"
                     >
-                      <Button onClick={handleClearCart}>Vider</Button>
+                      <Button onClick={handleClearCart} style={{borderColor:'#FDC040',color:'#FDC040', width:'150px',height:"50px"}}>Vider</Button>
                       <Link
                         to={
                           loggedIn
@@ -164,11 +164,11 @@ const Cart = () => {
                             : "/signin/checkoutproduct"
                         }
                       >
-                        <Button>Valider</Button>
+                        <Button style={{borderColor:'#FDC040',color:'#FDC040', width:'150px',height:"50px"}}>Valider</Button>
                       </Link>
                     </ButtonGroup>{" "}
                   </div>
-                )}
+                {/* )} */}
               </div>
 
               <div className="cartWrapper mt-4">
@@ -351,10 +351,10 @@ const Cart = () => {
                     variant="outlined"
                     aria-label="Loading button group"
                   >
-                    <Button onClick={handleClearCartService}>Vider</Button>
+                    <Button onClick={handleClearCartService} style={{borderColor:'#FDC040',color:'#FDC040', width:'150px',height:"50px"}}>Vider</Button>
                     <Link to="/checkoutservice">
                       {" "}
-                      <Button>Valider</Button>
+                      <Button style={{borderColor:'#FDC040',color:'#FDC040', width:'150px',height:"50px"}} >Valider</Button>
                     </Link>
                   </ButtonGroup>{" "}
                 </div>

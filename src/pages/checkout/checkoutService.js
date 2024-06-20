@@ -354,7 +354,7 @@ const CheckoutService = () => {
   }, []);
 
   return (
-    <section className="cartSection mb-5 checkoutPage">
+    <section className="cartSection mb-5 checkoutPage" style={{marginTop:"190px"}}>
       <div className="container">
         <form>
           <div className="row">
@@ -525,7 +525,7 @@ const CheckoutService = () => {
                     />
                   </div>
                 </RadioGroup>
-                <Button className="btn-g btn-lg">Payer</Button>
+                <Button className="btn-g btn-lg" style={{ width: '100%', height: '30%' }}>Payer</Button>
               </div>
             </div>
 

@@ -15,6 +15,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { MyContext } from "../../App";
+import "./style.css"
 
 const SidebarItem = (props) => {
   const [value, setValue] = useState([0, 1000000]);
@@ -134,6 +135,7 @@ const SidebarItem = (props) => {
                                 <Radio onChange={() => filterByBrand(item)} />
                               }
                               label={item}
+                                className="radio-label"
                             />
                           </li>
                         );
@@ -173,6 +175,7 @@ const SidebarItem = (props) => {
                               />
                             }
                             label={value}
+                              className="radio-label"
                           />
                         </li>
                       ))}
