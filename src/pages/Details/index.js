@@ -205,7 +205,7 @@ const DetailsPage = (props) => {
 
   return (
     <>
-      <section className="detailsPage mb-5" style={{marginTop:"160px"}}>
+      <section className="detailsPage mb-5" style={{ marginTop: "160px" }}>
         <br />
 
         <div className="container detailsContainer pt-3 pb-3">
@@ -358,7 +358,15 @@ const DetailsPage = (props) => {
                 >
                   Disponible
                 </div>
-                {/* <p className="description">{currentProduct.description}</p> */}
+                <div
+                  style={{
+                    fontSize: "22px",
+                    marginTop:"5px"
+                  }}
+                >
+                  Coût de Livraison : {currentProduct.deliverycost} F CFA{" "}
+                </div>
+                {/* <p className="description">Coût de Livraison : {currentProduct.deliverycost} F CFA</p> */}
               </div>
 
               <div

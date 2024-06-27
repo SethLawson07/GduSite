@@ -414,8 +414,9 @@ const CheckoutProduct = () => {
                   />
                   <FormControlLabel
                     value="shipping"
+                    disabled
                     control={<Radio />}
-                    label="Expédition"
+                    label="Expédition (en cours)"
                   />
 
                   <FormControlLabel

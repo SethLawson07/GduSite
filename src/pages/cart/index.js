@@ -28,6 +28,7 @@ import {
   removeserviceFromCart,
   selectCartServices,
 } from "../../state/cart/cartserviceSlice";
+import EmptyCart from "./emptycart";
 
 const Cart = () => {
   const context = useContext(MyContext);
@@ -121,23 +122,22 @@ const Cart = () => {
 
   return (
     <>
-      {context.windowWidth > 992 && (
-        <div className="breadcrumbWrapper mb-4">
-          <div className="container-fluid">
-            <ul className="breadcrumb breadcrumb2 mb-0">
-              <li>
-                <Link to={"/"}>Accueil</Link>
-              </li>
-              {/* <li>Magasin</li> */}
-              <li>Panier</li>
-            </ul>
-          </div>
-        </div>
-      )}
-      {/* Product */}
-
-      {cartItems.length >= 0}
-      <section className="cartSection mb-5" style={{ marginTop: "160px" }}>
+      {cartItems.length == 0 && cartServices.length == 0 ? (
+       <EmptyCart /> 
+      ) : (
+        // context.windowWidth > 992 && (
+          <><div className="breadcrumbWrapper mb-4 mt-6">
+              <div className="container-fluid">
+                <ul className="breadcrumb breadcrumb2 mb-0">
+                  <li>
+                    <Link to={"/"}>Accueil</Link>
+                  </li>
+                  <li>Magasin</li>
+                  <li>Panier</li>
+                </ul>
+              </div>
+            </div>
+            <section className="cartSection mb-5" style={{ marginTop: "160px" }}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8">
@@ -151,23 +151,42 @@ const Cart = () => {
                 </div>
 
                 {/* {cartItems.lenght > 0 && ( */}
-                  <div className="ml-auto clearCart d-flex align-items-center cursor">
-                    <ButtonGroup
-                      variant="outlined"
-                      aria-label="Loading button group"
+                <div className="ml-auto clearCart d-flex align-items-center cursor">
+                  <ButtonGroup
+                    variant="outlined"
+                    aria-label="Loading button group"
+                  >
+                    <Button
+                      onClick={handleClearCart}
+                      style={{
+                        borderColor: "#FDC040",
+                        color: "#FDC040",
+                        width: "150px",
+                        height: "50px",
+                      }}
                     >
-                      <Button onClick={handleClearCart} style={{borderColor:'#FDC040',color:'#FDC040', width:'150px',height:"50px"}}>Vider</Button>
-                      <Link
-                        to={
-                          loggedIn
-                            ? "/checkoutproduct"
-                            : "/signin/checkoutproduct"
-                        }
+                      Vider
+                    </Button>
+                    <Link
+                      to={
+                        loggedIn
+                          ? "/checkoutproduct"
+                          : "/signin/checkoutproduct"
+                      }
+                    >
+                      <Button
+                        style={{
+                          borderColor: "#FDC040",
+                          color: "#FDC040",
+                          width: "150px",
+                          height: "50px",
+                        }}
                       >
-                        <Button style={{borderColor:'#FDC040',color:'#FDC040', width:'150px',height:"50px"}}>Valider</Button>
-                      </Link>
-                    </ButtonGroup>{" "}
-                  </div>
+                        Valider
+                      </Button>
+                    </Link>
+                  </ButtonGroup>{" "}
+                </div>
                 {/* )} */}
               </div>
 
@@ -331,9 +350,6 @@ const Cart = () => {
           </div>
         </div>
       </section>
-
-      {/* Service */}
-
       <section className="cartSection mb-5">
         <div className="container-fluid">
           <div className="row">
@@ -351,10 +367,29 @@ const Cart = () => {
                     variant="outlined"
                     aria-label="Loading button group"
                   >
-                    <Button onClick={handleClearCartService} style={{borderColor:'#FDC040',color:'#FDC040', width:'150px',height:"50px"}}>Vider</Button>
+                    <Button
+                      onClick={handleClearCartService}
+                      style={{
+                        borderColor: "#FDC040",
+                        color: "#FDC040",
+                        width: "150px",
+                        height: "50px",
+                      }}
+                    >
+                      Vider
+                    </Button>
                     <Link to="/checkoutservice">
                       {" "}
-                      <Button style={{borderColor:'#FDC040',color:'#FDC040', width:'150px',height:"50px"}} >Valider</Button>
+                      <Button
+                        style={{
+                          borderColor: "#FDC040",
+                          color: "#FDC040",
+                          width: "150px",
+                          height: "50px",
+                        }}
+                      >
+                        Valider
+                      </Button>
                     </Link>
                   </ButtonGroup>{" "}
                 </div>
@@ -458,6 +493,30 @@ const Cart = () => {
           </div>
         </div>
       </section>
+              </>
+        // )
+      )}
+
+      {/* {context.windowWidth > 992 && (
+        <div className="breadcrumbWrapper mb-4 mt-6">
+          <div className="container-fluid">
+            <ul className="breadcrumb breadcrumb2 mb-0">
+              <li>
+                <Link to={"/"}>Accueil</Link>
+              </li>
+              <li>Magasin</li>
+              <li>Panier</li>
+            </ul>
+          </div>
+        </div>
+      )} */}
+      {/* Product */}
+
+    
+
+      {/* Service */}
+
+    
     </>
   );
 };
