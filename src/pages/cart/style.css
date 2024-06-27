@@ -37,3 +37,16 @@ font-weight: bold;
 }
 
 
+.toast-custom {
+    font-size: 50px; /* Augmente la taille de la police */
+    padding: 10px; /* Augmente la taille du cadre */
+  }
+  
+  .toast-custom .Toastify__toast-body {
+    font-size: 25px; /* Assure que le texte du toast a une police plus grande */
+  }
+  
+  .toast-custom .Toastify__close-button {
+    font-size: 30; /* Ajuste la taille du bouton de fermeture */
+  }
+  
